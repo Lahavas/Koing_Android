@@ -1,10 +1,16 @@
-package com.tourwith.koing;
+package com.tourwith.koing.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.tourwith.koing.Fragment.HomeFragment;
+import com.tourwith.koing.Fragment.MessageFragment;
+import com.tourwith.koing.Fragment.MyPageFragment;
+import com.tourwith.koing.R;
+import com.tourwith.koing.Fragment.TourInfoFragment;
 
 public class MainActivity extends AppCompatActivity {
 

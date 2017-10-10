@@ -1,4 +1,4 @@
-package com.tourwith.koing;
+package com.tourwith.koing.Fragment;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.tourwith.koing.R;
 
 import java.util.List;
 
@@ -18,12 +20,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeCardViewHolder
     Context context;
     List<RecyclerItem> items;
     int item_layout;
-    HomeCardClickListener mListener;
 
-    public HomeRecyclerAdapter(Context context, List<RecyclerItem> items, HomeCardClickListener mListener) {
+    public HomeRecyclerAdapter(Context context, List<RecyclerItem> items) {
         this.context = context;
         this.items = items;
-        this.mListener = mListener;
     }
 
     @Override
@@ -44,13 +44,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeCardViewHolder
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,item.getTitle(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onCardClicked(holder, position);
             }
         });
     }

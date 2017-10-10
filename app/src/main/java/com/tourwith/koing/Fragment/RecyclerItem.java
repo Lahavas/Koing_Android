@@ -1,4 +1,4 @@
-package com.tourwith.koing;
+package com.tourwith.koing.Fragment;
 
 /**
  * Created by Munak on 2017. 9. 24..

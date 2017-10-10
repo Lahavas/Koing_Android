@@ -1,10 +1,12 @@
-package com.tourwith.koing;
+package com.tourwith.koing.Fragment;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.tourwith.koing.R;
 
 /**
  * Created by Munak on 2017. 10. 4..

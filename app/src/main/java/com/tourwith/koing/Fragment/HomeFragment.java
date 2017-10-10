@@ -1,16 +1,16 @@
-package com.tourwith.koing;
+package com.tourwith.koing.Fragment;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tourwith.koing.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Munak on 2017. 9. 23..
  */
 
-public class HomeFragment extends Fragment implements HomeCardClickListener {
+public class HomeFragment extends Fragment {
 
     List<RecyclerItem> items = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements HomeCardClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment implements HomeCardClickListener {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items, this);
+        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
         recyclerView.setAdapter(adapter);
 
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -66,30 +66,6 @@ public class HomeFragment extends Fragment implements HomeCardClickListener {
 
 
         return view;
-    }
-
-    @Override
-    public void onCardClicked(HomeCardViewHolder holder, int position) {
-/*
-        DetailFragment cardDetails = DetailFragment.newInstance();
-
-        // Note that we need the API version check here because the actual transition classes (e.g. Fade)
-        // are not in the support library and are only available in API 21+. The methods we are calling on the Fragment
-        // ARE available in the support library (though they don't do anything on API < 21)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            cardDetails.setSharedElementEnterTransition(new DetailsTransition());
-            cardDetails.setEnterTransition(new Fade());
-            setExitTransition(new Fade());
-            cardDetails.setSharedElementReturnTransition(new DetailsTransition());
-        }
-
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .addSharedElement(holder.image, "kittenImage")
-                .replace(R.id.container2, cardDetails)
-                .addToBackStack(null)
-                .commit();
-                */
     }
 
 }
