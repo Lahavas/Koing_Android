@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.tourwith.koing.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll">
+    </android.support.v4.view.ViewPager>
+    -->
+
+    <FrameLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll">
+
+
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tab_first"
+            android:layout_width="0dip"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/tab_color_selector"
+            android:background="@drawable/tab_bg_selector"
+            android:text="친구" />
+
+        <TextView
+            android:id="@+id/tab_second"
+            android:layout_width="0dip"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/tab_color_selector"
+            android:background="@drawable/tab_bg_selector"
+            android:text="채팅방" />
+
+        <TextView
+            android:id="@+id/tab_third"
+            android:layout_width="0dip"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/tab_color_selector"
+            android:background="@drawable/tab_bg_selector"
+            android:text="설정" />
+
+        <TextView
+            android:id="@+id/tab_fourth"
+            android:layout_width="0dip"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@drawable/tab_color_selector"
+            android:background="@drawable/tab_bg_selector"
+            android:text="기혁" />
+    </LinearLayout>
+</RelativeLayout>
+
+
