@@ -20,7 +20,7 @@ public class HomeCardViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
     private TextView titleTextView;
     private CardView cardView;
-
+    
     public HomeCardViewHolder(View itemView) {
         super(itemView);
 
