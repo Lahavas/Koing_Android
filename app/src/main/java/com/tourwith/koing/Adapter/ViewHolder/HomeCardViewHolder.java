@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
@@ -27,7 +26,7 @@ public class HomeCardViewHolder extends RecyclerView.ViewHolder {
 
         imageView = (ImageView)itemView.findViewById(R.id.image);
         titleTextView = (TextView)itemView.findViewById(R.id.title);
-        cardView = (CardView)itemView.findViewById(R.id.cardview);
+        cardView = (CardView)itemView.findViewById(R.id.card_view);
     }
 
     public void bind(RecyclerItem item) {
