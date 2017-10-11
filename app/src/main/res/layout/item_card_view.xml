@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardview"
+    android:id="@+id/card_view"
     card_view:cardCornerRadius="7dp"
     android:layout_width="300dp"
     android:layout_height="400dp"

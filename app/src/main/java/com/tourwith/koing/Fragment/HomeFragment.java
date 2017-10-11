@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tourwith.koing.Adapter.HomeRecyclerAdapter;
+import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
 
 import java.util.ArrayList;
@@ -49,21 +51,18 @@ public class HomeFragment extends Fragment {
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
 
-
-        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
+        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(items);
         recyclerView.setAdapter(adapter);
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
 
         return view;
     }

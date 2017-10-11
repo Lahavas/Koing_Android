@@ -4,23 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll">
-    </android.support.v4.view.ViewPager>
-    -->
-
     <FrameLayout
         android:id="@+id/container2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll">
 
-
     </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
@@ -68,6 +59,7 @@
             android:background="@drawable/tab_bg_selector"
             android:text="기혁" />
     </LinearLayout>
+
 </RelativeLayout>
 
 
