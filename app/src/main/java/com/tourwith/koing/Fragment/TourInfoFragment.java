@@ -9,11 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tourwith.koing.TourAPI.GpsInfo;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
-import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 import com.tourwith.koing.R;
+import com.tourwith.koing.TourAPI.GpsInfoService;
+import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 
 import java.net.URLDecoder;
 
@@ -100,7 +100,7 @@ public class TourInfoFragment extends Fragment {
         //영문 현재 위치 근처 관광정보 받아오기
         double latitude=37.568477;
         double longitude=126.981106;
-        GpsInfo gps = new GpsInfo(getContext());
+        GpsInfoService gps = new GpsInfoService(getContext());
         if(gps.isGetLocation()){
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
@@ -116,7 +116,7 @@ public class TourInfoFragment extends Fragment {
 /*
         double latitude=37.568477;
         double longitude=126.981106;
-        GpsInfo gps = new GpsInfo(getContext());
+        GpsInfoService gps = new GpsInfoService(getContext());
         if(gps.isGetLocation()){
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();

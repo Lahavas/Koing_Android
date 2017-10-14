@@ -21,7 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 
-public class GpsInfo extends Service implements LocationListener {
+public class GpsInfoService extends Service implements LocationListener {
     private final Context mContext;
 
     // 현재 GPS 사용유무
@@ -45,7 +45,7 @@ public class GpsInfo extends Service implements LocationListener {
 
     protected LocationManager locationManager;
 
-    public GpsInfo(Context context) {
+    public GpsInfoService(Context context) {
         this.mContext = context;
         getLocation();
     }
@@ -120,7 +120,7 @@ public class GpsInfo extends Service implements LocationListener {
      * */
     public void stopUsingGPS(){
         if(locationManager != null){
-            locationManager.removeUpdates(GpsInfo.this);
+            locationManager.removeUpdates(GpsInfoService.this);
         }
     }
 
