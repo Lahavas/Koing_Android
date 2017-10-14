@@ -13,6 +13,7 @@ import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
 import com.tourwith.koing.R;
 import com.tourwith.koing.TourAPI.GpsInfoService;
+import com.tourwith.koing.TourAPI.MatchParsingSource;
 import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 
 import java.net.URLDecoder;
@@ -86,8 +87,8 @@ public class TourInfoFragment extends Fragment {
         //한글 관광정보 받아오기
         Call<TourInfoResponse> call = retrofitService.
                 getKorTripInfo(decodedKorKey,
-                        MatchParsingSource.getNumOfSource("문화시설"), //contentTypeId
-                        MatchParsingSource.getNumOfSource("서울"), //areaCode;
+                        MatchParsingSource.getQueryNum("문화시설"), //contentTypeId
+                        MatchParsingSource.getQueryNum("서울"), //areaCode;
                         "","","","", //sigunguCode, cat1, cat2, cat3
                         "Y", //
                         "AND", //MobileOS
@@ -129,7 +130,7 @@ public class TourInfoFragment extends Fragment {
 */
 
         Call<TourInfoResponse> call = retrofitService.getEngTripInfo2(decodedEngKey,
-                "78",
+                MatchParsingSource.getQueryNum("Cultural Facilities"),
                 lon,//mapX
                 lat,//mapY
                 "2000",
