@@ -30,12 +30,12 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class TourInfoFragment extends Fragment {
 
-    String baseUrl;
-    TextView textView3;
-    String korKey;
-    String engKey;
-    String decodedKorKey;
-    String decodedEngKey;
+    private String baseUrl;
+    private TextView textView3;
+    private String korKey;
+    private String engKey;
+    private String decodedKorKey;
+    private String decodedEngKey;
 
     public TourInfoFragment()
     {
