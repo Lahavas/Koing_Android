@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "208804895080",
+    "firebase_url": "https://koingandroid-615b8.firebaseio.com",
+    "project_id": "koingandroid-615b8",
+    "storage_bucket": "koingandroid-615b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208804895080:android:baf767ca0cb779f2",
+        "android_client_info": {
+          "package_name": "com.tourwith.koing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208804895080-q2pcrlf1sh3j61h9pbse3jcvdn65a401.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tourwith.koing",
+            "certificate_hash": "70b9a380f72faa0ad0d1d785af22b7e79862b6d5"
+          }
+        },
+        {
+          "client_id": "208804895080-t233iqefqm0d0rl8t2a70n9agopa1rg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIZEXN5UtW89h7ff7Q2d4U84iweFi5yFw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208804895080-t233iqefqm0d0rl8t2a70n9agopa1rg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

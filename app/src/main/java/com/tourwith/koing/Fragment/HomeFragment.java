@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tourwith.koing.CardSlider.CardSnapHelper;
+import com.tourwith.koing.CardSlider.SliderAdapter;
 import com.tourwith.koing.R;
 
 import java.util.ArrayList;
@@ -49,21 +51,30 @@ public class HomeFragment extends Fragment {
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        int[] pics = {R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5};
+
+        SliderAdapter sliderAdapter = new SliderAdapter(pics, 20, null);
+
+
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
+        recyclerView.setAdapter(sliderAdapter);
 
+        /*
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
+        */
 
+        //RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
+        //recyclerView.setAdapter(adapter);
 
-        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
-        recyclerView.setAdapter(adapter);
-
+        /*
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
+        */
+        new CardSnapHelper().attachToRecyclerView(recyclerView);
 
         return view;
     }
