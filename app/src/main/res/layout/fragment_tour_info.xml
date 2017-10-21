@@ -7,6 +7,7 @@
     android:background="#1439dc">
 
     <TextView
+        android:id="@+id/tour_info_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
