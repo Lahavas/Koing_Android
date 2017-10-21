@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#1439dc">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="30dp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:text="세번째 페이지"/>
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="9dp"
+        android:clipChildren="false"
+        android:overScrollMode="never"
+        app:layoutManager="com.tourwith.koing.CardSlider.CardSliderLayoutManager"/>
 
 </RelativeLayout>

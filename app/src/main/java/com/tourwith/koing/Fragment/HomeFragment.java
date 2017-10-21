@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tourwith.koing.Adapter.HomeRecyclerAdapter;
+import com.tourwith.koing.CardSlider.CardSnapHelper;
+import com.tourwith.koing.CardSlider.SliderAdapter;
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
 
@@ -25,8 +27,7 @@ public class HomeFragment extends Fragment {
 
     List<RecyclerItem> items = new ArrayList<>();
 
-    public HomeFragment()
-    {
+    public HomeFragment() {
     }
 
     @Override
@@ -34,35 +35,12 @@ public class HomeFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
 
-        RecyclerItem[] item = new RecyclerItem[5];
-        item[0] = new RecyclerItem(1,"#1");
-        item[1] = new RecyclerItem(2,"#2");
-        item[2] = new RecyclerItem(3,"#3");
-        item[3] = new RecyclerItem(4,"#4");
-        item[4] = new RecyclerItem(5,"#5");
-
-        for(int i=0;i<5;i++) {
-            items.add(item[i]);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        RecyclerView.Adapter adapter = new HomeRecyclerAdapter(items);
-        recyclerView.setAdapter(adapter);
-
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
 
         return view;
     }
