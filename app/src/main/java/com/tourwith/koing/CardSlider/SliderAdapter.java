@@ -1,42 +1,48 @@
 package com.tourwith.koing.CardSlider;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.tourwith.koing.Model.RecyclerItem;
+import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.R;
 
-public class SliderAdapter extends RecyclerView.Adapter<SliderCard> {
+import java.util.List;
+
+public class SliderAdapter extends RecyclerView.Adapter<SliderCardViewHolder> {
 
     private final int count;
-    private final int[] content;
     private final View.OnClickListener listener;
 
-    public SliderAdapter(int[] content, int count, View.OnClickListener listener) {
-        this.content = content;
+    Context context;
+    List<TourInfoItem> items;
+
+    public SliderAdapter(int count, View.OnClickListener listener, Context context, List<TourInfoItem> items) {
         this.count = count;
         this.listener = listener;
+        this.context = context;
+        this.items = items;
     }
 
     @Override
-    public SliderCard onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SliderCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_card_view, parent, false);
 
-        return new SliderCard(view);
+        return new SliderCardViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SliderCard holder, int position) {
-        holder.setContent(content[position % content.length]);
-    }
+    public void onBindViewHolder(SliderCardViewHolder holder, int position) {
 
-    @Override
-    public void onViewRecycled(SliderCard holder) {
-        holder.clearContent();
+        TourInfoItem tourInfoItem = items.get(position);
+        Glide.with(context).load(tourInfoItem.getFirstimage()).override(1000,600).into(holder.itemImage);
     }
 
     @Override
