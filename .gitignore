@@ -128,4 +128,5 @@ fabric.properties
 # End of https://www.gitignore.io/api/androidstudio
 
 .\app\src\main\res\values\configs.xml
+.\app\google-services.json
 
