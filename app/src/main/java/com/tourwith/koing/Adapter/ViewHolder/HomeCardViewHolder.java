@@ -26,7 +26,7 @@ public class HomeCardViewHolder extends RecyclerView.ViewHolder {
 
         imageView = (ImageView)itemView.findViewById(R.id.image);
         titleTextView = (TextView)itemView.findViewById(R.id.title);
-        cardView = (CardView)itemView.findViewById(R.id.card_view);
+        cardView = (CardView)itemView.findViewById(R.id.cardview);
     }
 
     public void bind(RecyclerItem item) {

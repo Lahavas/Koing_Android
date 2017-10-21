@@ -2,6 +2,7 @@ package com.tourwith.koing.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tourwith.koing.CardSlider.CardSnapHelper;
+import com.tourwith.koing.CardSlider.SliderAdapter;
+import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
 import com.tourwith.koing.R;
@@ -17,6 +21,8 @@ import com.tourwith.koing.TourAPI.MatchParsingSource;
 import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,10 +42,12 @@ public class TourInfoFragment extends Fragment {
     private String engKey;
     private String decodedKorKey;
     private String decodedEngKey;
+    private List<TourInfoItem> mItems;
+    private View view;
 
-    public TourInfoFragment()
-    {
+    public TourInfoFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -49,8 +57,7 @@ public class TourInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_tour_info, container, false);
-        textView3 = (TextView) layout.findViewById(R.id.tour_info_textview);
+        view = inflater.inflate(R.layout.fragment_tour_info, container, false);
 
         baseUrl = getString(R.string.retrofitBaseURL);
         korKey = getString(R.string.tourAPIKeyKor);
@@ -68,7 +75,7 @@ public class TourInfoFragment extends Fragment {
                 .build();
         TourInfoRetrofitService retrofitService = retrofit.create(TourInfoRetrofitService.class);
         //영문 관광정보 받아오기
-/*
+
         Call<TourInfoResponse> call = retrofitService.
                 getEngTripInfo(decodedEngKey,
                         "78",
@@ -81,7 +88,7 @@ public class TourInfoFragment extends Fragment {
                         "24",
                         "1"
                 );
-                */
+
         /*
 
         //한글 관광정보 받아오기
@@ -98,6 +105,8 @@ public class TourInfoFragment extends Fragment {
                         "1" //pageNo
                 );
 */
+
+        /*
         //영문 현재 위치 근처 관광정보 받아오기
         double latitude=37.568477;
         double longitude=126.981106;
@@ -110,7 +119,8 @@ public class TourInfoFragment extends Fragment {
         }
         String lat = String.valueOf(latitude);
         String lon = String.valueOf(longitude);
-        textView3.append("lat:" + lat + "\nlong:"+lon +"\n\n\n");
+
+        */
 
 
         //한글 현재 위치 근처 관광정보 받아오기
@@ -128,7 +138,7 @@ public class TourInfoFragment extends Fragment {
         String lon = String.valueOf(longitude);
         textView3.append("lat:" + lat + "\nlong:"+lon +"\n\n\n");
 */
-
+/*
         Call<TourInfoResponse> call = retrofitService.getEngTripInfo2(decodedEngKey,
                 MatchParsingSource.getQueryNum("Cultural Facilities"),
                 lon,//mapX
@@ -142,18 +152,24 @@ public class TourInfoFragment extends Fragment {
                 "1"
         );
 
-
+*/
 
 
         call.enqueue(new Callback<TourInfoResponse>() {
             @Override
             public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
                 TourInfoResponse r = response.body();
-                if(r.getBody().getItems().getItem() !=null) {
-                    for (TourInfoItem item : r.getBody().getItems().getItem()) {
-                        textView3.append(item.getTitle() + "\n" + item.getAddr1() + "\n" + item.getFirstimage() + "\n" +
-                                item.getMapx() + "\n" + item.getMapy() + "\n\n");
-                    }
+                if(r.getBody().getItems().getItem() != null) {
+                    mItems = r.getBody().getItems().getItem();
+
+                    SliderAdapter sliderAdapter = new SliderAdapter(20, null, getContext(), mItems);
+
+                    RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview);
+                    recyclerView.setHasFixedSize(true);
+
+                    recyclerView.setAdapter(sliderAdapter);
+
+                    new CardSnapHelper().attachToRecyclerView(recyclerView);
                 }
 
             }
@@ -162,12 +178,24 @@ public class TourInfoFragment extends Fragment {
             public void onFailure(Call<TourInfoResponse> call, Throwable t) {
 
                 Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
-                textView3.append(t.toString());
             }
         });
 
+        /*
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        recyclerView.setLayoutManager(layoutManager);
+        */
+
+        //RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
+        //recyclerView.setAdapter(adapter);
+
+        /*
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+        */
 
 
-        return layout;
+        return view;
     }
 }
