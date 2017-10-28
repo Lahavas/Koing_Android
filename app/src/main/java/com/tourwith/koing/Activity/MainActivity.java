@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tourwith.koing.Fragment.HomeFragment;
@@ -19,7 +20,7 @@ import com.tourwith.koing.R;
 public class MainActivity extends AppCompatActivity {
 
     FrameLayout container2;
-    TextView tab_first, tab_second, tab_third, tab_fourth;
+    ImageView tab_home, tab_tour, tab_message, tab_profile;
     Fragment homeFragment;
     Fragment messageFragment;
     Fragment mypageFragment;
@@ -50,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        tab_first = (TextView) findViewById(R.id.tab_first);
-        tab_second = (TextView) findViewById(R.id.tab_second);
-        tab_third = (TextView) findViewById(R.id.tab_third);
-        tab_fourth = (TextView) findViewById(R.id.tab_fourth);
+        tab_home = (ImageView) findViewById(R.id.tab_home);
+        tab_tour = (ImageView) findViewById(R.id.tab_tour);
+        tab_message = (ImageView) findViewById(R.id.tab_message);
+        tab_profile = (ImageView) findViewById(R.id.tab_profile);
 
-        tab_first.setSelected(true);
+        tab_home.setBackgroundResource(R.drawable.btn_tap_home_t);
 
-        tab_first.setOnClickListener(new View.OnClickListener() {
+        tab_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager()
@@ -65,53 +66,57 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.container2, homeFragment)
                         .commit();
 
-                tab_first.setSelected(true);
-                tab_second.setSelected(false);
-                tab_third.setSelected(false);
-                tab_fourth.setSelected(false);
+                tab_home.setBackgroundResource(R.drawable.btn_tap_home_t);
+                tab_tour.setBackgroundResource(R.drawable.btn_tap_tripcard_n);
+                tab_message.setBackgroundResource(R.drawable.btn_tap_message_n);
+                tab_profile.setBackgroundResource(R.drawable.btn_tap_mypage_n);
             }
         });
 
-        tab_second.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container2, messageFragment)
-                        .commit();
-                tab_first.setSelected(false);
-                tab_second.setSelected(true);
-                tab_third.setSelected(false);
-                tab_fourth.setSelected(false);
-            }
-        });
-
-        tab_third.setOnClickListener(new View.OnClickListener() {
+        tab_tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container2, tourinfoFragment)
                         .commit();
-                tab_first.setSelected(false);
-                tab_second.setSelected(false);
-                tab_third.setSelected(true);
-                tab_fourth.setSelected(false);
+
+                tab_home.setBackgroundResource(R.drawable.btn_tap_home_n);
+                tab_tour.setBackgroundResource(R.drawable.btn_tap_tripcard_t);
+                tab_message.setBackgroundResource(R.drawable.btn_tap_message_n);
+                tab_profile.setBackgroundResource(R.drawable.btn_tap_mypage_n);
             }
         });
 
-        tab_fourth.setOnClickListener(new View.OnClickListener() {
+        tab_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container2, messageFragment)
+                        .commit();
+
+                tab_home.setBackgroundResource(R.drawable.btn_tap_home_n);
+                tab_tour.setBackgroundResource(R.drawable.btn_tap_tripcard_n);
+                tab_message.setBackgroundResource(R.drawable.btn_tap_message_t);
+                tab_profile.setBackgroundResource(R.drawable.btn_tap_mypage_n);
+            }
+        });
+
+        tab_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container2, mypageFragment)
                         .commit();
-                tab_first.setSelected(false);
-                tab_second.setSelected(false);
-                tab_third.setSelected(false);
-                tab_fourth.setSelected(true);
+
+                tab_home.setBackgroundResource(R.drawable.btn_tap_home_n);
+                tab_tour.setBackgroundResource(R.drawable.btn_tap_tripcard_n);
+                tab_message.setBackgroundResource(R.drawable.btn_tap_message_n);
+                tab_profile.setBackgroundResource(R.drawable.btn_tap_mypage_t);
             }
         });
+
     }
 }
