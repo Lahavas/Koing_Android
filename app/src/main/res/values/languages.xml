@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="language">
+        <item >Choose your country</item>
         <item >English</item>
         <item >Korean</item>
         <item >Japanese</item>
