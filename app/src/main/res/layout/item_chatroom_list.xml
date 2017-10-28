@@ -15,33 +15,22 @@
         android:orientation="vertical"
         android:layout_weight="10">
         <TextView
-            android:id="@+id/m_uid_text"
+            android:id="@+id/o_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"/>
         <TextView
-            android:id="@+id/o_uid_text"
+            android:id="@+id/recent_message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"/>
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/recent_time_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Button
-            android:text="삭제"
-            android:id="@+id/delete_chatroom_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:text="입장"
-            android:id="@+id/enter_chatroom_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
 
 </LinearLayout>
