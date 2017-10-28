@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:textColor="#000000"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="35dp"
+        android:id="@+id/instruction_text"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Please register your photos"
+        android:textSize="25dp"
+        />
+    
+    <ImageView
+        android:id="@+id/profile_upload_imageview"
+        android:layout_gravity="center"
+        android:layout_width="222dp"
+        android:layout_height="222dp"
+        android:src="@drawable/btn_album"
+        android:background="@drawable/circular_border"
+        android:scaleX="0.3"
+        android:scaleY="0.3">
+
+
+    </ImageView>
+    
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/submit_button_at_picture_insert"
+        android:layout_marginTop="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Submit"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:adjustViewBounds="true"
+        android:background="@drawable/btn_login_e"
+        android:scaleType="fitCenter"
+        />
+
+
+</LinearLayout>

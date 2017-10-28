@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:textColor="#000000"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="35dp"
+        android:id="@+id/instruction_text_at_langs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/lang_add_button1"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/btn_plus_button_e"/>
+        <Spinner
+            android:id="@+id/language_spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/language"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="10dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/lang_add_button2"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/btn_plus_button_e"
+            android:visibility="gone"/>
+        <Spinner
+            android:id="@+id/language_spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/language"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/lang_add_button3"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/btn_plus_button_e"
+            android:visibility="gone"/>
+        <Spinner
+            android:id="@+id/language_spinner3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/language"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_gravity="right"
+        android:textColor="#000000"
+        android:id="@+id/instruction_text_second_at_langs"
+        android:layout_marginLeft="8dp"
+        android:textSize="15dp"
+        android:layout_width="291dp"
+        android:layout_height="40dp" />
+
+
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/submit_button_floating_at_langs"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:background="@drawable/btn_login_next_e"
+        />
+
+</LinearLayout>
