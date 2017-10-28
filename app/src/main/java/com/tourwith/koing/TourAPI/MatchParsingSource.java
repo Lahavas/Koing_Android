@@ -30,6 +30,7 @@ public class MatchParsingSource {
 
         keyWordToQueryNum.put("서울","1");
         keyWordToQueryNum.put("Seoul","1");
+        keyWordToQueryNum.put("1","Seoul");
         keyWordToQueryNum.put("인천","2");
         keyWordToQueryNum.put("Incheon","2");
         keyWordToQueryNum.put("대전","3");

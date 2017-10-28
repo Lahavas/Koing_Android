@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/tab_first"
             android:layout_width="0dip"
-            android:layout_height="50dp"
+            android:layout_height="69dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@drawable/tab_color_selector"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/tab_second"
             android:layout_width="0dip"
-            android:layout_height="50dp"
+            android:layout_height="69dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@drawable/tab_color_selector"
@@ -42,7 +42,7 @@
         <TextView
             android:id="@+id/tab_third"
             android:layout_width="0dip"
-            android:layout_height="50dp"
+            android:layout_height="69dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@drawable/tab_color_selector"
@@ -52,7 +52,7 @@
         <TextView
             android:id="@+id/tab_fourth"
             android:layout_width="0dip"
-            android:layout_height="50dp"
+            android:layout_height="69dp"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@drawable/tab_color_selector"
