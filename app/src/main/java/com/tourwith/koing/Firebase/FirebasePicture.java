@@ -1,5 +1,7 @@
 package com.tourwith.koing.Firebase;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -12,6 +14,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tourwith.koing.Fragment.MessageDialogFragment;
+import com.tourwith.koing.Util.SharedPreferenceHelper;
 
 /**
  * Created by hanhb on 2017-09-23.
@@ -29,9 +33,10 @@ public class FirebasePicture {
     public static final int THUMNAIL = 1;
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef = storage.getReferenceFromUrl("gs://test-73f7c.appspot.com/").child("profileImage");
+    private StorageReference storageRef = storage.getReferenceFromUrl("gs://koingandroid.appspot.com/").child("profileImage");
     private Context context;
-
+    public FirebasePicture() {
+    }
     public FirebasePicture(Context context) {
         this.context = context;
     }
@@ -104,6 +109,42 @@ public class FirebasePicture {
         return true;
     }
 
+    public boolean uploadProfileImage(final String uid, byte[] data, int imageType, final ProgressDialog pd, final Activity activity){
+        if(uid == null || uid == "" || data == null)
+            return false;
+        StorageReference ref;
+        if(imageType == THUMNAIL)
+            ref = storageRef.child(uid).child("thumbnail");
+        else if(imageType==ORIGINAL)
+            ref = storageRef.child(uid).child("original");
+        else
+            return false;
+
+        UploadTask uploadTask = ref.putBytes(data);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.UPLOAD_FAILED);
+                md.setActivity(activity);
+                md.show(activity.getFragmentManager(), "");
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                pd.dismiss();
+                MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.SIGN_UP_SUCCESS);
+                md.setActivity(activity);
+                md.show(activity.getFragmentManager(), "");
+                SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(activity);
+                sharedPreferenceHelper.putBoolean(uid, true);
+            }
+        });
+        return true;
+    }
+
     public boolean downLoadProfileImage(String uid, final int imageType, final ImageView imageView){
         if(uid == null || uid == "")
             return false;
@@ -119,10 +160,12 @@ public class FirebasePicture {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(context).load(uri).into(imageView);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
             }
         });
 
@@ -160,5 +203,7 @@ public class FirebasePicture {
         return true;
 
     }
+
+
 
 }

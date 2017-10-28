@@ -2,14 +2,12 @@ package com.tourwith.koing.Firebase;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.tourwith.koing.Activity.ChatroomActivity;
 import com.tourwith.koing.Model.Chatroom;
 import com.tourwith.koing.R;
 
@@ -155,27 +152,23 @@ public class FirebaseChatroom {
                     inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 if(convertView == null) {
                     convertView = inflater.inflate(R.layout.item_chatroom_list, parent, false);
-                    Button deleteButton = (Button) convertView.findViewById(R.id.delete_chatroom_button);
-                    Button enterButton = (Button) convertView.findViewById(R.id.enter_chatroom_button);
-                    TextView muidText = (TextView) convertView.findViewById(R.id.m_uid_text);
-                    TextView ouidText = (TextView) convertView.findViewById(R.id.o_uid_text);
+                    TextView oNameText = (TextView) convertView.findViewById(R.id.o_name_text);
+                    TextView recentTimeText = (TextView) convertView.findViewById(R.id.recent_time_text);
+                    TextView recentMessageText = (TextView) convertView.findViewById(R.id.recent_message_text);
                     final Chatroom chatroom = chatroomList.get(position);
+
                     ImageView profileImage = (ImageView) convertView.findViewById(R.id.ProfileImageAtChatroomList);
 
-                    muidText.setText(chatroom.getmUID());
-                    ouidText.setText(chatroom.getoUID());
+
 
                     profileImage.setBackground(new ShapeDrawable(new OvalShape()));
                     profileImage.setClipToOutline(true);
                     firebasePicture.downLoadProfileImage(uid.equals(chatroom.getmUID()) ? chatroom.getoUID() : chatroom.getmUID() , FirebasePicture.ORIGINAL, profileImage);
-
-                    deleteButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            destroyChatroom(chatroom.getKey());
-                        }
-                    });
-
+                    /*
+                        해야 할 것
+                        텍스트뷰들 채우기 > 대화 내용 역순으로 불러오기
+                     */
+                    /*
                     enterButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -187,9 +180,11 @@ public class FirebaseChatroom {
                             else {
                                 intent.putExtra("ouid", chatroom.getmUID()); //상대방이 내게 채팅신청을 했을 경우
                             }
+
                             context.startActivity(intent);
                         }
                     });
+                    */
                 }
                 return convertView;
             }
