@@ -1,19 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <FrameLayout
+            android:id="@+id/countries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/tv_country_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="28dp"
+                android:textColor="#FF000000"
+                android:text="Seoul"/>
+
+            <TextView
+                android:id="@+id/tv_country_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#FF000000"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="31dp"
+        android:layout_marginLeft="24dp"
+        android:textSize="16dp"
+        android:text="All type"
+        android:textColor="#FF000000"/>
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="176dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="9dp"
         android:clipChildren="false"
         android:overScrollMode="never"
         app:layoutManager="com.tourwith.koing.CardSlider.CardSliderLayoutManager"/>
 
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="210dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="15dp">
+
+        <FrameLayout
+            android:id="@+id/titles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/tv_title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FF000000"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/tv_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textColor="#FF000000"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp">
+
+        <FrameLayout
+            android:id="@+id/addrs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/tv_addr_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp"
+                android:textColor="#FF000000"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_addr_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#FF000000"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp">
+
+        <TextView
+            android:id="@+id/tour_info_likes_title"
+            android:textSize="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#48d3bd"
+            android:text="Likes"/>
+
+        <TextView
+            android:id="@+id/tour_info_likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tour_info_likes_title"
+            android:text="22"/>
+
+        <Button
+            android:id="@+id/tour_info_likes_refresh"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:background="#00ffffff"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tour_info_likes_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

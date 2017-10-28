@@ -87,6 +87,9 @@ public class TourInfoItem {
     public String getAddr1(){
         return addr1;
     }
+    public String getAddr2(){
+        return addr2;
+    }
     public String getTitle(){
         return title;
     }
@@ -99,4 +102,5 @@ public class TourInfoItem {
     public String getMapy(){
         return mapy;
     }
+    public String getAreacode(){ return areacode;}
 }

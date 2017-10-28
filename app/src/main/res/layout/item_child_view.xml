@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/home_contain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/home_cv"
+        android:layout_width="308dp"
+        android:layout_height="432dp"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="3dp"
+        card_view:cardBackgroundColor="#FFffffff"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/home_rl"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginLeft="17dp">
+
+                <ImageView
+                    android:id="@+id/home_person_iv"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@mipmap/ic_launcher"/>
+
+                <ImageView
+                    android:id="@+id/home_flag_iv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@mipmap/ic_launcher"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/home_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/home_rl"
+                android:layout_marginRight="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="19dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/home_name"
+                    android:transitionName="text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textSize="18dp"
+                    android:textColor="#FF1c1c1c"/>
+
+                <TextView
+                    android:id="@+id/home_flag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="flag"
+                    android:textSize="14dp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#FFb3b3b3"/>
+
+                <TextView
+                    android:id="@+id/home_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="language"
+                    android:textSize="12dp"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#FF1c1c1c"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/home_tourist_type_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_rl"
+                android:text="Tourist type"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="#FF1c1c1c"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/home_tourist_type"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@+id/home_tourist_type_title"
+                android:background="#FFdbdbdb"
+                android:text="Tourist Attractions"
+                android:textSize="14dp"
+                android:textColor="#FF1c1c1c"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/home_trip_period_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_tourist_type"
+                android:text="Trip period"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="#FF1c1c1c"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/home_trip_period"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@+id/home_trip_period_title"
+                android:background="#FFdbdbdb"
+                android:text="2017/11/22 ~ 2017/11/24"
+                android:textSize="14dp"
+                android:textColor="#FF1c1c1c"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/home_description"
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:layout_below="@+id/home_trip_period"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="21dp"
+                android:text="Hi, I’m from London, UK.
+Looking for friends who can help my trip.
+Currently in Hongdae. Text me"
+                android:textSize="13dp"
+                android:textColor="#FF1c1c1c"
+                android:lineSpacingExtra="10dp"/>
+
+            <Button
+                android:id="@+id/home_send_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@+id/home_description"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="Send Message"
+                android:textSize="16dp"
+                android:textColor="#FFffffff"
+                android:paddingLeft="27.5dp"
+                android:paddingRight="27.5dp"
+                android:background="#FF48d3bd"
+                android:gravity="center"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
