@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,8 @@ public class TourInfoFragment extends Fragment {
     private int addrOffset1;
     private int addrOffset2;
     private long addrAnimDuration;
+
+    private ImageButton tour_info_heart;
 
     private String[] countries;
 
@@ -264,6 +267,15 @@ public class TourInfoFragment extends Fragment {
                     tour_info_likes_recyclerview.setHasFixedSize(true);
                     RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
                     tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
+
+                    tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
+
+                    tour_info_heart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
+                        }
+                    });
                 }
 
             }
