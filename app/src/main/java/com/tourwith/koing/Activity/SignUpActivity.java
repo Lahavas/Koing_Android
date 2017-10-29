@@ -146,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.SIGN_UP_FAILED);
                                 df.show(getFragmentManager(), TAG);
-                                progressDialog.dismiss();
+
                             } else {
 
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -165,6 +165,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
 
                         }
+
                     });
 
         } else {
