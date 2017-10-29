@@ -58,7 +58,7 @@ public class MyPageNameDialog extends Dialog{
         String nation="",language="";
         if(s!=null) {
             for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == '-') {
+                if (s.charAt(i) == '\u2022') {
                     nation = s.substring(0, i - 1);
                     language = s.substring(i + 2, s.length());
                     break;
@@ -81,7 +81,7 @@ public class MyPageNameDialog extends Dialog{
             @Override
             public void onClick(View v) {
                 profileNameTextView.setText(profileNameEditText.getText().toString());
-                profileNationLanguageTextView.setText(nationalityTextView.getText().toString() + " - " + nativeLanguageTextView.getText().toString());
+                profileNationLanguageTextView.setText(nationalityTextView.getText().toString() + " \u2022 " + nativeLanguageTextView.getText().toString());
                 dismiss();
             }
         });

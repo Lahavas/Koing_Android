@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="342.32dp"
-    android:layout_height="404.25dp"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/dialog_rounded">
 
-
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="19.25sp"
-    android:textColor="#000000"
-    android:layout_marginTop="21.49dp"
-    android:layout_marginLeft="25.66dp"
-    android:textStyle="bold"
-    android:text="Name"
-    />
-
-
-
-    <EditText
-        android:id="@+id/profile_name_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25.66dp"
-        android:layout_marginTop="30dp"
-        android:text="Sarah Nguyen"
-        android:background="@null"
+        android:textSize="18sp"
         android:textColor="#000000"
-        android:textSize="15sp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="24dp"
+        android:textStyle="bold"
+        android:text="Name"
+        />
 
+    <LinearLayout
+        android:layout_width="272dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="22dp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/profile_name_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Sarah Nguyen"
+            android:background="@null"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="291dp"
+        android:layout_width="272dp"
         android:layout_height="1dp"
-        android:layout_marginTop="9.625dp"
-        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
         android:background="#000000"/>
 
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="19.25sp"
+        android:textSize="18sp"
         android:textColor="#000000"
-        android:layout_marginTop="21.49dp"
-        android:layout_marginLeft="25.66dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="24dp"
         android:textStyle="bold"
         android:text="Nationality"
         />
 
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="272dp"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="22dp"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/nationality_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25.66dp"
-            android:layout_marginTop="30dp"
             android:text="United Kingdom"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,18 +81,15 @@
                 android:id="@+id/nationality_spinner"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp"
                 android:entries="@array/nation"
                 android:background="@drawable/btn_textdown"
                 />
-
-
         </LinearLayout>
+
     </LinearLayout>
 
     <TextView
-        android:layout_width="291dp"
+        android:layout_width="272dp"
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:background="#000000"/>
@@ -98,29 +99,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="19.25sp"
+        android:textSize="18sp"
         android:textColor="#000000"
-        android:layout_marginTop="21.49dp"
-        android:layout_marginLeft="25.66dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="24dp"
         android:textStyle="bold"
         android:text="Native language"
         />
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="272dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/native_language_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25.66dp"
-            android:layout_marginTop="30dp"
             android:text="English"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,8 +133,6 @@
                 android:id="@+id/native_language_spinner"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="30dp"
                 android:entries="@array/language"
                 android:background="@drawable/btn_textdown"
                 />
@@ -143,7 +142,7 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="291dp"
+        android:layout_width="272dp"
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:background="#000000"/>
@@ -151,12 +150,11 @@
 
     <TextView
         android:id="@+id/name_ok_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="19.25sp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:gravity="center"
+        android:textSize="18sp"
         android:textColor="#ff523d"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="27dp"
         android:text="OK"
         android:layout_gravity="center"
         />
