@@ -2,7 +2,9 @@ package com.tourwith.koing.Firebase;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -83,6 +85,52 @@ public class FirebaseProfile {
 
     }
 
+    public void getUser(Context context, String uid, final TextView nameText, final TextView profileNationLanguageTextView,
+                        final TextView introductionText, ImageView profileImage, TextView...languages){
+
+        FirebasePicture firebasePicture = new FirebasePicture(context);
+        firebasePicture.downLoadProfileImage(uid, FirebasePicture.ORIGINAL, profileImage);
+
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(nameText!=null) nameText.setText(user.getNickname());
+                if(profileNationLanguageTextView!=null) {
+                    profileNationLanguageTextView.setText(user.getNationality());
+                    profileNationLanguageTextView.append(" - " + user.getMainLang());
+                }
+                if(introductionText!=null) introductionText.setText(user.getComments());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+    }
+
+    public void getUserName(String uid, final TextView nameText){
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(nameText!=null) nameText.setText(user.getNickname());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     public void getUser(final String uid, final TextView textView){
 

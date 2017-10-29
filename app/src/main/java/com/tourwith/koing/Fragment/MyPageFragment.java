@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Dialog.LanguageDialogListener;
 import com.tourwith.koing.Dialog.MyPageIntroductionDialog;
 import com.tourwith.koing.Dialog.MyPageLanguageDialog;
 import com.tourwith.koing.Dialog.MyPageNameDialog;
+import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.R;
 
 /**
@@ -37,10 +39,16 @@ public class MyPageFragment extends Fragment {
     private CardView profileLanguage1CardView;
     private CardView profileLanguage2CardView;
     private CardView profileLanguage3CardView;
+    private MainActivity parent;
 
     public MyPageFragment()
     {
     }
+
+    public MyPageFragment(MainActivity mainActivity) {
+        parent = mainActivity;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -130,6 +138,12 @@ public class MyPageFragment extends Fragment {
                 dialog.show();
             }
         });
+
+        FirebaseProfile firebaseProfile = new FirebaseProfile();
+        firebaseProfile.getUser(parent, parent.uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView);
+
+
+
         return view;
     }
 }
