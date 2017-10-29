@@ -40,6 +40,7 @@ public class ChatroomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
+        chatroom = new Chatroom();
         initView(); //initialize views
         initAuth(); //initialize Authentication, DB, and Storage
 
@@ -47,8 +48,8 @@ public class ChatroomActivity extends AppCompatActivity {
 
     private void initView() {
         intent = getIntent();
-        chatroom = new Chatroom(intent.getStringExtra("ouid"), intent.getStringExtra("key"));
-        getSupportActionBar().setTitle(chatroom.getoUID() + "의 대화");
+        chatroom.setoUID(intent.getStringExtra("ouid"));
+        getSupportActionBar().hide();
 
         sendButton = (Button) findViewById(R.id.msg_send_button);
         msgEdit = (EditText) findViewById(R.id.msg_edit_text);

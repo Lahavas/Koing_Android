@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languageHB">
+        <item >Choose your country</item>
+        <item >English</item>
+        <item >Korean</item>
+        <item >Japanese</item>
+        <item >Chinese</item>
+        <item >Spanish</item>
+        <item >French</item>
+    </string-array>
+</resources>
