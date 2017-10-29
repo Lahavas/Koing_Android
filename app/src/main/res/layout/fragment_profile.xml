@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,14 +11,16 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="700dp"
+            android:layout_width="360dp"
+            android:layout_height="640dp"
             android:background="@drawable/bg_mypage"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,8 +32,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="29.83sp"
                     android:textColor="#000000"
-                    android:layout_marginTop="21.49dp"
-                    android:layout_marginLeft="26.66dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="24dp"
                     android:text="My Page"/>
 
 
@@ -41,13 +42,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/setting_image_view"
-                        android:layout_width="27.91dp"
-                        android:layout_height="27.91dp"
-                        android:layout_marginTop="21.49dp"
-                        android:layout_marginRight="29.83dp"
-                        android:src="@drawable/ic_settings"
+                    <Button
+                        android:id="@+id/setting_button"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/ic_settings"
                         android:layout_gravity="right"/>
                 </LinearLayout>
 
@@ -61,12 +62,11 @@
 
                 <ImageView
                     android:id="@+id/profile_image_view"
-                    android:layout_marginLeft="26.66dp"
-                    android:layout_marginRight="26.66dp"
-                    android:layout_marginTop="44.91dp"
-                    android:layout_width="124.1625dp"
-                    android:layout_height="124.1625dp"
-                    android:src="@drawable/backtest"/>
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="42dp"
+                    android:layout_width="116dp"
+                    android:layout_height="116dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="50dp">
+                        >
 
                         <TextView
                             android:id="@+id/profile_name_text_view"
@@ -85,25 +85,26 @@
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
                             android:textStyle="bold"
-                            android:layout_marginTop="42dp"
-                            android:textSize="21.49sp"
+                            android:layout_marginTop="75dp"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="20sp"
                             android:text="Sarah Nguyen"
                             />
-                        <ImageView
-                            android:id="@+id/edit_name_image_view"
-                            android:layout_width="25.66dp"
-                            android:layout_height="25.66dp"
-                            android:layout_marginTop="42dp"
-                            android:src="@drawable/ic_edit"/>
+                        <Button
+                            android:id="@+id/edit_name_button"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginTop="72dp"
+                            android:background="@drawable/ic_edit"/>
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/profile_nation_language_text_view"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:textSize="13.79sp"
-                        android:textColor="#000000"
-                        android:text="United Kingdom - English"
+                        android:textSize="13sp"
+                        android:textColor="#1c1c1c"
+                        android:text="United Kingdom \u2022 English"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -112,96 +113,77 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="27.91dp"
+                android:layout_marginTop="26dp"
                 android:text="Language"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:textSize="18dp"
+                android:layout_marginLeft="24dp"
+                android:textSize="16sp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="9dp">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/profile_language1_card_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25.66dp"
-                    app:cardElevation="10.58dp"
-                    app:cardCornerRadius="10.58dp"
-                    app:cardBackgroundColor="#ffffff">
-                    <TextView
-                        android:id="@+id/profile_language1_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingRight="15.07dp"
-                        android:paddingLeft="17dp"
-                        android:paddingBottom="13.79dp"
-                        android:paddingTop="10.58dp"
-                        android:text="English"
-                        android:textSize="15.07sp"
-                        android:textColor="#000000" />
+                <TextView
+                    android:id="@+id/profile_language1_text_view"
+                    android:layout_width="100dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="-6dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="28dp"
+                    android:gravity="center"
+                    android:text="English"
+                    android:textSize="14sp"
+                    android:background="@drawable/img_textbox"
+                    android:textColor="#000000" />
 
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/profile_language2_card_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12.83dp"
-                    app:cardElevation="10.58dp"
-                    app:cardCornerRadius="10.58dp"
-                    app:cardBackgroundColor="#ffffff">
-                    <TextView
-                        android:id="@+id/profile_language2_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingRight="15.07dp"
-                        android:paddingLeft="17dp"
-                        android:paddingBottom="13.79dp"
-                        android:paddingTop="10.58dp"
-                        android:text="Spanish"
-                        android:textSize="15.07sp"
-                        android:textColor="#000000" />
-                </android.support.v7.widget.CardView>
-
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/profile_language3_card_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12.83dp"
-                    app:cardElevation="10.58dp"
-                    app:cardCornerRadius="10.58dp"
-                    app:cardBackgroundColor="#ffffff">
-                    <TextView
-                        android:id="@+id/profile_language3_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingRight="15.07dp"
-                        android:paddingLeft="17dp"
-                        android:paddingBottom="13.79dp"
-                        android:paddingTop="10.58dp"
-                        android:textSize="15.07sp"
-                        android:text="Korean"
-                        android:textColor="#000000" />
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/profile_language2_text_view"
+                    android:layout_width="100dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="-8dp"
+                    android:layout_marginTop="-6dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="28dp"
+                    android:gravity="center"
+                    android:text="Spanish"
+                    android:textSize="14sp"
+                    android:background="@drawable/img_textbox"
+                    android:textColor="#000000"
+                    />
 
 
 
-                <ImageView
-                    android:id="@+id/edit_language_image_view"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginRight="12.83dp"
-                    android:src="@drawable/btn_edit_language"/>
+                <TextView
+                    android:id="@+id/profile_language3_text_view"
+                    android:layout_width="100dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="-8dp"
+                    android:layout_marginTop="-6dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="28dp"
+                    android:gravity="center"
+                    android:text="Korean"
+                    android:textSize="14sp"
+                    android:background="@drawable/img_textbox"
+                    android:textColor="#000000"
+                    />
+
+                <Button
+                    android:id="@+id/edit_language_button"
+                    android:layout_width="63dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="-8dp"
+                    android:background="@drawable/btn_edit_language"/>
 
             </LinearLayout>
 
@@ -219,173 +201,161 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:textColor="#000000"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     />
 
-                <ImageView
-                    android:id="@+id/edit_introduction_image_view"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="20dp"
+                <Button
+                    android:id="@+id/edit_introduction_button"
+                    android:layout_width="25.66dp"
+                    android:layout_height="25.66dp"
+                    android:layout_marginLeft="3.2dp"
+                    android:layout_marginTop="7.17dp"
                     android:background="@drawable/ic_edit"/>
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
+
+            <TextView
+                android:id="@+id/introduction_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25.66dp"
-                android:layout_marginRight="25.66dp"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="15.07dp"
-                app:cardElevation="10.58dp"
-                app:cardCornerRadius="10.58dp"
-                app:cardBackgroundColor="#ffffff">
+                android:layout_marginTop="9dp"
+                android:paddingTop="25dp"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingBottom="35dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:lineSpacingExtra="6sp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:background="@drawable/img_textbox"
+                android:text="Hi, I'm from London, UK.\nLooking for friends who can help my trip.\nCurrently in Hongdae. Text me."/>
 
-                <TextView
-                    android:id="@+id/introduction_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:text="Hi, I'm from London, UK.\nLooking for friends who can help my trip.\nCurrently in Hongdae. Text me."/>
-            </android.support.v7.widget.CardView>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="12.83dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="13dp"
                 android:text="Trip Card"
                 android:textColor="#000000"
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27.91dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="40.74dp"
-                app:cardElevation="10.58dp"
-                app:cardCornerRadius="10.58dp"
-                app:cardBackgroundColor="#ffffff">
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="9dp"
+                android:paddingTop="18dp"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingBottom="34dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@drawable/img_textbox">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seoul"
-                        android:textColor="#000000"
-                        android:textSize="20sp"/>
+                    android:text="Seoul"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:text="Tourist Attractions/Cultural Facilities"
-                        android:textSize="18sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textColor="#000000"
-                        android:text="FR > EN KR"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27.91dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginRight="40.74dp"
-                app:cardElevation="10.58dp"
-                app:cardCornerRadius="10.58dp"
-                app:cardBackgroundColor="#ffffff">
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seoul"
-                        android:textColor="#000000"
-                        android:textSize="20sp"/>
+                    android:layout_marginTop="3dp"
+                    android:textColor="#808080"
+                    android:text="Tourist Attractions/Cultural Facilities"
+                    android:textSize="14sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:text="Tourist Attractions/Cultural Facilities"
-                        android:textSize="18sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textColor="#000000"
-                        android:text="FR > EN KR"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="27.91dp"
-                android:layout_marginBottom="79.24dp"
-                android:layout_marginRight="40.74dp"
-                app:cardElevation="10.58dp"
-                app:cardCornerRadius="10.58dp"
-                app:cardBackgroundColor="#ffffff">
-
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seoul"
-                        android:textColor="#000000"
-                        android:textSize="20sp"/>
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    android:text="FR > EN KR"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:text="Tourist Attractions/Cultural Facilities"
-                        android:textSize="18sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="-10dp"
+                android:paddingTop="18dp"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingBottom="34dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@drawable/img_textbox">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seoul"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:textColor="#000000"
-                        android:text="FR > EN KR"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#808080"
+                    android:text="Tourist Attractions/Cultural Facilities"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    android:text="FR > EN KR"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="-10dp"
+                android:paddingTop="18dp"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingBottom="34dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@drawable/img_textbox">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seoul"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="#808080"
+                    android:text="Tourist Attractions/Cultural Facilities"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    android:text="FR > EN KR"/>
+            </LinearLayout>
+
 
         </LinearLayout>
     </RelativeLayout>
