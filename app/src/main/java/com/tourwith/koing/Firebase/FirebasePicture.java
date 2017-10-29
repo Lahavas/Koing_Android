@@ -33,7 +33,7 @@ public class FirebasePicture {
     public static final int THUMNAIL = 1;
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef = storage.getReferenceFromUrl("gs://koingandroid.appspot.com/").child("profileImage");
+    private StorageReference storageRef = storage.getReferenceFromUrl("gs://koingandroid-e31f4.appspot.com/").child("profileImage");
     private Context context;
     public FirebasePicture() {
     }
