@@ -4,17 +4,21 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tourwith.koing.Adapter.MessageAdapter;
 import com.tourwith.koing.Model.Chatroom;
 import com.tourwith.koing.Model.Message;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -43,7 +47,10 @@ public class FirebaseMessenger {
     private List<Message> list;
     private LinearLayoutManager manager;
 
-    public FirebaseMessenger() {}
+    public FirebaseMessenger() {
+
+
+    }
 
     public FirebaseMessenger(Context context, RecyclerView recyclerView,Chatroom chatroom) {
         this.context = context;
@@ -58,7 +65,7 @@ public class FirebaseMessenger {
 
     }
 
-    class MessageEventListener implements ValueEventListener{
+    private class MessageEventListener implements ValueEventListener{
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             getUpdates(dataSnapshot);
@@ -105,6 +112,38 @@ public class FirebaseMessenger {
 
     public void setoProfileImgData(byte[] oProfileImgData) {
         this.oProfileImgData = oProfileImgData;
+    }
+
+    public void getLastRecevedMessage(final String oUid, String key, final TextView receivedText, final TextView timeText){
+        final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
+        final Calendar cal = Calendar.getInstance();
+        database = FirebaseDatabase.getInstance();
+        Query messageRef = database.getReference().child("chatroom").child(key).child("message").limitToLast(100);
+        messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Message receivedMessage = null;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    Message vo = ds.getValue(Message.class);
+                    if(vo.getUid().equals(oUid)){
+                        receivedMessage = vo;
+                    }
+
+                }
+                if(receivedMessage!=null){
+                    receivedText.setText(receivedMessage.getContent());
+                    cal.setTimeInMillis((long)receivedMessage.timestamp);
+                    timeText.setText(fmt.format(cal.getTime()));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

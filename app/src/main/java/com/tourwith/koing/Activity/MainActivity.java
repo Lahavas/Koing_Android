@@ -2,6 +2,7 @@ package com.tourwith.koing.Activity;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -9,8 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tourwith.koing.Fragment.HomeFragment;
 import com.tourwith.koing.Fragment.MessageFragment;
 import com.tourwith.koing.Fragment.MyPageFragment;
@@ -26,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     Fragment mypageFragment;
     Fragment tourinfoFragment;
 
+    //Authentication : FirebaseAuth와 AuthStateListener 선언
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    public String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         homeFragment = new HomeFragment();
-        messageFragment = new MessageFragment();
-        mypageFragment = new MyPageFragment();
+        messageFragment = new MessageFragment(this);
+        mypageFragment = new MyPageFragment(this);
         tourinfoFragment = new TourInfoFragment();
 
         container2 = (FrameLayout) findViewById(R.id.container2);
@@ -118,5 +125,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        initAuth();
+
     }
+
+    //initAuth : Firebase Auth 객체 초기화, 자동 로그인
+    private void initAuth(){
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    uid = user.getUid();
+                } else {
+                    // User is signed out
+                    uid = null;
+                }
+            }
+        };
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+
+        }
+    }
+
 }
