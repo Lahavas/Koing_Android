@@ -67,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         initFacebookLogin(); //페이스북 로그인 관련
         grantPermission(); //외부 저장소 퍼미션 요청
 
-
-
     }
 
     @Override
@@ -156,7 +154,6 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
-
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out

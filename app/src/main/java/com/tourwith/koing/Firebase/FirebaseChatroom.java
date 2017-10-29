@@ -64,6 +64,10 @@ public class FirebaseChatroom {
         });
     }
 
+    public List<Chatroom> getChatroomList() {
+        return chatroomList;
+    }
+
     public FirebaseChatroom(Context context, ListView listView, String uid, FragmentManager fragmentManager) {
         this.context = context;
         this.listView = listView;
@@ -146,28 +150,37 @@ public class FirebaseChatroom {
                 return chatroomList.get(position).hashCode();
             }
 
+
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 if(inflater == null)
                     inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 if(convertView == null) {
                     convertView = inflater.inflate(R.layout.item_chatroom_list, parent, false);
-                    TextView oNameText = (TextView) convertView.findViewById(R.id.o_name_text);
+                    TextView oNameText = (TextView) convertView.findViewById(R.id.o_name_text_in_list);
                     TextView recentTimeText = (TextView) convertView.findViewById(R.id.recent_time_text);
                     TextView recentMessageText = (TextView) convertView.findViewById(R.id.recent_message_text);
                     final Chatroom chatroom = chatroomList.get(position);
 
+                    //프로필사진 넣기
                     ImageView profileImage = (ImageView) convertView.findViewById(R.id.ProfileImageAtChatroomList);
-
-
-
                     profileImage.setBackground(new ShapeDrawable(new OvalShape()));
                     profileImage.setClipToOutline(true);
                     firebasePicture.downLoadProfileImage(uid.equals(chatroom.getmUID()) ? chatroom.getoUID() : chatroom.getmUID() , FirebasePicture.ORIGINAL, profileImage);
+
+                    // 이름 넣기
+                    FirebaseProfile firebaseProfile = new FirebaseProfile();
+                    firebaseProfile.getUserName((uid.equals(chatroom.getmUID()) ? chatroom.getoUID() : chatroom.getmUID()), oNameText);
+
+                    //마지막 메시지 불러오기
+                    FirebaseMessenger firebaseMessenger = new FirebaseMessenger();
+                    firebaseMessenger.getLastRecevedMessage((uid.equals(chatroom.getmUID()) ? chatroom.getoUID() : chatroom.getmUID()), chatroom.getKey(), recentMessageText, recentTimeText);
+
                     /*
                         해야 할 것
                         텍스트뷰들 채우기 > 대화 내용 역순으로 불러오기
                      */
+
                     /*
                     enterButton.setOnClickListener(new View.OnClickListener() {
                         @Override

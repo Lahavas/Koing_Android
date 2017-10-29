@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="retrofitBaseURL">http://api.visitkorea.or.kr/openapi/service/</string>
+    <string name="tourAPIKeyKor">NClf04DZH8SfK6X5Fjgz39qLHBqdbhn%2BxXXr1LZMYI8L%2B15lf2Mq8HgNl3nBVDTYEJC%2Bphasxfg%2FeYW3j2ZC3Q%3D%3D</string>
+    <string name="tourAPIKeyEng">NClf04DZH8SfK6X5Fjgz39qLHBqdbhn%2BxXXr1LZMYI8L%2B15lf2Mq8HgNl3nBVDTYEJC%2Bphasxfg%2FeYW3j2ZC3Q%3D%3D</string>
+    <string name="googleKey">AIzaSyDfByaWWIRjcTBepyzlpJ_74cMsquEZyDA </string>
+
+    <string name="facebook_app_id">873220929506393</string>
+    <string name="fb_login_protocol_scheme">fb873220929506393</string>
+</resources>

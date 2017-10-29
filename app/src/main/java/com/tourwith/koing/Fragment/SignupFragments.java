@@ -406,11 +406,11 @@ public class SignupFragments extends Fragment {
 
                 if(extras != null){
                     Bitmap photo = extras.getParcelable("data");
-                    Bitmap resized = Bitmap.createScaledBitmap(photo, 500, 500, true);
-                    profileBitmap = resized;
+                    //Bitmap resized = Bitmap.createScaledBitmap(photo, 500, 500, true);
+                    profileBitmap = photo;
                     profileImageView.setScaleX(1.0f);
                     profileImageView.setScaleY(1.0f);
-                    profileImageView.setImageBitmap(resized);
+                    profileImageView.setImageBitmap(profileBitmap);
 
                     break;
                 }

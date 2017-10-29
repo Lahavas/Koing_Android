@@ -16,9 +16,12 @@ public class Tour {
     String introduction; //자기소개
     Map<String, String> tour_type;
     String uid;
+    String key;
 
     public Tour() {
+
     }
+
 
     public Tour(Object end_timestamp, Object start_timestamp, String introduction, Map<String, String> tour_type, String uid) {
         timestamp = ServerValue.TIMESTAMP;
@@ -27,6 +30,13 @@ public class Tour {
         this.introduction = introduction;
         this.tour_type = tour_type;
         this.uid = uid;
+    }
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Object getTimestamp() {
