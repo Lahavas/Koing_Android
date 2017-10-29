@@ -71,7 +71,6 @@ public class FirebaseProfile {
                     Intent intent = new Intent(activity, SignUpActivity.class);
                     intent.putExtra("InformationNeeded", true);
                     activity.startActivity(intent);
-                    activity.finish();
                 }
 
             }
