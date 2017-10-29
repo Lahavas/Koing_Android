@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,9 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
         imageViewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        imageViewPager.setPageMargin(72);
+        imageViewPager.setPageMargin((int) getResources().getDimension(R.dimen.home_card_page_margin));
         imageViewPager.setClipToPadding(false);
-        imageViewPager.setPadding(120, 0, 120, 0);
+        imageViewPager.setPadding((int) getResources().getDimension(R.dimen.home_card_padding_left), 0, (int) getResources().getDimension(R.dimen.home_card_padding_right), 0);
 
         imageViewPager.setAdapter(new ViewPagerAdapter(getActivity().getLayoutInflater(),getContext(),this, 5));
 
@@ -82,4 +83,11 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     public void onCardClicked(ViewPagerHolder holder, int position) {
 
     }
+
+    public static int dpToPx(Context context, int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
 }

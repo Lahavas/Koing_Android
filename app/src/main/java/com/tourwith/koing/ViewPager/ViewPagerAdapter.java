@@ -1,8 +1,10 @@
 package com.tourwith.koing.ViewPager;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,8 @@ public class ViewPagerAdapter extends PagerAdapter {
         //viewPagerHolder.tv1.setText("name #" + position);
         //ll.setBackgroundColor(Color.rgb(0,0,255) + position * Color.rgb(50,0,0));
         //viewPagerHolder.cv.setCardBackgroundColor(Color.rgb(3,67,223) + position * Color.rgb(30,0,0));
+
+        viewPagerHolder.home_cv.setMaxCardElevation(getPixelsFromDPs(10));
 
         viewPagerHolder.home_send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +168,13 @@ public class ViewPagerAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         return v == obj;
 
+    }
+
+    protected int getPixelsFromDPs(int dps){
+        Resources r = context.getResources();
+        int  px = (int) (TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
+        return px;
     }
 
 }

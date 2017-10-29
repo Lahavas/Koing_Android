@@ -3,6 +3,7 @@ package com.tourwith.koing.ViewPager;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class ViewPagerHolder {
 
     TextView home_description;
 
-    Button home_send_bt;
+    ImageButton home_send_bt;
 
     public ViewPagerHolder(View itemView) {
         home_contain = (RelativeLayout) itemView.findViewById(R.id.home_contain);
@@ -55,6 +56,6 @@ public class ViewPagerHolder {
 
         home_description = (TextView) itemView.findViewById(R.id.home_description);
 
-        home_send_bt = (Button) itemView.findViewById(R.id.home_send_bt);
+        home_send_bt = (ImageButton) itemView.findViewById(R.id.home_send_bt);
     }
 }
