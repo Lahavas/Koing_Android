@@ -62,14 +62,14 @@
 
 
     <RelativeLayout
-        android:layout_width="210dp"
-        android:layout_height="27dp"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
         <FrameLayout
             android:id="@+id/titles"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true">
 
@@ -81,8 +81,8 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="#FF000000"
-                android:maxLines="1"
-                android:ellipsize="end"/>
+                android:maxLines="2"
+                android:ellipsize="marquee"/>
 
             <TextView
                 android:id="@+id/tv_title_2"
@@ -92,8 +92,8 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:textColor="#FF000000"
-                android:maxLines="1"
-                android:ellipsize="end"/>
+                android:maxLines="2"
+                android:ellipsize="marquee"/>
 
         </FrameLayout>
 
@@ -101,14 +101,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginRight="16dp">
 
         <FrameLayout
             android:id="@+id/addrs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true">
 
