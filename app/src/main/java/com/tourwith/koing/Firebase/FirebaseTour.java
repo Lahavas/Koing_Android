@@ -1,15 +1,16 @@
 package com.tourwith.koing.Firebase;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.ViewPager.ViewPagerAdapter;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
@@ -88,14 +89,48 @@ public class FirebaseTour {
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
     }
 
-    public void writeTour(Tour tour){
-        DatabaseReference specifiedTourRef = tourRef.push();
-        tour.setKey(specifiedTourRef.getKey());
-        specifiedTourRef.setValue(tour);
 
-        //User의 투어 리스트에 추가
-        DatabaseReference toursWithinUserRef = database.getReference().child("user").child(tour.getUid()).child("tours").push();
-        toursWithinUserRef.setValue(tour.getKey());
+    public void writeTour(final Tour tour, final Activity activity){
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Processing ...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        DatabaseReference userRef = database.getReference().child("user").child(tour.getUid()).child("tours");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = 0;
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        count++;
+                }
+                progressDialog.dismiss();
+                if(count>=3){
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CARD_MAX_INVALID);
+                    messageDialogFragment.setActivity(activity);
+                    messageDialogFragment.show(activity.getFragmentManager(), "");
+
+                } else {
+                    DatabaseReference specifiedTourRef = tourRef.push();
+                    tour.setKey(specifiedTourRef.getKey());
+                    specifiedTourRef.setValue(tour);
+
+                    //User의 투어 리스트에 추가
+                    DatabaseReference toursWithinUserRef = database.getReference().child("user").child(tour.getUid()).child("tours").push();
+                    toursWithinUserRef.setValue(tour.getKey());
+                    activity.finish();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
     }
 
