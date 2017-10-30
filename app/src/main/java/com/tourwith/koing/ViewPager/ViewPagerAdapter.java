@@ -32,7 +32,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     Context context;
     //FragmentManager fm;
     //Activity activity;
-    final ViewPagerClickListener mListener;
+    ViewPagerClickListener mListener;
     int totalcount;
     List<Tour> tourList;
 
@@ -43,6 +43,10 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.mListener = listener;
         this.totalcount = totalcount;
         this.tourList = tourList;
+    }
+
+    public ViewPagerAdapter() {
+
     }
 
     //Pager Adapter가 가지고 있는 뷰 개

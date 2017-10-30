@@ -1,6 +1,7 @@
 package com.tourwith.koing.Activity;
 
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -245,6 +246,5 @@ public class TourCreationActivity extends AppCompatActivity {
 
 
     }
-
 
 }
