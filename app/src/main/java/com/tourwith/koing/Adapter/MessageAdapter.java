@@ -1,15 +1,10 @@
 package com.tourwith.koing.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tourwith.koing.Model.Message;
@@ -35,18 +30,12 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     private final String mUid;
     private final String oUid;
-    private byte[] oProfileImgData;
-    Bitmap bmp;
 
-    public MessageAdapter(Context context, List<Message> list, String mUid, String oUid, byte[] oProfileImgData) {
+    public MessageAdapter(Context context, List<Message> list, String mUid, String oUid) {
         this.context = context;
         this.list = list;
         this.mUid = mUid;
         this.oUid = oUid;
-        this.oProfileImgData = oProfileImgData;
-        if(oProfileImgData!=null) {
-            bmp = BitmapFactory.decodeByteArray(oProfileImgData, 0, oProfileImgData.length);
-        }
     }
 
     public void setList(List<Message> list) {
@@ -54,15 +43,12 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
-        TextView messageText, timeText, nameText;
-        ImageView profileImage;
+        TextView messageText, timeText;
 
         public ReceivedMessageHolder(View itemView) {
             super(itemView);
             messageText = (TextView) itemView.findViewById(R.id.o_msg_content);
             timeText = (TextView) itemView.findViewById(R.id.o_time_text);
-            nameText = (TextView) itemView.findViewById(R.id.o_name_text);
-            profileImage = (ImageView) itemView.findViewById(R.id.o_profile_image);
         }
 
         void bind(Message vo){
@@ -70,14 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis((long)vo.timestamp);
             timeText.setText(fmt.format(cal.getTime()));
-            nameText.setText("상대방");
-            if(oProfileImgData !=null && bmp!=null) {
-                profileImage.setBackground(new ShapeDrawable(new OvalShape()));
-                profileImage.setClipToOutline(true);
-                profileImage.setImageBitmap(bmp);
-                //Glide.with(context).load(oProfileImgData).into(profileImage);
 
-            }
         }
     }
 
@@ -97,6 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis((long)vo.timestamp);
             mTimewText.setText(fmt.format(cal.getTime()));
+
         }
 
     }

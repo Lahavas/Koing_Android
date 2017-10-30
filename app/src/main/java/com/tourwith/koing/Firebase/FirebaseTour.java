@@ -63,10 +63,12 @@ public class FirebaseTour {
 
         //어댑터에 리스트 추가
 
-//        MessageAdapter adapter = new MessageAdapter(context, list, chatroom.getmUID(), chatroom.getoUID(), oProfileImgData);
-//        adapter.setList(list);
-//        recyclerView.setLayoutManager(manager);
-//        recyclerView.setAdapter(adapter);
+        //MessageAdapter adapter = new MessageAdapter(context, list, chatroom.getmUID(), chatroom.getoUID(), oProfileImgData);
+        //adapter.setList(list);
+        //recyclerView.setLayoutManager(manager);
+        //recyclerView.setAdapter(adapter);
+
+
 
     }
 
@@ -85,8 +87,6 @@ public class FirebaseTour {
         toursWithinUserRef.setValue(tour.getKey());
 
     }
-
-
 
 
 }

@@ -22,7 +22,7 @@ public class BackButtonHandler {
 
     public BackButtonHandler(Activity activity) {
         this.activity = activity;
-        toast = Toast.makeText(activity, "백버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+        toast = Toast.makeText(activity, "Press back once more to exit.", Toast.LENGTH_LONG);
     }
 
     public void onBackPressed(){

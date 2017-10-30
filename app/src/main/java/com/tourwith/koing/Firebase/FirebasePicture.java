@@ -15,7 +15,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tourwith.koing.Fragment.MessageDialogFragment;
-import com.tourwith.koing.Util.SharedPreferenceHelper;
 
 /**
  * Created by hanhb on 2017-09-23.
@@ -138,8 +137,6 @@ public class FirebasePicture {
                 MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.SIGN_UP_SUCCESS);
                 md.setActivity(activity);
                 md.show(activity.getFragmentManager(), "");
-                SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(activity);
-                sharedPreferenceHelper.putBoolean(uid, true);
             }
         });
         return true;
@@ -173,36 +170,6 @@ public class FirebasePicture {
 
     }
 
-    public boolean downLoadProfileImageToChatRoom(String uid, final int imageType, final FirebaseMessenger dao){
-        if(uid == null || uid == "")
-            return false;
-        StorageReference ref;
-        if(imageType == THUMNAIL)
-            ref = storageRef.child(uid).child("thumbnail");
-        else if(imageType==ORIGINAL)
-            ref = storageRef.child(uid).child("original");
-        else
-            return false;
-
-        final long ONE_MEGABYTE = 1024 * 1024;
-        ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                // Data for "images/island.jpg" is returns, use this as needed
-                dao.setoProfileImgData(bytes);
-                dao.refresh(); //리프레쉬
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-
-        return true;
-
-    }
 
 
 

@@ -8,7 +8,6 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,17 +25,20 @@ import com.tourwith.koing.R;
 
 public class MyPageFragment extends Fragment {
     private View view;
-    private Button editIntroductionButton;
+    private ImageView introductionImageView;
     private TextView introductionTextView;
-    private Button settingButton;
+    private ImageView settingImageView;
     private ImageView profileImageView;
-    private Button editLanguageButton;
-    private Button editNameButton;
+    private ImageView languageImageView;
+    private ImageView editNameImageView;
     private TextView profileNameTextView;
     private TextView profileNationLanguageTextView;
     private TextView profileLanguage1TextView;
     private TextView profileLanguage2TextView;
     private TextView profileLanguage3TextView;
+    private CardView profileLanguage1CardView;
+    private CardView profileLanguage2CardView;
+    private CardView profileLanguage3CardView;
     private MainActivity parent;
 
     public MyPageFragment()
@@ -58,14 +60,14 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        editIntroductionButton = (Button)view.findViewById(R.id.edit_introduction_button);
+        introductionImageView = (ImageView)view.findViewById(R.id.edit_introduction_image_view);
         introductionTextView = (TextView)view.findViewById(R.id.introduction_text_view);
 
-        settingButton = (Button)view.findViewById(R.id.setting_button);
+        settingImageView = (ImageView) view.findViewById(R.id.setting_image_view);
 
         profileImageView = (ImageView)view.findViewById(R.id.profile_image_view);
-        editLanguageButton = (Button)view.findViewById(R.id.edit_language_button);
-        editNameButton = (Button)view.findViewById(R.id.edit_name_button);
+        languageImageView = (ImageView)view.findViewById(R.id.edit_language_image_view);
+        editNameImageView = (ImageView)view.findViewById(R.id.edit_name_image_view);
 
         profileNameTextView = (TextView)view.findViewById(R.id.profile_name_text_view);
         profileNationLanguageTextView = (TextView)view.findViewById(R.id.profile_nation_language_text_view);
@@ -74,19 +76,30 @@ public class MyPageFragment extends Fragment {
         profileLanguage2TextView = (TextView)view.findViewById(R.id.profile_language2_text_view);
         profileLanguage3TextView = (TextView)view.findViewById(R.id.profile_language3_text_view);
 
+        profileLanguage1CardView = (CardView)view.findViewById(R.id.profile_language1_card_view);
+        profileLanguage2CardView = (CardView)view.findViewById(R.id.profile_language2_card_view);
+        profileLanguage3CardView = (CardView)view.findViewById(R.id.profile_language3_card_view);
+
         profileImageView.setBackground(new ShapeDrawable(new OvalShape()));
         profileImageView.setClipToOutline(true);
         profileImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+        settingImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.SIGN_OUT);
+                messageDialogFragment.show(parent.getFragmentManager(), "");
+            }
+        });
 
-        editNameButton.setOnClickListener(new View.OnClickListener() {
+        editNameImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView);
                 dialog.show();
             }
         });
-        editLanguageButton.setOnClickListener(new View.OnClickListener() {
+        languageImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s1 = profileLanguage1TextView.getText().toString();
@@ -101,19 +114,19 @@ public class MyPageFragment extends Fragment {
                         profileLanguage2TextView.setText(language2);
                         profileLanguage3TextView.setText(language3);
                         if(!language1.equals("")){
-                            profileLanguage1TextView.setVisibility(View.VISIBLE);
+                            profileLanguage1CardView.setVisibility(View.VISIBLE);
                         }else{
-                            profileLanguage1TextView.setVisibility(View.INVISIBLE);
+                            profileLanguage1CardView.setVisibility(View.INVISIBLE);
                         }
                         if(!language2.equals("")){
-                            profileLanguage2TextView.setVisibility(View.VISIBLE);
+                            profileLanguage2CardView.setVisibility(View.VISIBLE);
                         }else{
-                            profileLanguage2TextView.setVisibility(View.INVISIBLE);
+                            profileLanguage2CardView.setVisibility(View.INVISIBLE);
                         }
                         if(!language3.equals("")){
-                            profileLanguage3TextView.setVisibility(View.VISIBLE);
+                            profileLanguage3CardView.setVisibility(View.VISIBLE);
                         }else{
-                            profileLanguage3TextView.setVisibility(View.INVISIBLE);
+                            profileLanguage3CardView.setVisibility(View.INVISIBLE);
                         }
                     }
 
@@ -125,7 +138,7 @@ public class MyPageFragment extends Fragment {
                 dialog.show();
             }
         });
-        editIntroductionButton.setOnClickListener(new View.OnClickListener() {
+        introductionImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView);

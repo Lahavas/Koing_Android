@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.tourwith.koing.R;
 
@@ -72,12 +73,14 @@ public class ViewPagerAdapter extends PagerAdapter {
         */
         viewPagerHolder.home_person_iv.setBackground(new ShapeDrawable(new OvalShape()));
         viewPagerHolder.home_person_iv.setClipToOutline(true);
+        viewPagerHolder.home_person_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         /*
         * home view flag image rounding
         */
         viewPagerHolder.home_flag_iv.setBackground(new ShapeDrawable(new OvalShape()));
         viewPagerHolder.home_flag_iv.setClipToOutline(true);
+        viewPagerHolder.home_flag_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         viewPagerHolder.home_send_bt.setOnClickListener(new View.OnClickListener() {
             @Override

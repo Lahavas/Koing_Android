@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.tourwith.koing.R;
 
@@ -43,6 +44,7 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesViewHolder> {
         */
         holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
         holder.imageView.setClipToOutline(true);
+        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
     @Override
