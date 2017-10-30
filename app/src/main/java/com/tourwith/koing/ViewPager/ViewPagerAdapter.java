@@ -3,6 +3,8 @@ package com.tourwith.koing.ViewPager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.support.v4.view.PagerAdapter;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -64,6 +66,18 @@ public class ViewPagerAdapter extends PagerAdapter {
         //viewPagerHolder.cv.setCardBackgroundColor(Color.rgb(3,67,223) + position * Color.rgb(30,0,0));
 
         viewPagerHolder.home_cv.setMaxCardElevation(getPixelsFromDPs(10));
+
+        /*
+        * home view people image rounding
+        */
+        viewPagerHolder.home_person_iv.setBackground(new ShapeDrawable(new OvalShape()));
+        viewPagerHolder.home_person_iv.setClipToOutline(true);
+
+        /*
+        * home view flag image rounding
+        */
+        viewPagerHolder.home_flag_iv.setBackground(new ShapeDrawable(new OvalShape()));
+        viewPagerHolder.home_flag_iv.setClipToOutline(true);
 
         viewPagerHolder.home_send_bt.setOnClickListener(new View.OnClickListener() {
             @Override

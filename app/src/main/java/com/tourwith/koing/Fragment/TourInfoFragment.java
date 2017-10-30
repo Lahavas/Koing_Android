@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.tourwith.koing.CardSlider.CardSliderLayoutManager;
 import com.tourwith.koing.CardSlider.CardSnapHelper;
 import com.tourwith.koing.CardSlider.SliderAdapter;
+import com.tourwith.koing.LikesRecyclerView.LikesAdapter;
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
@@ -267,6 +268,9 @@ public class TourInfoFragment extends Fragment {
                     tour_info_likes_recyclerview.setHasFixedSize(true);
                     RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
                     tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
+
+                    LikesAdapter likesAdapter = new LikesAdapter();
+                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
 
                     tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
 
