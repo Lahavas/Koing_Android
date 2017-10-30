@@ -26,12 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/language_plus_image_view"
+            <Button
+                android:id="@+id/language_plus_button"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="right"
-                android:src="@drawable/btn_plus_button_e"/>
+                android:background="@drawable/btn_plus_button_e"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -73,11 +73,11 @@
                     android:background="@drawable/btn_textdown"
                     android:entries="@array/language" />
 
-                <ImageView
-                    android:id="@+id/first_minus_image_view"
+                <Button
+                    android:id="@+id/first_minus_button"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/btn_minus_button" />
+                    android:background="@drawable/btn_minus_button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -125,11 +125,11 @@
                     android:background="@drawable/btn_textdown"
                     android:entries="@array/language" />
 
-                <ImageView
-                    android:id="@+id/second_minus_image_view"
+                <Button
+                    android:id="@+id/second_minus_button"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/btn_minus_button" />
+                    android:background="@drawable/btn_minus_button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -140,59 +140,6 @@
             android:background="#000000"/>
     </LinearLayout>
 
-
-
-
-    <LinearLayout
-        android:id="@+id/third_language_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="272dp"
-            android:layout_height="35dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="26dp">
-
-            <TextView
-                android:id="@+id/third_language_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="English"
-                android:textColor="#000000"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/third_language_spinner"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="23dp"
-                    android:background="@drawable/btn_textdown"
-                    android:entries="@array/language" />
-
-                <ImageView
-                    android:id="@+id/third_minus_image_view"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:src="@drawable/btn_minus_button" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="220dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:background="#000000"/>
-    </LinearLayout>
 
 
     <TextView
@@ -202,10 +149,10 @@
         android:gravity="center"
         android:textSize="18sp"
         android:textColor="#ff523d"
+        android:background="#ffffff"
         android:text="OK"
         android:layout_gravity="center"
         />
 </LinearLayout>
-
 
 

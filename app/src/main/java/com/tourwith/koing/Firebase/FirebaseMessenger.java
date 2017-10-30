@@ -41,7 +41,6 @@ public class FirebaseMessenger {
     private DatabaseReference messageRef;
     private RecyclerView recyclerView;
     private Chatroom chatroom;
-    private byte[] oProfileImgData;
 
     private MessageEventListener listener;
     private List<Message> list;
@@ -88,7 +87,7 @@ public class FirebaseMessenger {
             list.add(vo);
         }
 
-        MessageAdapter adapter = new MessageAdapter(context, list, chatroom.getmUID(), chatroom.getoUID(), oProfileImgData);
+        MessageAdapter adapter = new MessageAdapter(context, list, chatroom.getmUID(), chatroom.getoUID());
         adapter.setList(list);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
@@ -109,10 +108,6 @@ public class FirebaseMessenger {
         contentRef.setValue(vo);
     }
 
-
-    public void setoProfileImgData(byte[] oProfileImgData) {
-        this.oProfileImgData = oProfileImgData;
-    }
 
     public void getLastRecevedMessage(final String oUid, String key, final TextView receivedText, final TextView timeText){
         final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");

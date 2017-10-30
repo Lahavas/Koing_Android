@@ -18,6 +18,7 @@ import com.tourwith.koing.Fragment.MessageFragment;
 import com.tourwith.koing.Fragment.MyPageFragment;
 import com.tourwith.koing.Fragment.TourInfoFragment;
 import com.tourwith.koing.R;
+import com.tourwith.koing.Util.BackButtonHandler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     public String uid;
 
+    private BackButtonHandler backButtonHandler; //171029 추가됨 + 백버튼 종료 추가
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
                     1 );
         }
+        getSupportActionBar().hide(); //171029 추가됨 + 백버튼 종료 추가
+        backButtonHandler = new BackButtonHandler(this);
 
-        homeFragment = new HomeFragment();
+        homeFragment = new HomeFragment(this);
         messageFragment = new MessageFragment(this);
         mypageFragment = new MyPageFragment(this);
         tourinfoFragment = new TourInfoFragment();
@@ -147,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    @Override
+    public void onBackPressed() { //두 번 누르면 종료하게 함.
+        backButtonHandler.onBackPressed();
     }
 
     @Override
