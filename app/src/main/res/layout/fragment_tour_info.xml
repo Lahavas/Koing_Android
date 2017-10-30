@@ -67,7 +67,8 @@
         android:src="@drawable/ic_tourist_attractions"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="31dp"
-        android:layout_marginLeft="24dp"/>
+        android:layout_marginLeft="24dp"
+        android:visibility="invisible"/>
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"

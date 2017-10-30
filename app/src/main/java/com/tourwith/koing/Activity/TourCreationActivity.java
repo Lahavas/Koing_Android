@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
@@ -28,26 +27,24 @@ public class TourCreationActivity extends AppCompatActivity {
 
     private Tour tour;
 
-
     //views
     ImageView profileImage;
     TextView nameText;
 
     private Spinner firstLanguageSpinner;
     private Spinner secondLanguageSpinner;
-    private Spinner thirdLanguageSpinner;
     private LinearLayout secondLanguageLayout;
-    private LinearLayout thirdLanguageLayout;
     private ImageView firstMinusImageView;
-    private ImageView secondMinusImageView;
     private ImageView languagePlusImageView;
     private Spinner areaSpinner;
     private Spinner typeSpinner;
     private TextView periodText;
     private ImageView datePickImageView;
+    private TextView periodText2;
+    private ImageView datePickImageView2;
     private Button registerButton;
     private int year, month, day;
-    private boolean startPicked = false, endPicked = false;
+    Calendar cal, cal2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +87,9 @@ public class TourCreationActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(tour.getLang1().equals(tour.getLang2()))
+                    tour.setLang2("");
+
 
                 MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_TOUR_CREATE);
                 messageDialogFragment.setTour(tour);
@@ -105,27 +105,26 @@ public class TourCreationActivity extends AppCompatActivity {
     private void initDatePickView() {
         datePickImageView = (ImageView) findViewById(R.id.date_pick_imageView);
         periodText = (TextView) findViewById(R.id.period_text_in_tour_creation);
-
+        datePickImageView2 = (ImageView) findViewById(R.id.date_pick_imageView2);
+        periodText2 = (TextView) findViewById(R.id.period_text_in_tour_creation2);
         //format :  "2017/11/22 - 2017/11/24"
 
         //temp, date 입력받는 부분
-        long currentTimeStamp = System.currentTimeMillis();
-        tour.setStart_timestamp(currentTimeStamp);
-        tour.setEnd_timestamp(currentTimeStamp + 24*60*60);
-
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-
+        cal = Calendar.getInstance();
+        cal2 = Calendar.getInstance();
 
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
         day= cal.get(Calendar.DAY_OF_MONTH);
 
-
-        cal.setTimeInMillis(tour.getStart_timestamp());
+        cal.set(year, month, day);
         periodText.setText(fmt.format(cal.getTime()));
-        cal.setTimeInMillis(tour.getEnd_timestamp() + 24*60*60);
-        periodText.append(" - " + fmt.format(cal.getTime()));
+        cal2.set(year, month, day);
+        periodText2.setText(fmt.format(cal.getTime()));
+
+        tour.setStart_timestamp(cal.getTimeInMillis());
+        tour.setEnd_timestamp(cal.getTimeInMillis());
 
         datePickImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,19 +133,32 @@ public class TourCreationActivity extends AppCompatActivity {
 
             }
         });
+        datePickImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(TourCreationActivity.this, dateSetListener2, year, month, day).show();
 
+            }
+        });
     }
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            periodText.setText(year+"/"+(monthOfYear+1)+"/"+dayOfMonth);
+            cal.set(year, monthOfYear, dayOfMonth);
+            tour.setStart_timestamp(cal.getTimeInMillis());
+        }
+    };
+    private DatePickerDialog.OnDateSetListener dateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-            // TODO Auto-generated method stub
-            String msg = String.format("%d / %d / %d", year,monthOfYear+1, dayOfMonth);
-            Toast.makeText(TourCreationActivity.this, msg, Toast.LENGTH_SHORT).show();
+            periodText2.setText(year+"/"+(monthOfYear+1)+"/"+dayOfMonth);
+            cal2.set(year, monthOfYear, dayOfMonth);
+            tour.setEnd_timestamp(cal2.getTimeInMillis());
 
         }
     };
-
 
     private void initAreaAndTypeViews() {
         areaSpinner = (Spinner)findViewById(R.id.area_pick_spinner);
@@ -182,45 +194,28 @@ public class TourCreationActivity extends AppCompatActivity {
 
         firstLanguageSpinner = (Spinner)findViewById(R.id.first_language_spinner2);
         secondLanguageSpinner = (Spinner)findViewById(R.id.second_language_spinner2);
-        thirdLanguageSpinner = (Spinner)findViewById(R.id.third_language_spinner2);
         secondLanguageSpinner.setSelection(1);
-        thirdLanguageSpinner.setSelection(2);
 
         secondLanguageLayout = (LinearLayout)findViewById(R.id.second_language_layout2);
-        thirdLanguageLayout = (LinearLayout)findViewById(R.id.third_language_layout2);
 
         firstMinusImageView = (ImageView)findViewById(R.id.first_minus_image_view2);
-        secondMinusImageView = (ImageView)findViewById(R.id.second_minus_image_view2);
 
         languagePlusImageView = (ImageView)findViewById(R.id.language_plus_image_view2);
         languagePlusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(secondLanguageLayout.getVisibility()==View.GONE){
-                    secondLanguageLayout.setVisibility(View.VISIBLE);
-                }else if(thirdLanguageLayout.getVisibility()==View.GONE){
-                    thirdLanguageLayout.setVisibility(View.VISIBLE);
-                }
+                secondLanguageLayout.setVisibility(View.VISIBLE);
             }
         });
 
         firstMinusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(thirdLanguageLayout.getVisibility()!=View.GONE){
-                    thirdLanguageLayout.setVisibility(View.GONE);
-                }else{
-                    secondLanguageLayout.setVisibility(View.GONE);
-                }
+                secondLanguageLayout.setVisibility(View.GONE);
+
             }
         });
 
-        secondMinusImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                thirdLanguageLayout.setVisibility(View.GONE);
-            }
-        });
 
         firstLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -247,22 +242,9 @@ public class TourCreationActivity extends AppCompatActivity {
             }
         });
 
-        thirdLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(thirdLanguageLayout.getVisibility()!=View.GONE)
-                    tour.setLang3(parent.getItemAtPosition(position)+"");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
     }
-
 
 
 }

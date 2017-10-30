@@ -135,6 +135,27 @@ public class FirebaseProfile {
 
     }
 
+    public void getUserInfo(String uid, final TextView nameText, final TextView nationalityText, final TextView
+                            mainLangText, final TextView informationText){
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+
+                nameText.setText(user.getNickname());
+                nationalityText.setText(user.getNationality());
+                mainLangText.setText(user.getMainLang());
+                informationText.setText(user.getComments());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     public void getUser(final String uid, final TextView textView){
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

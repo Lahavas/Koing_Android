@@ -1,6 +1,8 @@
 package com.tourwith.koing.Firebase;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,7 +11,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tourwith.koing.Model.Tour;
+import com.tourwith.koing.ViewPager.ViewPagerAdapter;
+import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,9 +26,11 @@ public class FirebaseTour {
     private FirebaseDatabase database;
     private DatabaseReference tourRef;
 
+    private ViewPager viewPager;
+    private List<Tour> tourList = new ArrayList<Tour>();
+    private Activity activity;
     private Context context;
-    private RecyclerView recyclerView;
-    private List<Tour> tourList;
+    private ViewPagerClickListener listener;
 
 
     public FirebaseTour() {
@@ -32,11 +39,13 @@ public class FirebaseTour {
 
     }
 
-    public FirebaseTour(Context context, RecyclerView recyclerView) {
+    public FirebaseTour(ViewPager viewPager, Activity activity, Context context, ViewPagerClickListener listener) {
         database = FirebaseDatabase.getInstance();
         tourRef = database.getReference().child("tour");
+        this.activity = activity;
         this.context = context;
-        this.recyclerView = recyclerView;
+        this.viewPager = viewPager;
+        this.listener = listener;
 
         tourRef.addListenerForSingleValueEvent(new TourEventListener()); //리스너를 추가하여 리사이클러뷰 갱신
 
@@ -68,6 +77,8 @@ public class FirebaseTour {
         //recyclerView.setLayoutManager(manager);
         //recyclerView.setAdapter(adapter);
 
+
+        viewPager.setAdapter(new ViewPagerAdapter(activity.getLayoutInflater(),context, listener, tourList.size(), tourList));
 
 
     }

@@ -170,53 +170,6 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/third_language_layout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="19dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="horizontal">
-
-                        <Spinner
-                            android:id="@+id/third_language_spinner2"
-                            android:layout_width="265dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="25dp"
-                            android:background="@drawable/btn_textdown2"
-                            android:entries="@array/language" />
-
-                        <ImageView
-                            android:id="@+id/second_minus_image_view2"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:src="@drawable/btn_minus_button" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="260dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="#000000"/>
-            </LinearLayout>
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -347,27 +300,23 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="19dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center">
 
                     <TextView
+                        android:text="2017/10/29"
                         android:id="@+id/period_text_in_tour_creation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
+                        android:layout_marginRight="20dp"
                         android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="horizontal">
 
 
                         <ImageView
@@ -375,14 +324,37 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/btn_calender_button" />
-                    </LinearLayout>
-                </LinearLayout>
 
+                </LinearLayout>
                 <TextView
-                    android:layout_width="260dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="6dp"
-                    android:background="#000000"/>
+                    android:text=" ~ "
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"/>
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:text="2017/10/29"
+                        android:id="@+id/period_text_in_tour_creation2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:layout_marginRight="20dp"
+                        android:textSize="16sp" />
+
+
+                    <ImageView
+                        android:id="@+id/date_pick_imageView2"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/btn_calender_button" />
+
+                </LinearLayout>
             </LinearLayout>
 
 

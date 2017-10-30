@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.TourCreationActivity;
+import com.tourwith.koing.Firebase.FirebaseChatroom;
+import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     ArrayList<String> imageArr;
     int baseItemViewHeight = 900;
     MainActivity activity;
+    ViewPagerClickListener listener;
 
     public HomeFragment() {
     }
@@ -75,7 +78,12 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
         imageViewPager.setClipToPadding(false);
         imageViewPager.setPadding((int) getResources().getDimension(R.dimen.home_card_padding_left), 0, (int) getResources().getDimension(R.dimen.home_card_padding_right), 0);
 
-        imageViewPager.setAdapter(new ViewPagerAdapter(getActivity().getLayoutInflater(),getContext(),this, 5));
+        //imageViewPager.setAdapter(new ViewPagerAdapter(getActivity().getLayoutInflater(),getContext(),this, 5));
+
+        listener = this;
+
+        FirebaseTour firebaseTour = new FirebaseTour(imageViewPager, getActivity(), getContext(), listener);
+
 
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -85,7 +93,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(context, "position : " + position, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -102,7 +110,6 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
     @Override
     public void onCardClicked(ViewPagerHolder holder, int position) {
-
     }
 
     public static int dpToPx(Context context, int dp) {

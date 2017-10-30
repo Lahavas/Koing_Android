@@ -19,7 +19,6 @@ public class Tour {
 
     String lang1 = "";
     String lang2 = "";
-    String lang3 = "";
 
     public Tour() {
         timestamp = ServerValue.TIMESTAMP;
@@ -95,14 +94,6 @@ public class Tour {
 
     public void setLang2(String lang2) {
         this.lang2 = lang2;
-    }
-
-    public String getLang3() {
-        return lang3;
-    }
-
-    public void setLang3(String lang3) {
-        this.lang3 = lang3;
     }
 
     public String getUid() {
