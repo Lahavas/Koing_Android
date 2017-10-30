@@ -137,7 +137,6 @@
                 android:background="@drawable/btn_textdown"
                 />
 
-
         </LinearLayout>
     </LinearLayout>
 
@@ -159,6 +158,5 @@
         android:layout_gravity="center"
         />
 </LinearLayout>
-
 
 

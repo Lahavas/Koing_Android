@@ -10,8 +10,18 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.tourwith.koing.Activity.MainActivity;
+import com.tourwith.koing.Firebase.FirebaseChatroom;
+import com.tourwith.koing.Firebase.FirebasePicture;
+import com.tourwith.koing.Firebase.FirebaseProfile;
+import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Munak on 2017. 10. 28..
@@ -22,15 +32,21 @@ public class ViewPagerAdapter extends PagerAdapter {
     Context context;
     //FragmentManager fm;
     //Activity activity;
-    final ViewPagerClickListener mListener;
+    ViewPagerClickListener mListener;
     int totalcount;
+    List<Tour> tourList;
 
     //전달받은 inflater 멤버변수에 전달
-    public ViewPagerAdapter(LayoutInflater inflater, Context context, ViewPagerClickListener listener, int totalcount) {
+    public ViewPagerAdapter(LayoutInflater inflater, Context context, ViewPagerClickListener listener, int totalcount, List<Tour> tourList) {
         this.inflater = inflater;
         this.context = context;
         this.mListener = listener;
         this.totalcount = totalcount;
+        this.tourList = tourList;
+    }
+
+    public ViewPagerAdapter() {
+
     }
 
     //Pager Adapter가 가지고 있는 뷰 개
@@ -65,25 +81,53 @@ public class ViewPagerAdapter extends PagerAdapter {
         //ll.setBackgroundColor(Color.rgb(0,0,255) + position * Color.rgb(50,0,0));
         //viewPagerHolder.cv.setCardBackgroundColor(Color.rgb(3,67,223) + position * Color.rgb(30,0,0));
 
-        viewPagerHolder.home_cv.setMaxCardElevation(getPixelsFromDPs(10));
+        //viewPagerHolder.home_cv.setMaxCardElevation(getPixelsFromDPs(10));
 
         /*
         * home view people image rounding
         */
         viewPagerHolder.home_person_iv.setBackground(new ShapeDrawable(new OvalShape()));
         viewPagerHolder.home_person_iv.setClipToOutline(true);
+        viewPagerHolder.home_person_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         /*
         * home view flag image rounding
         */
         viewPagerHolder.home_flag_iv.setBackground(new ShapeDrawable(new OvalShape()));
         viewPagerHolder.home_flag_iv.setClipToOutline(true);
+        viewPagerHolder.home_flag_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        /* tour info start */
+        final Tour tour = tourList.get(position);
+
+        FirebasePicture firebasePicture = new FirebasePicture(context);
+        firebasePicture.downLoadProfileImage(tour.getUid(), FirebasePicture.ORIGINAL, viewPagerHolder.home_person_iv);
+
+        FirebaseProfile firebaseProfile = new FirebaseProfile();
+        firebaseProfile.getUserInfo(tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_language, viewPagerHolder.home_description, viewPagerHolder.home_flag_iv, context);
+
+        viewPagerHolder.home_tourist_type.setText(tour.getTour_type());
+
+        /* period */
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
+
+        Calendar calStart = Calendar.getInstance();
+        Calendar calEnd = Calendar.getInstance();
+
+        calStart.setTimeInMillis(tour.getStart_timestamp());
+        calEnd.setTimeInMillis(tour.getEnd_timestamp());
+
+        viewPagerHolder.home_trip_period.setText(fmt.format(calStart.getTime()) + " ~ " + fmt.format(calEnd.getTime()));
+
+
+        /* tour info end */
 
         viewPagerHolder.home_send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mListener.onCardClicked(viewPagerHolder,position);
+                FirebaseChatroom firebaseChatroom = new FirebaseChatroom(context);
+                firebaseChatroom.writeChatroom(((MainActivity)context).uid, tour.getUid());
 
                 //Toast.makeText(view.getContext(), position + "g : " + cv.getCardBackgroundColor(), Toast.LENGTH_SHORT).show();
 

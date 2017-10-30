@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tour_type">
+        <item >All type</item>
+        <item >Dining</item>
+        <item >Leisure</item>
+        <item >Events</item>
+        <item >Shopping</item>
+        <item >Tourist Attractions</item>
+        <item >Cultural Facilities</item>
+    </string-array>
+</resources>

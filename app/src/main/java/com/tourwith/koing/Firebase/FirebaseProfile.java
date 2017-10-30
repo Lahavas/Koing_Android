@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.SignUpActivity;
 import com.tourwith.koing.Model.User;
+import com.tourwith.koing.Util.SharedPreferenceHelper;
+import com.tourwith.koing.ViewPager.LanguageToFlag;
 
 /**
  * Created by hanhb on 2017-10-11.
@@ -63,6 +65,9 @@ public class FirebaseProfile {
                 }
                 progressDialog.dismiss();
                 if(found){ //일치하는 회원정보를 찾았을 경우, 메인으로 이동
+                    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(activity);
+                    sharedPreferenceHelper.putBoolean(uid, true); //빠른 자동 로그인을 위해 서버를 거치지 않는 방식 사용
+
                     Intent intent = new Intent(activity, MainActivity.class);
                     activity.startActivity(intent);
                     activity.finish();
@@ -97,7 +102,7 @@ public class FirebaseProfile {
                 if(nameText!=null) nameText.setText(user.getNickname());
                 if(profileNationLanguageTextView!=null) {
                     profileNationLanguageTextView.setText(user.getNationality());
-                    profileNationLanguageTextView.append(" - " + user.getMainLang());
+                    profileNationLanguageTextView.append(" \u2022 " + user.getMainLang());
                 }
                 if(introductionText!=null) introductionText.setText(user.getComments());
 
@@ -121,6 +126,28 @@ public class FirebaseProfile {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 if(nameText!=null) nameText.setText(user.getNickname());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void getUserInfo(String uid, final TextView nameText, final TextView nationalityText, final TextView
+                            mainLangText, final TextView informationText, final ImageView flagImage, final Context context){
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+
+                nameText.setText(user.getNickname());
+                nationalityText.setText(user.getNationality());
+                mainLangText.setText(user.getMainLang());
+                informationText.setText(user.getComments());
+                flagImage.setBackgroundResource(new LanguageToFlag(context).Converter(user.getNationality()));
 
             }
             @Override

@@ -9,12 +9,11 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/home_cv"
-        android:layout_width="296dp"
-        android:layout_height="405dp"
+        android:layout_width="316dp"
+        android:layout_height="430dp"
         card_view:cardCornerRadius="10dp"
         card_view:cardBackgroundColor="#FFffffff"
-        card_view:cardElevation="6dp"
-        card_view:cardMaxElevation="10dp">
+        card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -100,7 +99,6 @@
                 android:layout_height="36dp"
                 android:layout_below="@+id/home_tourist_type_title"
                 android:background="@drawable/img_homebox"
-                android:text="Tourist Attractions"
                 android:textSize="14dp"
                 android:textColor="#FF1c1c1c"
                 android:paddingLeft="12dp"
@@ -127,7 +125,6 @@
                 android:layout_height="36dp"
                 android:layout_below="@+id/home_trip_period_title"
                 android:background="@drawable/img_homebox"
-                android:text="2017/11/22 ~ 2017/11/24"
                 android:textSize="14dp"
                 android:textColor="#FF1c1c1c"
                 android:paddingLeft="12dp"
@@ -144,9 +141,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="12dp"
-                android:text="Hi, I’m from London, UK.
-Looking for friends who can help my trip.
-Currently in Hongdae. Text me"
                 android:textSize="13dp"
                 android:textColor="#FF1c1c1c"
                 android:lineSpacingExtra="10dp"/>
