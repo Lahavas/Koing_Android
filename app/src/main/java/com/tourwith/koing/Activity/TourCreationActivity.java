@@ -1,7 +1,6 @@
 package com.tourwith.koing.Activity;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentTransaction;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -88,15 +87,19 @@ public class TourCreationActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tour.getLang1().equals(tour.getLang2()))
+                if(tour.getLang1().equals(tour.getLang2()) || secondLanguageLayout.getVisibility()==View.GONE)
                     tour.setLang2("");
 
+                if(tour.getStart_timestamp() > tour.getEnd_timestamp()){
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.DATE_INVALID);
+                    messageDialogFragment.show(getFragmentManager(), "");
 
-                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_TOUR_CREATE);
-                messageDialogFragment.setTour(tour);
-                messageDialogFragment.setActivity(TourCreationActivity.this);
-                messageDialogFragment.show(getFragmentManager(), "");
-
+                } else {
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_TOUR_CREATE);
+                    messageDialogFragment.setTour(tour);
+                    messageDialogFragment.setActivity(TourCreationActivity.this);
+                    messageDialogFragment.show(getFragmentManager(), "");
+                }
             }
         });
 

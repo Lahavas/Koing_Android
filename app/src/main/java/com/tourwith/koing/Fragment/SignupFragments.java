@@ -170,7 +170,7 @@ public class SignupFragments extends Fragment {
                 secondInstructionText.setText("This nationality information will be open on koing.");
                 inputEditText = (EditText) view.findViewById(R.id.input_edit_text);
                 inputEditText.setVisibility(View.GONE);
-                spinner = (Spinner) view.findViewById(R.id.language_spinner);
+                spinner = (Spinner) view.findViewById(R.id.nationality_spinner);
                 spinner.setVisibility(View.VISIBLE);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -226,7 +226,7 @@ public class SignupFragments extends Fragment {
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!parentActivity.userForSignup.getMainLang().equals("Choose your country")){
+                        if(!parentActivity.userForSignup.getMainLang().equals("Choose your language")){
                             parentActivity.switchFragment(OTH_LANGUAGES_INPUT);
 
                         } else {
@@ -247,23 +247,33 @@ public class SignupFragments extends Fragment {
                 secondInstructionText = (TextView) view.findViewById(R.id.instruction_text_second_at_langs);
                 secondInstructionText.setText("This is the native language information available on koing. You can select up to 3.");
 
-                Spinner[] spinners = new Spinner[3];
-                Button[] buttons = new Button[3];
-
+                Spinner[] spinners = new Spinner[2];
                 setSpinners(spinners, view);
-                setButtons(buttons, view);
-
+                setButtons(view);
 
                 submitButton = view.findViewById(R.id.submit_button_floating_at_langs);
+                final View finalView = view;
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!parentActivity.userForSignup.getMainLang().equals("Choose your country")){
-                            parentActivity.switchFragment(COMMENTS_INPUT);
+                        if((parentActivity.userForSignup.getLang1().equals("Choose your language") && parentActivity.userForSignup.getLang2().equals("Choose your language")
+                        || (parentActivity.userForSignup.getLang1().equals("Choose your language") && finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.GONE))){
 
-                        } else {
                             MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NATIONALITY_FAILED);
                             df.show(parentActivity.getFragmentManager(), "");
+
+                        } else {
+
+                            if(parentActivity.userForSignup.getLang1().equals(parentActivity.userForSignup.getLang2())){
+                                parentActivity.userForSignup.setLang2("");
+                            } else if(parentActivity.userForSignup.getLang1().equals("Choose your language") && finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.VISIBLE){
+                                parentActivity.userForSignup.setLang1(parentActivity.userForSignup.getLang2());
+                                parentActivity.userForSignup.setLang2("");
+                            } else if(finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.VISIBLE){
+                                parentActivity.userForSignup.setLang2("");
+                            }
+
+                            parentActivity.switchFragment(COMMENTS_INPUT);
                         }
 
                     }
@@ -329,10 +339,6 @@ public class SignupFragments extends Fragment {
                     }
                 });
 
-
-
-
-
                 break;
         }
 
@@ -340,11 +346,21 @@ public class SignupFragments extends Fragment {
         return view;
     }
 
-    private void setButtons(Button[] buttons, View view) {
+    private void setButtons(final View view) {
 
-        buttons[0] = (Button) view.findViewById(R.id.lang_add_button1);
-        buttons[1] = (Button) view.findViewById(R.id.lang_add_button2);
-        buttons[2] = (Button) view.findViewById(R.id.lang_add_button3);
+        view.findViewById(R.id.lang_add_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.findViewById(R.id.second_lang_layout_in_signin).setVisibility(View.VISIBLE);
+            }
+        });
+
+        view.findViewById(R.id.lang_minus_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.findViewById(R.id.second_lang_layout_in_signin).setVisibility(View.GONE);
+            }
+        });
 
 
     }
@@ -352,21 +368,28 @@ public class SignupFragments extends Fragment {
     private void setSpinners(Spinner[] spinners, View view) {
         spinners[0] = (Spinner) view.findViewById(R.id.language_spinner1);
         spinners[1] = (Spinner) view.findViewById(R.id.language_spinner2);
-        spinners[2] = (Spinner) view.findViewById(R.id.language_spinner3);
 
-        for(Spinner spinner : spinners){
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                    parentActivity.userForSignup.setMainLang((String) parent.getItemAtPosition(position));
+        spinners[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                parentActivity.userForSignup.setLang1((String) parent.getItemAtPosition(position));
 
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {}
-            });
-        }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
+        spinners[1].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                parentActivity.userForSignup.setLang2((String) parent.getItemAtPosition(position));
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
     }
     private void doTakeAlbumAction(){
