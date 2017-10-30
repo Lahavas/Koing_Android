@@ -100,7 +100,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         firebasePicture.downLoadProfileImage(tour.getUid(), FirebasePicture.ORIGINAL, viewPagerHolder.home_person_iv);
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
-        firebaseProfile.getUserInfo(tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_language, viewPagerHolder.home_description);
+        firebaseProfile.getUserInfo(tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_language, viewPagerHolder.home_description, viewPagerHolder.home_flag_iv, context);
 
         viewPagerHolder.home_tourist_type.setText(tour.getTour_type());
 

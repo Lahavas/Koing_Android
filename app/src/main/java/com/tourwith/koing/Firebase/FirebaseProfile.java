@@ -16,6 +16,7 @@ import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.SignUpActivity;
 import com.tourwith.koing.Model.User;
 import com.tourwith.koing.Util.SharedPreferenceHelper;
+import com.tourwith.koing.ViewPager.LanguageToFlag;
 
 /**
  * Created by hanhb on 2017-10-11.
@@ -136,7 +137,7 @@ public class FirebaseProfile {
     }
 
     public void getUserInfo(String uid, final TextView nameText, final TextView nationalityText, final TextView
-                            mainLangText, final TextView informationText){
+                            mainLangText, final TextView informationText, final ImageView flagImage, final Context context){
         userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,6 +147,7 @@ public class FirebaseProfile {
                 nationalityText.setText(user.getNationality());
                 mainLangText.setText(user.getMainLang());
                 informationText.setText(user.getComments());
+                flagImage.setBackgroundResource(new LanguageToFlag(context).Converter(user.getNationality()));
 
             }
             @Override

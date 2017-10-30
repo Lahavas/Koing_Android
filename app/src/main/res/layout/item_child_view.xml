@@ -10,7 +10,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/home_cv"
         android:layout_width="316dp"
-        android:layout_height="425dp"
+        android:layout_height="430dp"
         card_view:cardCornerRadius="10dp"
         card_view:cardBackgroundColor="#FFffffff"
         card_view:cardUseCompatPadding="true">
