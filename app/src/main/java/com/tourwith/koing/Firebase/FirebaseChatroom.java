@@ -41,7 +41,7 @@ public class FirebaseChatroom {
     DatabaseReference boardRef;
     FragmentManager fragmentManager;
     String uid;
-
+    ImageView background_if_none;
     public FirebaseChatroom(){}
 
     public FirebaseChatroom(Context context){
@@ -49,6 +49,8 @@ public class FirebaseChatroom {
         database = FirebaseDatabase.getInstance();
         boardRef = database.getReference("chatroom");
     }
+
+
     //한 번만 DB에서 불러옴.
     public void refresh() {
         boardRef = database.getReference("chatroom");
@@ -68,11 +70,11 @@ public class FirebaseChatroom {
         return chatroomList;
     }
 
-    public FirebaseChatroom(Context context, ListView listView, String uid, FragmentManager fragmentManager) {
+    public FirebaseChatroom(Context context, ListView listView, String uid, FragmentManager fragmentManager, ImageView background_if_none) {
         this.context = context;
         this.listView = listView;
         database = FirebaseDatabase.getInstance();
-
+        this.background_if_none = background_if_none;
         this.uid = uid;
         this.fragmentManager = fragmentManager;
 
@@ -176,38 +178,25 @@ public class FirebaseChatroom {
                     FirebaseMessenger firebaseMessenger = new FirebaseMessenger();
                     firebaseMessenger.getLastRecevedMessage((uid.equals(chatroom.getmUID()) ? chatroom.getoUID() : chatroom.getmUID()), chatroom.getKey(), recentMessageText, recentTimeText);
 
-                    /*
-                        해야 할 것
-                        텍스트뷰들 채우기 > 대화 내용 역순으로 불러오기
-                     */
 
-                    /*
-                    enterButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, ChatroomActivity.class);
-                            intent.putExtra("key", chatroom.getKey());
-                            if(chatroom.getmUID().equals(uid)) {
-                                intent.putExtra("ouid", chatroom.getoUID()); //내가 상대방에게 채팅신청을 했을 경우
-                            }
-                            else {
-                                intent.putExtra("ouid", chatroom.getmUID()); //상대방이 내게 채팅신청을 했을 경우
-                            }
-
-                            context.startActivity(intent);
-                        }
-                    });
-                    */
                 }
                 return convertView;
             }
         }
-
+        boolean isExist = false;
         chatroomList.clear();
         for(DataSnapshot ds : dataSnapshot.getChildren()) {
             Chatroom vo = ds.getValue(Chatroom.class);
-            if(uid.equals(vo.getmUID()) || uid.equals(vo.getoUID()))
+            if(uid.equals(vo.getmUID()) || uid.equals(vo.getoUID())) {
                 chatroomList.add(vo);
+                isExist = true;
+            }
+        }
+
+        if(isExist) {
+            background_if_none.setVisibility(View.GONE);
+        }else {
+            background_if_none.setVisibility(View.VISIBLE);
         }
 
         ChatroomAdapter adaptor = new ChatroomAdapter();

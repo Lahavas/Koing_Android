@@ -3,12 +3,12 @@
     android:shape="rectangle">
     <!-- 슼카이블루 -->
     <solid
-        android:color="#9dcfff" >
+        android:color="#f3f3f3" >
     </solid>
 
     <!-- The radius makes the corners rounded -->
     <corners
-        android:radius="30dp">
+        android:radius="40dp">
     </corners>
 
 </shape>
