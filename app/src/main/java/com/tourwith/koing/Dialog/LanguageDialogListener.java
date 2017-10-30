@@ -5,6 +5,6 @@ package com.tourwith.koing.Dialog;
  */
 
 public interface LanguageDialogListener {
-    public void onPositiveClicked(String language1, String language2, String language3);
+    public void onPositiveClicked(String language1, String language2);
     public void onNegativeClicked();
 }

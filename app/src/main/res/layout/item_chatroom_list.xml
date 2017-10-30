@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:background="#ffffff">
     <ImageView
         android:id="@+id/ProfileImageAtChatroomList"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_margin="10dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
         android:layout_gravity="center_vertical"
         />
     <LinearLayout
@@ -16,30 +20,30 @@
         android:orientation="vertical"
         android:layout_weight="10">
         <TextView
-            android:text="Jimmy"
             android:textColor="#404040"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:id="@+id/o_name_text_in_list"
-            android:layout_width="wrap_content"
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="4dp"/>
+
         <TextView
-            android:text="contentoentaoe"
             android:id="@+id/recent_message_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="226dp"
+            android:layout_height="36dp"
             android:maxLines="2"
-            android:textSize="15dp"
-            android:textColor="#878787"/>
+            android:textColor="#878787"
+            android:textSize="13dp" />
 
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:layout_marginRight="12dp"
-        android:text="hahah"
-        android:textSize="15dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
         android:textColor="#404040"
         android:id="@+id/recent_time_text"
         android:layout_width="wrap_content"

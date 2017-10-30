@@ -1,6 +1,7 @@
 package com.tourwith.koing.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,8 +9,13 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.tourwith.koing.Activity.MainActivity;
+import com.tourwith.koing.Activity.TourCreationActivity;
+import com.tourwith.koing.Firebase.FirebaseChatroom;
+import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
@@ -30,8 +36,14 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     Context context;
     ArrayList<String> imageArr;
     int baseItemViewHeight = 900;
+    MainActivity activity;
+    ViewPagerClickListener listener;
 
     public HomeFragment() {
+    }
+
+    public HomeFragment(MainActivity mainActivity) {
+        this.activity = mainActivity;
     }
 
     @Override
@@ -46,6 +58,18 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        ////by hb
+        ImageButton tourCreateButton = (ImageButton) view.findViewById(R.id.home_add_bt);
+        tourCreateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, TourCreationActivity.class);
+                intent.putExtra("uid", activity.uid);
+                startActivity(intent);
+            }
+        });
+
+
         context = getContext();
 
         imageViewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -54,7 +78,12 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
         imageViewPager.setClipToPadding(false);
         imageViewPager.setPadding((int) getResources().getDimension(R.dimen.home_card_padding_left), 0, (int) getResources().getDimension(R.dimen.home_card_padding_right), 0);
 
-        imageViewPager.setAdapter(new ViewPagerAdapter(getActivity().getLayoutInflater(),getContext(),this, 5));
+        //imageViewPager.setAdapter(new ViewPagerAdapter(getActivity().getLayoutInflater(),getContext(),this, 5));
+
+        listener = this;
+
+        FirebaseTour firebaseTour = new FirebaseTour(imageViewPager, getActivity(), getContext(), listener);
+
 
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -64,7 +93,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(context, "position : " + position, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -81,7 +110,6 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
     @Override
     public void onCardClicked(ViewPagerHolder holder, int position) {
-
     }
 
     public static int dpToPx(Context context, int dp) {

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tourwith.koing.Activity.LoginActivity;
+import com.tourwith.koing.Firebase.FirebaseTour;
+import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
 
 /**
@@ -33,12 +35,19 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int PICTURE_INVALID = 10;
     public static final int UPLOAD_FAILED = 11;
     public static final int EMAIL_PASSWORD_INVALID = 12;
+    public static final int CHECK_TOUR_CREATE = 13;
+
+    public Tour tour;
 
     public MessageDialogFragment(){}
     public MessageDialogFragment(int code){
         this.code = code;
     }
     public Activity activity = null;
+
+    public void setTour(Tour tour){
+        this.tour = tour;
+    }
 
     public void setActivity(Activity activity) {
         this.activity = activity;
@@ -88,9 +97,9 @@ public class MessageDialogFragment extends DialogFragment {
             });
         } else if(code == SIGN_OUT) {
             messageText.setText("Are you sure to sign out?");
-            rButton.setText("Okay");
+            rButton.setText("No");
             Button lButton = (Button) view.findViewById(R.id.button_left);
-            lButton.setText("No");
+            lButton.setText("Okay");
             lButton.setVisibility(View.VISIBLE);
             lButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,6 +119,21 @@ public class MessageDialogFragment extends DialogFragment {
             messageText.setText("Please upload your profile image");
         } else if(code == EMAIL_PASSWORD_INVALID){
             messageText.setText("Please enter your email.\nPassword must be more than 8 words");
+        } else if(code == CHECK_TOUR_CREATE){
+            messageText.setText("Are you sure to upload?");
+            rButton.setText("No");
+            Button lButton = (Button) view.findViewById(R.id.button_left);
+            lButton.setText("Okay");
+            lButton.setVisibility(View.VISIBLE);
+            lButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseTour firebaseTour = new FirebaseTour();
+                    firebaseTour.writeTour(tour);
+                    dismiss();
+                    activity.finish();
+                }
+            });
         } else
             messageText.setText("error");
 

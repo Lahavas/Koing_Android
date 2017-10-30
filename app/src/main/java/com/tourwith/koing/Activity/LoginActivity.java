@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.R;
 import com.tourwith.koing.Util.BackButtonHandler;
+import com.tourwith.koing.Util.SharedPreferenceHelper;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -155,6 +156,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(activity);
+
+                    if(sharedPreferenceHelper.getBoolean(user.getUid())) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        FirebaseProfile firebaseProfile = new FirebaseProfile();
+                        firebaseProfile.checkUserAndMove(user.getUid(), activity, progressDialog);
+                    }
+
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -214,10 +227,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseProfile firebaseProfile = new FirebaseProfile();
-                            firebaseProfile.checkUserAndMove(user.getUid(), activity, progressDialog);
                             Log.d(TAG, "signInWithCredential:success");
                         } else {
                             progressDialog.dismiss();
