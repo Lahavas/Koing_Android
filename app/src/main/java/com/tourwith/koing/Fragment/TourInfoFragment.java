@@ -15,11 +15,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.TourInfoFilterActivity;
 import com.tourwith.koing.CardSlider.CardSliderLayoutManager;
 import com.tourwith.koing.CardSlider.CardSnapHelper;
 import com.tourwith.koing.CardSlider.SliderAdapter;
 import com.tourwith.koing.Dialog.GpsSetDialog;
+import com.tourwith.koing.Firebase.FirebaseTourInfo;
 import com.tourwith.koing.LikesRecyclerView.LikesAdapter;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
@@ -92,18 +94,33 @@ public class TourInfoFragment extends Fragment {
     private SliderAdapter sliderAdapter;
     private LikesAdapter likesAdapter;
 
+    private TextView tour_info_likes_count;
+
+    private FirebaseTourInfo firebaseTourInfo;
+
+    private MainActivity activity;
+
     private String[] countries;
 
     private String[] titles;
 
     private String[] addrs;
 
+    private String[] contentids;
+
     private CardSliderLayoutManager layoutManger;
     private int currentPosition;
 
     private Call<TourInfoResponse> call;
+
     public TourInfoFragment() {
+
     }
+
+    public TourInfoFragment(MainActivity mainActivity) {
+        this.activity = mainActivity;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -119,22 +136,20 @@ public class TourInfoFragment extends Fragment {
         countries = new String[24];
         titles = new String[24];
         addrs = new String[24];
+        contentids = new String[24];
 
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-
+        /* tour_info_country */
         country1TextView = (TextView) view.findViewById(R.id.tv_country_1);
         country2TextView = (TextView) view.findViewById(R.id.tv_country_2);
         countryAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
         countryOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset);
         countryOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
 
-
         country1TextView.setX(countryOffset1);
         country2TextView.setX(countryOffset2);
         country2TextView.setAlpha(0f);
 
+        /* tour_info_title */
         titleAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
         titleOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
         titleOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
@@ -145,6 +160,7 @@ public class TourInfoFragment extends Fragment {
         title2TextView.setX(titleOffset2);
         title2TextView.setAlpha(0f);
 
+        /* tour_info_address */
         addrAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
         addrOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
         addrOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
@@ -155,16 +171,27 @@ public class TourInfoFragment extends Fragment {
         addr2TextView.setX(addrOffset2);
         addr2TextView.setAlpha(0f);
 
-        tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
-        tourInfoLocation = (ImageButton)view.findViewById(R.id.tour_info_location);
 
 
-        new CardSnapHelper().attachToRecyclerView(recyclerView);
-
+        /* tour_info_likes_recyclerview */
         tour_info_likes_recyclerview = (RecyclerView) view.findViewById(R.id.tour_info_likes_recyclerview);
         tour_info_likes_recyclerview.setHasFixedSize(true);
         RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
         tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
+
+        tour_info_likes_count = (TextView) view.findViewById(R.id.tour_info_likes_count);
+
+        firebaseTourInfo = new FirebaseTourInfo(getContext(), tour_info_likes_recyclerview);
+
+        tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
+
+        tour_info_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseTourInfo.doLike(activity.uid ,contentids[currentPosition], tour_info_heart);
+
+            }
+        });
 
         tourInfoFilter = (ImageButton)view.findViewById(R.id.tour_info_filter);
 
@@ -184,8 +211,20 @@ public class TourInfoFragment extends Fragment {
                 .build();
         retrofitService = retrofit.create(TourInfoRetrofitService.class);
 
+
+        /* default 화면 */
+        area = "Seoul";
+        tourType = "Cultural Facilities";
+        callGetEngTripInfoByArea(area,tourType);
+
+        /* tour_info_cardslider */
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        setViewForTripInfo();
+
         layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
 
+        new CardSnapHelper().attachToRecyclerView(recyclerView);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -196,23 +235,7 @@ public class TourInfoFragment extends Fragment {
             }
         });
 
-
-        /* default 화면 */
-        area = "Seoul";
-        tourType = "Cultural Facilities";
-        callGetEngTripInfoByArea(area,tourType);
-        setViewForTripInfo();
-
-
-
-        tour_info_heart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
-            }
-        });
-
-
+        tourInfoLocation = (ImageButton)view.findViewById(R.id.tour_info_location);
 
         tourInfoLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +255,7 @@ public class TourInfoFragment extends Fragment {
                     dialog.show();
                 }else{//gps 설정이 된 경우
                     callGetEngTripInfoByLocation(tourType);
-                    setViewForTripInfo();
+                    setViewForTripInfo2();
                 }
             }
         });
@@ -268,7 +291,7 @@ public class TourInfoFragment extends Fragment {
                     else{//현재 위치에서 정보를 가저오는 경우
                         callGetEngTripInfoByLocation(tourType);
                     }
-                    setViewForTripInfo();
+                    setViewForTripInfo2();
                 }
                 break;
         }
@@ -289,6 +312,9 @@ public class TourInfoFragment extends Fragment {
         setCountryText(countries[pos % countries.length], left2right);
         setTitleText(titles[pos % titles.length], left2right);
         setAddrText(addrs[pos % addrs.length], left2right);
+
+        firebaseTourInfo.getLikes(contentids[pos % contentids.length],tour_info_likes_count);
+        firebaseTourInfo.getMyLike(activity.uid, contentids[pos % contentids.length],tour_info_heart);
 
         currentPosition = pos;
     }
@@ -436,7 +462,8 @@ public class TourInfoFragment extends Fragment {
             dialog.show();
         }
     }
-    private void setViewForTripInfo(){
+
+    private void setViewForTripInfo() {
         call.enqueue(new Callback<TourInfoResponse>() {
             @Override
             public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
@@ -449,22 +476,70 @@ public class TourInfoFragment extends Fragment {
                         countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
                         titles[ii] = item.getTitle();
                         addrs[ii] = item.getAddr1();
+                        contentids[ii] = item.getContentid();
                         ii++;
                     }
 
                     sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
                     recyclerView.setAdapter(sliderAdapter);
 
-
-                        /* country */
+                    /* country */
                     country1TextView.setText(countries[0]);
-                        /* title */
+
+                    /* title */
                     title1TextView.setText(titles[0]);
-                        /* addr */
+
+                    /* addr */
                     addr1TextView.setText(addrs[0]);
 
-                    likesAdapter = new LikesAdapter();
-                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
+                    /* likes */
+                    firebaseTourInfo.getLikes(contentids[0],tour_info_likes_count);
+
+                    firebaseTourInfo.getMyLike(activity.uid, contentids[0],tour_info_heart);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourInfoResponse> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "정보받아오기 실패", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setViewForTripInfo2() {
+        call.enqueue(new Callback<TourInfoResponse>() {
+            @Override
+            public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
+                TourInfoResponse r = response.body();
+                if (r.getBody().getItems().getItem() != null) {
+                    mItems = r.getBody().getItems().getItem();
+
+                    int ii = 0;
+                    for (TourInfoItem item : mItems) {
+                        countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
+                        titles[ii] = item.getTitle();
+                        addrs[ii] = item.getAddr1();
+                        contentids[ii] = item.getContentid();
+                        ii++;
+                    }
+
+                    sliderAdapter.addAll(mItems);
+                    sliderAdapter.notifyDataSetChanged();
+
+                    /* country */
+                    country1TextView.setText(countries[0]);
+
+                    /* title */
+                    title1TextView.setText(titles[0]);
+
+                    /* addr */
+                    addr1TextView.setText(addrs[0]);
+
+                    /* likes */
+                    firebaseTourInfo.getLikes(contentids[0],tour_info_likes_count);
+
+                    firebaseTourInfo.getMyLike(activity.uid, contentids[0],tour_info_heart);
                 }
             }
 
