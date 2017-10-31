@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -113,7 +114,7 @@ public class FirebaseProfile {
     }
 
     public void getUser(Context context, String uid, final TextView nameText, final TextView profileNationLanguageTextView,
-                        final TextView introductionText, ImageView profileImage, TextView...languages){
+                        final TextView introductionText, ImageView profileImage, final TextView languageText1, final TextView languageText2){
 
         FirebasePicture firebasePicture = new FirebasePicture(context);
         firebasePicture.downLoadProfileImage(uid, FirebasePicture.ORIGINAL, profileImage);
@@ -128,7 +129,14 @@ public class FirebaseProfile {
                     profileNationLanguageTextView.append(" \u2022 " + user.getMainLang());
                 }
                 if(introductionText!=null) introductionText.setText(user.getComments());
-
+                if(!user.getLang1().equals("")){
+                    languageText1.setText(user.getLang1());
+                    languageText1.setVisibility(View.VISIBLE);
+                }
+                if(!user.getLang2().equals("")){
+                    languageText2.setText(user.getLang2());
+                    languageText2.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

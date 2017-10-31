@@ -2,11 +2,12 @@
 <resources>
     <string-array name="nationality">
         <item>Choose your country</item>
-        <item >united states</item>
         <item >Korea</item>
-        <item >Japan</item>
         <item >China</item>
+        <item >United States</item>
+        <item >Japan</item>
         <item >Spain</item>
         <item >France</item>
+        <item >United Kingdom</item>
     </string-array>
 </resources>
