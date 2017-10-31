@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.R;
 
 /**
@@ -35,13 +36,14 @@ public class MyPageLanguageDialog extends Dialog{
     private Button languagePlusButton;
 
     private LanguageDialogListener dialogListener;
+    private String uid;
 
-
-    public MyPageLanguageDialog(@NonNull Context context, String language1, String language2){
+    public MyPageLanguageDialog(@NonNull Context context, String language1, String language2, String uid){
         super(context);
         this.context = context;
         this.language1 = language1;
         this.language2 = language2;
+        this.uid = uid;
     }
 
     public void setDialogListener(LanguageDialogListener dialogListener){
@@ -129,13 +131,18 @@ public class MyPageLanguageDialog extends Dialog{
         languageOKTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String language1="", language2="";
-                if(firstLanguageLayout.getVisibility() == View.VISIBLE){
-                    language1=firstLanguageTextView.getText().toString();
+                language1 = firstLanguageLayout.getVisibility() == View.VISIBLE ? language1 : "";
+                language2 = secondLanguageLayout.getVisibility() == View.VISIBLE ? language2 : "";
+
+                if(language1.equals(language2))
+                    language2 = "";
+                else if(language1.equals("")) {
+                    language1 = language2;
+                    language2 = "";
                 }
-                if(secondLanguageLayout.getVisibility() == View.VISIBLE){
-                    language2=secondLanguageTextView.getText().toString();
-                }
+
+                FirebaseProfile firebaseProfile = new FirebaseProfile();
+                firebaseProfile.updateUserLangs(uid, language1, language2);
 
                 dialogListener.onPositiveClicked(language1,language2);
                 dismiss();
@@ -148,6 +155,7 @@ public class MyPageLanguageDialog extends Dialog{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 firstLanguageTextView.setText(parent.getItemAtPosition(position)+"");
+                language1 = parent.getItemAtPosition(position)+"";
             }
 
             @Override
@@ -160,6 +168,7 @@ public class MyPageLanguageDialog extends Dialog{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 secondLanguageTextView.setText(parent.getItemAtPosition(position)+"");
+                language2 = parent.getItemAtPosition(position)+"";
             }
 
             @Override

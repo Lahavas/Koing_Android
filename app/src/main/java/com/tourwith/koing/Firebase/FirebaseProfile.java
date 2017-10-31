@@ -51,6 +51,29 @@ public class FirebaseProfile {
         specificUser.setValue(user);
     }
 
+    public void updateUserMainProfile(User user, String uid){
+
+        DatabaseReference specificUser = userRef.child(uid);
+        specificUser.child("mainLang").setValue(user.getMainLang());
+        specificUser.child("nationality").setValue(user.getNationality());
+        specificUser.child("nickname").setValue(user.getNickname());
+
+    }
+
+    public void updateUserLangs(String uid, String language1, String language2){
+
+        DatabaseReference specificUser = userRef.child(uid);
+        specificUser.child("lang1").setValue(language1);
+        specificUser.child("lang2").setValue(language2);
+    }
+
+
+    public void updateUserIntroduction(String uid, String introduction){
+
+        DatabaseReference specificUser = userRef.child(uid);
+        specificUser.child("comments").setValue(introduction);
+    }
+
     public void checkUserAndMove(final String uid, final Activity activity, final ProgressDialog progressDialog){
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,7 +160,7 @@ public class FirebaseProfile {
     }
 
     public void getUserInfo(String uid, final TextView nameText, final TextView nationalityText, final TextView
-                            mainLangText, final TextView informationText, final ImageView flagImage, final Context context){
+            mainLangText, final TextView informationText, final ImageView flagImage, final Context context){
         userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,29 +181,6 @@ public class FirebaseProfile {
 
     }
 
-    public void getUser(final String uid, final TextView textView){
-
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User userByFirebase = null;
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(ds.getKey().equals(uid)){
-                        textView.setText(ds.getKey());
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-    }
 
 
 
