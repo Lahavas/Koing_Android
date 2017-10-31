@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.R;
 
 /**
@@ -20,10 +21,12 @@ public class MyPageIntroductionDialog extends Dialog{
     private EditText introductionEditText;
     private TextView introductionOKTextView;
     private TextView introductionTextView;
-    public MyPageIntroductionDialog(@NonNull Context context, TextView introductionTextView){
+    private String uid;
+    public MyPageIntroductionDialog(@NonNull Context context, TextView introductionTextView, String uid){
         super(context);
         this.context = context;
         this.introductionTextView = introductionTextView;
+        this.uid = uid;
     }
 
 
@@ -44,6 +47,8 @@ public class MyPageIntroductionDialog extends Dialog{
             @Override
             public void onClick(View v) {
                 introductionTextView.setText(introductionEditText.getText().toString());
+                FirebaseProfile firebaseProfile = new FirebaseProfile();
+                firebaseProfile.updateUserIntroduction(uid, introductionEditText.getText().toString());
                 dismiss();
             }
         });

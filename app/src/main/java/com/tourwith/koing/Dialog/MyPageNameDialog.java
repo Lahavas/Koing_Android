@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.tourwith.koing.Firebase.FirebaseProfile;
+import com.tourwith.koing.Model.User;
 import com.tourwith.koing.R;
 
 /**
@@ -29,10 +32,13 @@ public class MyPageNameDialog extends Dialog{
     private EditText profileNameEditText;
     private TextView profileNameTextView;
     private TextView profileNationLanguageTextView;
+    private User user;
+    private String uid;
 
-
-    public MyPageNameDialog(@NonNull Context context, TextView profileNameTextView, TextView profileNationLanguageTextView){
+    public MyPageNameDialog(@NonNull Context context, TextView profileNameTextView, TextView profileNationLanguageTextView, String uid){
         super(context);
+        user = new User();
+        this.uid = uid;
         this.context = context;
         this.profileNameTextView = profileNameTextView;
         this.profileNationLanguageTextView = profileNationLanguageTextView;
@@ -51,7 +57,7 @@ public class MyPageNameDialog extends Dialog{
         nameOKTextView = (TextView)findViewById(R.id.name_ok_text_view);
         nativeLanguageTextView = (TextView)findViewById(R.id.native_language_text_view);
         profileNameEditText = (EditText)findViewById(R.id.profile_name_edit_text);
-
+        profileNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         profileNameEditText.setText(profileNameTextView.getText().toString());
 
         String s = profileNationLanguageTextView.getText().toString();
@@ -82,6 +88,9 @@ public class MyPageNameDialog extends Dialog{
             public void onClick(View v) {
                 profileNameTextView.setText(profileNameEditText.getText().toString());
                 profileNationLanguageTextView.setText(nationalityTextView.getText().toString() + " \u2022 " + nativeLanguageTextView.getText().toString());
+                user.setNickname(profileNameEditText.getText().toString().trim());
+                FirebaseProfile firebaseProfile = new FirebaseProfile();
+                firebaseProfile.updateUserMainProfile(user, uid);
                 dismiss();
             }
         });
@@ -90,6 +99,7 @@ public class MyPageNameDialog extends Dialog{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 nationalityTextView.setText(parent.getItemAtPosition(position)+"");
+                user.setNationality(parent.getItemAtPosition(position)+"");
             }
 
             @Override
@@ -102,6 +112,7 @@ public class MyPageNameDialog extends Dialog{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 nativeLanguageTextView.setText(parent.getItemAtPosition(position)+"");
+                user.setMainLang(parent.getItemAtPosition(position)+"");
             }
 
             @Override

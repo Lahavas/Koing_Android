@@ -86,7 +86,7 @@ public class MyPageFragment extends Fragment {
         editNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView);
+                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView, parent.uid);
                 dialog.show();
             }
         });
@@ -96,7 +96,7 @@ public class MyPageFragment extends Fragment {
                 String s1 = profileLanguage1TextView.getText().toString();
                 String s2 = profileLanguage2TextView.getText().toString();
 
-                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2);
+                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2, parent.uid);
                 dialog.setDialogListener(new LanguageDialogListener() {
                     @Override
                     public void onPositiveClicked(String language1, String language2) {
@@ -126,7 +126,7 @@ public class MyPageFragment extends Fragment {
         editIntroductionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView);
+                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView, parent.uid);
                 dialog.show();
             }
         });
