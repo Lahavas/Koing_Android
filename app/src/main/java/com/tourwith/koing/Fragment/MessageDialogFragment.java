@@ -36,6 +36,8 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int UPLOAD_FAILED = 11;
     public static final int EMAIL_PASSWORD_INVALID = 12;
     public static final int CHECK_TOUR_CREATE = 13;
+    public static final int DATE_INVALID = 14;
+    public static final int CARD_MAX_INVALID = 15;
 
     public Tour tour;
 
@@ -129,13 +131,23 @@ public class MessageDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     FirebaseTour firebaseTour = new FirebaseTour();
-                    firebaseTour.writeTour(tour);
+                    firebaseTour.writeTour(tour, activity);
                     dismiss();
+                }
+            });
+        } else if (code == DATE_INVALID) {
+            messageText.setText("Check your trip period");
+        } else if (code == CARD_MAX_INVALID) {
+            messageText.setText("Maximum # of cards is 3!");
+            rButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     activity.finish();
                 }
             });
-        } else
+        } else {
             messageText.setText("error");
+        }
 
         return view;
     }

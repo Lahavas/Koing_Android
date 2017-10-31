@@ -20,70 +20,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-        <Button
-            android:id="@+id/lang_add_button1"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/btn_plus_button_e"/>
-        <Spinner
-            android:id="@+id/language_spinner1"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/language"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="10dp"
-            />
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/lang_add_button"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/btn_plus_button_e"/>
+            <Spinner
+                android:id="@+id/language_spinner1"
+                android:layout_width="260dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/btn_textdown2"
+                android:entries="@array/languageHB" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_width="250dp"
+            android:layout_height="1dp"
+            android:background="#000000"/>
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/second_lang_layout_in_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-        <Button
-            android:id="@+id/lang_add_button2"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/btn_plus_button_e"
-            android:visibility="gone"/>
-        <Spinner
-            android:id="@+id/language_spinner2"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/language"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            />
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/lang_minus_button"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/btn_minus_button"/>
+            <Spinner
+                android:id="@+id/language_spinner2"
+                android:layout_width="260dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/btn_textdown2"
+                android:entries="@array/languageHB" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_width="250dp"
+            android:layout_height="1dp"
+            android:background="#000000"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-        <Button
-            android:id="@+id/lang_add_button3"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/btn_plus_button_e"
-            android:visibility="gone"/>
-        <Spinner
-            android:id="@+id/language_spinner3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/language"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            />
-    </LinearLayout>
+
+
+
+
     <TextView
         android:layout_gravity="right"
         android:textColor="#000000"
