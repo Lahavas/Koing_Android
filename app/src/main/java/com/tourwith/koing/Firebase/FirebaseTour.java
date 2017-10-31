@@ -77,6 +77,52 @@ public class FirebaseTour {
 
     }
 
+    public void filter(final Tour filter){
+        tourRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tourList.clear();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Tour vo = ds.getValue(Tour.class);
+                    boolean addToList = true;
+
+                    //filtering
+                    if(!filter.getNationality().equals(vo.getNationality()))
+                        addToList = false;
+                    if(!filter.getArea().equals(vo.getArea()))
+                        addToList = false;
+                    if(!filter.getTour_type().equals("All type") && !filter.getTour_type().equals(vo.getTour_type()))
+                        addToList = false;
+                    if(!(filter.getLang1().equals(vo.getLang1()) || filter.getLang1().equals(vo.getLang2())
+                            || (!filter.getLang2().equals("") && filter.getLang2().equals(filter.getLang1()))
+                            || (!filter.getLang2().equals("") && filter.getLang2().equals(filter.getLang2())))){
+                        addToList = false;
+                    }
+
+//                    if(filter.getEnd_timestamp() < vo.getStart_timestamp() || vo.getEnd_timestamp() < filter.getStart_timestamp())
+//                        addToList = false;
+
+
+                    if(addToList)
+                        tourList.add(vo);
+
+                }
+
+                viewPager.setAdapter(new ViewPagerAdapter(activity.getLayoutInflater(),context, listener, tourList.size(), tourList));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
+
+
     //리프레쉬 : 리사이클러 뷰 갱신
     public void refresh(){
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
@@ -136,12 +182,13 @@ public class FirebaseTour {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        DatabaseReference userRef = database.getReference().child("user").child(tour.getUid()).child("tours");
+        DatabaseReference userRef = database.getReference().child("user").child(tour.getUid());
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                DataSnapshot tourSnapshot = dataSnapshot.child("tours");
+                for(DataSnapshot ds : tourSnapshot.getChildren()) {
                         count++;
                 }
 
@@ -154,6 +201,7 @@ public class FirebaseTour {
                 } else {
                     DatabaseReference specifiedTourRef = tourRef.push();
                     tour.setKey(specifiedTourRef.getKey());
+                    tour.setNationality(dataSnapshot.child("nationality").getValue(String.class));
                     specifiedTourRef.setValue(tour);
 
                     //User의 투어 리스트에 추가

@@ -12,6 +12,7 @@ public class Tour {
     public Long end_timestamp; //여행 시작일
     public Long start_timestamp; // 여행 종료일
 
+    String nationality;
     String tour_type; //투어 타입
     String area;
     String uid;
@@ -30,6 +31,14 @@ public class Tour {
 
         this.area = area;
         this.tour_type = tour_type;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public String getArea() {

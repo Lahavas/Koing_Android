@@ -1,8 +1,8 @@
 package com.tourwith.koing.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.tourwith.koing.Activity.MainActivity;
+import com.tourwith.koing.Activity.UserInformationActivity;
 import com.tourwith.koing.Firebase.FirebaseChatroom;
 import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
@@ -121,6 +122,17 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 
         /* tour info end */
+
+        viewPagerHolder.home_person_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserInformationActivity.class);
+                //(MainActivity)context).uid, tour.getUid()
+                intent.putExtra("mUID", ((MainActivity)context).uid);
+                intent.putExtra("oUID", tour.getUid());
+                context.startActivity(intent);
+            }
+        });
 
         viewPagerHolder.home_send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
