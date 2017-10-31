@@ -88,7 +88,6 @@
                             android:layout_marginTop="75dp"
                             android:layout_marginBottom="4dp"
                             android:textSize="20sp"
-                            android:text="Sarah Nguyen"
                             />
                         <Button
                             android:id="@+id/edit_name_button"
@@ -104,7 +103,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
                         android:textColor="#1c1c1c"
-                        android:text="United Kingdom \u2022 English"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -128,6 +126,7 @@
                 android:layout_marginLeft="14dp">
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/profile_language1_text_view"
                     android:layout_width="100dp"
                     android:layout_height="64dp"
@@ -143,21 +142,21 @@
                     android:textColor="#000000" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/profile_language2_text_view"
                     android:layout_width="100dp"
                     android:layout_height="64dp"
                     android:layout_marginLeft="-8dp"
                     android:layout_marginTop="-6dp"
+                    android:background="@drawable/img_textbox"
+                    android:gravity="center"
+                    android:paddingBottom="28dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="15dp"
-                    android:paddingBottom="28dp"
-                    android:gravity="center"
                     android:text="Spanish"
-                    android:textSize="14sp"
-                    android:background="@drawable/img_textbox"
                     android:textColor="#000000"
-                    />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/edit_language_button"
@@ -209,8 +208,7 @@
                 android:lineSpacingExtra="6sp"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                android:background="@drawable/img_textbox"
-                android:text="Hi, I'm from London, UK.\nLooking for friends who can help my trip.\nCurrently in Hongdae. Text me."/>
+                android:background="@drawable/img_textbox"/>
 
 
             <TextView
@@ -227,6 +225,7 @@
 
 
             <LinearLayout
+                android:id="@+id/card_layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -237,33 +236,35 @@
                 android:paddingBottom="34dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
-                android:background="@drawable/img_textbox">
+                android:background="@drawable/img_textbox"
+                android:visibility="gone">
                 <TextView
+                    android:id="@+id/card_area_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seoul"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:textSize="18sp"/>
 
                 <TextView
+                    android:id="@+id/card_type_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:textColor="#808080"
-                    android:text="Tourist Attractions/Cultural Facilities"
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/card_lang_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="12sp"
-                    android:textColor="#000000"
-                    android:text="FR > EN KR"/>
+                    android:textColor="#000000"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/card_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -274,33 +275,35 @@
                 android:paddingBottom="34dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
-                android:background="@drawable/img_textbox">
+                android:background="@drawable/img_textbox"
+                android:visibility="gone">
                 <TextView
+                    android:id="@+id/card_area_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seoul"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:textSize="18sp"/>
 
                 <TextView
+                    android:id="@+id/card_type_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:textColor="#808080"
-                    android:text="Tourist Attractions/Cultural Facilities"
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/card_lang_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="12sp"
-                    android:textColor="#000000"
-                    android:text="FR > EN KR"/>
+                    android:textColor="#000000"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/card_layout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -311,30 +314,31 @@
                 android:paddingBottom="34dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
-                android:background="@drawable/img_textbox">
+                android:background="@drawable/img_textbox"
+                android:visibility="gone">
                 <TextView
+                    android:id="@+id/card_area_text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seoul"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:textSize="18sp"/>
 
                 <TextView
+                    android:id="@+id/card_type_text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:textColor="#808080"
-                    android:text="Tourist Attractions/Cultural Facilities"
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/card_lang_text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="12sp"
-                    android:textColor="#000000"
-                    android:text="FR > EN KR"/>
+                    android:textColor="#000000"/>
             </LinearLayout>
 
 

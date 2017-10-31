@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tourwith.koing.Activity.MainActivity;
@@ -17,6 +18,7 @@ import com.tourwith.koing.Dialog.MyPageIntroductionDialog;
 import com.tourwith.koing.Dialog.MyPageLanguageDialog;
 import com.tourwith.koing.Dialog.MyPageNameDialog;
 import com.tourwith.koing.Firebase.FirebaseProfile;
+import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.R;
 
 /**
@@ -36,6 +38,12 @@ public class MyPageFragment extends Fragment {
     private TextView profileLanguage1TextView;
     private TextView profileLanguage2TextView;
     private MainActivity parent;
+
+    private LinearLayout []cardLayouts = new LinearLayout[3];
+    private TextView []cardAreaTexts = new TextView[3];
+    private TextView []cardTypeTexts = new TextView[3];
+    private TextView []cardLangTexts = new TextView[3];
+
 
     public MyPageFragment()
     {
@@ -75,6 +83,7 @@ public class MyPageFragment extends Fragment {
         profileImageView.setClipToOutline(true);
         profileImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+        initCards(view);
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,5 +146,28 @@ public class MyPageFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void initCards(View view) {
+
+        cardLayouts[0] = (LinearLayout) view.findViewById(R.id.card_layout1);
+        cardLayouts[1] = (LinearLayout) view.findViewById(R.id.card_layout2);
+        cardLayouts[2] = (LinearLayout) view.findViewById(R.id.card_layout3);
+
+        cardAreaTexts[0] = (TextView) view.findViewById(R.id.card_area_text1);
+        cardAreaTexts[1] = (TextView) view.findViewById(R.id.card_area_text2);
+        cardAreaTexts[2] = (TextView) view.findViewById(R.id.card_area_text3);
+
+        cardTypeTexts[0] = (TextView) view.findViewById(R.id.card_type_text1);
+        cardTypeTexts[1] = (TextView) view.findViewById(R.id.card_type_text2);
+        cardTypeTexts[2] = (TextView) view.findViewById(R.id.card_type_text3);
+
+        cardLangTexts[0] = (TextView) view.findViewById(R.id.card_lang_text1);
+        cardLangTexts[1] = (TextView) view.findViewById(R.id.card_lang_text2);
+        cardLangTexts[2] = (TextView) view.findViewById(R.id.card_lang_text3);
+
+        FirebaseTour firebaseTour = new FirebaseTour();
+        firebaseTour.getToursOfUser(parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+
     }
 }
