@@ -3,6 +3,7 @@ package com.tourwith.koing.Fragment;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +19,12 @@ import com.tourwith.koing.Activity.TourInfoFilterActivity;
 import com.tourwith.koing.CardSlider.CardSliderLayoutManager;
 import com.tourwith.koing.CardSlider.CardSnapHelper;
 import com.tourwith.koing.CardSlider.SliderAdapter;
+import com.tourwith.koing.Dialog.GpsSetDialog;
 import com.tourwith.koing.LikesRecyclerView.LikesAdapter;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
 import com.tourwith.koing.R;
+import com.tourwith.koing.TourAPI.GpsInfoService;
 import com.tourwith.koing.TourAPI.MatchParsingSource;
 import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 
@@ -35,6 +38,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LOCATION_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Munak on 2017. 9. 23..
@@ -48,6 +53,9 @@ public class TourInfoFragment extends Fragment {
     private TourInfoRetrofitService retrofitService;
 
     private RecyclerView recyclerView;
+
+    private String area;
+    private String tourType;
 
     private String baseUrl;
     private TextView textView3;
@@ -78,6 +86,7 @@ public class TourInfoFragment extends Fragment {
 
     private ImageButton tour_info_heart;
     private ImageButton tourInfoFilter;
+    private ImageButton tourInfoLocation;
 
     private RecyclerView tour_info_likes_recyclerview;
     private SliderAdapter sliderAdapter;
@@ -92,6 +101,7 @@ public class TourInfoFragment extends Fragment {
     private CardSliderLayoutManager layoutManger;
     private int currentPosition;
 
+    private Call<TourInfoResponse> call;
     public TourInfoFragment() {
     }
 
@@ -145,16 +155,9 @@ public class TourInfoFragment extends Fragment {
         addr2TextView.setX(addrOffset2);
         addr2TextView.setAlpha(0f);
 
-        layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
+        tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
+        tourInfoLocation = (ImageButton)view.findViewById(R.id.tour_info_location);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    onActiveCardChange();
-                }
-            }
-        });
 
         new CardSnapHelper().attachToRecyclerView(recyclerView);
 
@@ -163,16 +166,7 @@ public class TourInfoFragment extends Fragment {
         RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
         tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
 
-
-
-        tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
-
-        tour_info_heart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
-            }
-        });
+        tourInfoFilter = (ImageButton)view.findViewById(R.id.tour_info_filter);
 
         baseUrl = getString(R.string.retrofitBaseURL);
         korKey = getString(R.string.tourAPIKeyKor);
@@ -184,7 +178,66 @@ public class TourInfoFragment extends Fragment {
 
         }
 
-        tourInfoFilter = (ImageButton)view.findViewById(R.id.tour_info_filter);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .build();
+        retrofitService = retrofit.create(TourInfoRetrofitService.class);
+
+        layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    onActiveCardChange();
+                }
+            }
+        });
+
+
+        /* default 화면 */
+        area = "Seoul";
+        tourType = "Cultural Facilities";
+        callGetEngTripInfoByArea(area,tourType);
+        setViewForTripInfo();
+
+
+
+        tour_info_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
+            }
+        });
+
+
+
+        tourInfoLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+
+                // GPS 정보 가져오기
+                Boolean isGPSEnabled = locationManager
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+                // 현재 네트워크 상태 값 알아오기
+                Boolean isNetworkEnabled = locationManager
+                        .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                if (!isGPSEnabled && !isNetworkEnabled) {//gps 설정이 안된 경우
+                    GpsSetDialog dialog = new GpsSetDialog(getContext());
+                    dialog.show();
+                }else{//gps 설정이 된 경우
+                    callGetEngTripInfoByLocation(tourType);
+                    setViewForTripInfo();
+                }
+            }
+        });
+
+
         tourInfoFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,102 +246,7 @@ public class TourInfoFragment extends Fragment {
             }
         });
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(SimpleXmlConverterFactory.create())
-                .build();
-        retrofitService = retrofit.create(TourInfoRetrofitService.class);
-        //영문 관광정보 받아오기
 
-        Call<TourInfoResponse> call = retrofitService.
-                getEngTripInfo(decodedEngKey,
-                        "78",
-                        "1",
-                        "","","","",
-                        "Y",
-                        "AND",
-                        "Koing",
-                        "P",
-                        "24",
-                        "1"
-                );
-
-
-        call.enqueue(new Callback<TourInfoResponse>() {
-            @Override
-            public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
-                TourInfoResponse r = response.body();
-                if(r.getBody().getItems().getItem() != null) {
-                    mItems = r.getBody().getItems().getItem();
-
-                    int ii = 0;
-                    for(TourInfoItem item : mItems){
-                        countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
-                        titles[ii] = item.getTitle();
-                        addrs[ii] = item.getAddr1();
-                        ii++;
-                    }
-
-                    sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
-                    recyclerView.setAdapter(sliderAdapter);
-
-
-                    /* country */
-
-                    country1TextView.setText(countries[0]);
-
-                    /* title */
-                    title1TextView.setText(titles[0]);
-
-                    /* addr */
-
-                    addr1TextView.setText(addrs[0]);
-
-                    likesAdapter = new LikesAdapter();
-                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<TourInfoResponse> call, Throwable t) {
-
-                Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*
-        //영문 현재 위치 근처 관광정보 받아오기
-        double latitude=37.568477;
-        double longitude=126.981106;
-        GpsInfoService gps = new GpsInfoService(getContext());
-        if(gps.isGetLocation()){
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
-        }else{
-            gps.showSettingsAlert();
-        }
-        String lat = String.valueOf(latitude);
-        String lon = String.valueOf(longitude);
-
-        */
-
-
-/*
-        Call<TourInfoResponse> call = retrofitService.getEngTripInfo2(decodedEngKey,
-                MatchParsingSource.getQueryNum("Cultural Facilities"),
-                lon,//mapX
-                lat,//mapY
-                "2000",
-                "Y",
-                "AND",
-                "Koing",
-                "P",
-                "24",
-                "1"
-        );
-
-*/
 
 
         return view;
@@ -301,64 +259,16 @@ public class TourInfoFragment extends Fragment {
         switch(requestCode){
             case TOUR_INFO_FILTER_ACTIVITY:
                 if(resultCode == RESULT_OK){
-                    String area = data.getStringExtra("area");
-                    String tourType = data.getStringExtra("tourType");
+                    area = data.getStringExtra("area");
+                    tourType = data.getStringExtra("tourType");
 
-                    Call<TourInfoResponse> call = retrofitService.
-                            getEngTripInfo(decodedEngKey,
-                                    MatchParsingSource.getQueryNum(tourType),
-                                    MatchParsingSource.getQueryNum(area),
-                                    "","","","",
-                                    "Y",
-                                    "AND",
-                                    "Koing",
-                                    "P",
-                                    "24",
-                                    "1"
-                            );
-
-                    call.enqueue(new Callback<TourInfoResponse>() {
-                        @Override
-                        public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
-                            TourInfoResponse r = response.body();
-                            if(r.getBody().getItems().getItem() != null) {
-                                mItems = r.getBody().getItems().getItem();
-
-                                int ii = 0;
-                                for(TourInfoItem item : mItems){
-                                    countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
-                                    titles[ii] = item.getTitle();
-                                    addrs[ii] = item.getAddr1();
-                                    ii++;
-                                }
-
-                                sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
-                                recyclerView.setAdapter(sliderAdapter);
-
-
-                    /* country */
-
-                                country1TextView.setText(countries[0]);
-
-                    /* title */
-                                title1TextView.setText(titles[0]);
-
-                    /* addr */
-
-                                addr1TextView.setText(addrs[0]);
-
-                                likesAdapter = new LikesAdapter();
-                                tour_info_likes_recyclerview.setAdapter(likesAdapter);
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<TourInfoResponse> call, Throwable t) {
-
-                            Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    if(!area.equals("Current Position")) {
+                        callGetEngTripInfoByArea(area,tourType);
+                    }
+                    else{//현재 위치에서 정보를 가저오는 경우
+                        callGetEngTripInfoByLocation(tourType);
+                    }
+                    setViewForTripInfo();
                 }
                 break;
         }
@@ -480,5 +390,89 @@ public class TourInfoFragment extends Fragment {
         animSet.playTogether(iAlpha, vAlpha, iX, vX);
         animSet.setDuration(addrAnimDuration);
         animSet.start();
+    }
+
+    private void callGetEngTripInfoByArea(String area, String tourType){
+        call = retrofitService.
+                getEngTripInfo(decodedEngKey,
+                        MatchParsingSource.getQueryNum(tourType),
+                        MatchParsingSource.getQueryNum(area),
+                        "", "", "", "",
+                        "Y",
+                        "AND",
+                        "Koing",
+                        "P",
+                        "24",
+                        "1"
+                );
+    }
+    private void callGetEngTripInfoByLocation(String tourType){
+        double latitude=37.568477;
+        double longitude=126.981106;
+        GpsInfoService gps = new GpsInfoService(getContext());
+        if(gps.isGetLocation()){ //gps가 설정되어있는 경우
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+            String lat = String.valueOf(latitude);
+            String lon = String.valueOf(longitude);
+
+            call = retrofitService.getEngTripInfo2(decodedEngKey,
+                    MatchParsingSource.getQueryNum(tourType),
+                    lon,//mapX
+                    lat,//mapY
+                    "2000",
+                    "Y",
+                    "AND",
+                    "Koing",
+                    "P",
+                    "24",
+                    "1"
+            );
+
+            Toast.makeText(getActivity(), "현재 위치로 설정됩니다", Toast.LENGTH_SHORT).show();
+        }else{ //gps가 설정되어있지 않은 경우
+            GpsSetDialog dialog = new GpsSetDialog(getContext());
+            dialog.show();
+        }
+    }
+    private void setViewForTripInfo(){
+        call.enqueue(new Callback<TourInfoResponse>() {
+            @Override
+            public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
+                TourInfoResponse r = response.body();
+                if (r.getBody().getItems().getItem() != null) {
+                    mItems = r.getBody().getItems().getItem();
+
+                    int ii = 0;
+                    for (TourInfoItem item : mItems) {
+                        countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
+                        titles[ii] = item.getTitle();
+                        addrs[ii] = item.getAddr1();
+                        ii++;
+                    }
+
+                    sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
+                    recyclerView.setAdapter(sliderAdapter);
+
+
+                        /* country */
+                    country1TextView.setText(countries[0]);
+                        /* title */
+                    title1TextView.setText(titles[0]);
+                        /* addr */
+                    addr1TextView.setText(addrs[0]);
+
+                    likesAdapter = new LikesAdapter();
+                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourInfoResponse> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "정보받아오기 실패", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
