@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tourwith.koing.Activity.TourInfoFilterActivity;
 import com.tourwith.koing.CardSlider.CardSliderLayoutManager;
 import com.tourwith.koing.CardSlider.CardSnapHelper;
 import com.tourwith.koing.CardSlider.SliderAdapter;

@@ -57,7 +57,6 @@
                     android:transitionName="text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="name"
                     android:textSize="18dp"
                     android:textColor="#FF1c1c1c"/>
 
@@ -65,7 +64,6 @@
                     android:id="@+id/home_flag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="flag"
                     android:textSize="14dp"
                     android:layout_marginTop="3dp"
                     android:textColor="#FFb3b3b3"/>
@@ -74,7 +72,6 @@
                     android:id="@+id/home_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="language"
                     android:textSize="12dp"
                     android:layout_marginTop="6dp"
                     android:textColor="#FF1c1c1c"/>

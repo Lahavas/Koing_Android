@@ -133,14 +133,14 @@ public class TourCreationActivity extends AppCompatActivity {
         datePickImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(TourCreationActivity.this, dateSetListener, year, month, day).show();
+                new DatePickerDialog(TourCreationActivity.this,R.style.DialogTheme ,dateSetListener, year, month, day).show();
 
             }
         });
         datePickImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(TourCreationActivity.this, dateSetListener2, year, month, day).show();
+                new DatePickerDialog(TourCreationActivity.this,R.style.DialogTheme, dateSetListener2, year, month, day).show();
 
             }
         });
