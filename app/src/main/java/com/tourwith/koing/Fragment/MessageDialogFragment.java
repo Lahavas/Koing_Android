@@ -38,6 +38,7 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int CHECK_TOUR_CREATE = 13;
     public static final int DATE_INVALID = 14;
     public static final int CARD_MAX_INVALID = 15;
+    public static final int INVALID_ACCESS = 16;
 
     public Tour tour;
 
@@ -145,6 +146,15 @@ public class MessageDialogFragment extends DialogFragment {
                     activity.finish();
                 }
             });
+        } else if (code == INVALID_ACCESS){
+            messageText.setText("Invalid access");
+            rButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.finish();
+                }
+            });
+
         } else {
             messageText.setText("error");
         }

@@ -70,6 +70,16 @@ public class ChatroomActivity extends AppCompatActivity {
         oNameText = (TextView) findViewById(R.id.o_name_text_in_chatroom);
         // + 시간 나면 나중에 editText 리스너 추가하기
 
+        oProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatroomActivity.this, UserInformationActivity.class);
+                intent.putExtra("mUID", chatroom.getmUID());
+                intent.putExtra("oUID", chatroom.getoUID());
+                startActivity(intent);
+            }
+        });
+
         //액션바 이름 지정
         oProfileImage.setBackground(new ShapeDrawable(new OvalShape()));
         oProfileImage.setClipToOutline(true);

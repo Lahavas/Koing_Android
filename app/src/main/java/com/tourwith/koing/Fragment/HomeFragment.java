@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.tourwith.koing.Activity.HomeFilterActivity;
 import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.TourCreationActivity;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.RecyclerItem;
+import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 import com.tourwith.koing.ViewPager.ViewPagerHolder;
@@ -36,6 +39,9 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     MainActivity activity;
     ViewPagerClickListener listener;
     FirebaseTour firebaseTour;
+    ImageButton filterButton;
+    TextView filterAreaText;
+
     public HomeFragment() {
     }
 
@@ -66,6 +72,16 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
             }
         });
 
+        ///by hb
+        filterAreaText = (TextView) view.findViewById(R.id.filter_area_text);
+        filterButton = (ImageButton) view.findViewById(R.id.home_filter);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, HomeFilterActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
 
         context = getContext();
 
@@ -119,4 +135,27 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
         return px;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==1001){
+
+            filterAreaText.setText(data.getStringExtra("area"));
+            Tour tourForFiltering = new Tour();
+            tourForFiltering.setNationality(data.getStringExtra("nationality"));
+            tourForFiltering.setLang1(data.getStringExtra("language1"));
+            tourForFiltering.setLang2(data.getStringExtra("language2"));
+            tourForFiltering.setArea(data.getStringExtra("area"));
+            tourForFiltering.setTour_type(data.getStringExtra("type"));
+            tourForFiltering.setStart_timestamp(data.getLongExtra("period1", 0));
+            tourForFiltering.setEnd_timestamp(data.getLongExtra("period2", 9509455240734l));
+
+
+
+            firebaseTour.filter(tourForFiltering);
+
+        }
+
+    }
 }

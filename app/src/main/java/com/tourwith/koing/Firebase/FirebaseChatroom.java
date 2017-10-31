@@ -94,6 +94,10 @@ public class FirebaseChatroom {
     }
 
     public void writeChatroom(final String mUID, final String oUID){
+        if(mUID.equals(oUID)){
+            Toast.makeText(context, "Can't send message to me", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ValueEventListener checkDuplicateListener = new ValueEventListener() {
             @Override
