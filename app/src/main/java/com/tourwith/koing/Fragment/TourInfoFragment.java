@@ -2,7 +2,7 @@ package com.tourwith.koing.Fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,24 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tourwith.koing.Activity.TourInfoFilterActivity;
 import com.tourwith.koing.CardSlider.CardSliderLayoutManager;
 import com.tourwith.koing.CardSlider.CardSnapHelper;
 import com.tourwith.koing.CardSlider.SliderAdapter;
 import com.tourwith.koing.LikesRecyclerView.LikesAdapter;
-import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.Model.TourInfoItem;
 import com.tourwith.koing.Model.TourInfoResponse;
 import com.tourwith.koing.R;
-import com.tourwith.koing.TourAPI.GpsInfoService;
 import com.tourwith.koing.TourAPI.MatchParsingSource;
 import com.tourwith.koing.TourAPI.TourInfoRetrofitService;
 
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,11 +34,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Munak on 2017. 9. 23..
  */
 
 public class TourInfoFragment extends Fragment {
+
+    private static final int TOUR_INFO_FILTER_ACTIVITY = 0;
+
+    private Retrofit retrofit;
+    private TourInfoRetrofitService retrofitService;
+
+    private RecyclerView recyclerView;
 
     private String baseUrl;
     private TextView textView3;
@@ -71,6 +77,11 @@ public class TourInfoFragment extends Fragment {
     private long addrAnimDuration;
 
     private ImageButton tour_info_heart;
+    private ImageButton tourInfoFilter;
+
+    private RecyclerView tour_info_likes_recyclerview;
+    private SliderAdapter sliderAdapter;
+    private LikesAdapter likesAdapter;
 
     private String[] countries;
 
@@ -95,6 +106,74 @@ public class TourInfoFragment extends Fragment {
     {
         view = inflater.inflate(R.layout.fragment_tour_info, container, false);
 
+        countries = new String[24];
+        titles = new String[24];
+        addrs = new String[24];
+
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+
+        country1TextView = (TextView) view.findViewById(R.id.tv_country_1);
+        country2TextView = (TextView) view.findViewById(R.id.tv_country_2);
+        countryAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
+        countryOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset);
+        countryOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
+
+
+        country1TextView.setX(countryOffset1);
+        country2TextView.setX(countryOffset2);
+        country2TextView.setAlpha(0f);
+
+        titleAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
+        titleOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
+        titleOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
+        title1TextView = (TextView) view.findViewById(R.id.tv_title_1);
+        title2TextView = (TextView) view.findViewById(R.id.tv_title_2);
+
+        title1TextView.setX(titleOffset1);
+        title2TextView.setX(titleOffset2);
+        title2TextView.setAlpha(0f);
+
+        addrAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
+        addrOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
+        addrOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
+        addr1TextView = (TextView) view.findViewById(R.id.tv_addr_1);
+        addr2TextView = (TextView) view.findViewById(R.id.tv_addr_2);
+
+        addr1TextView.setX(addrOffset1);
+        addr2TextView.setX(addrOffset2);
+        addr2TextView.setAlpha(0f);
+
+        layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    onActiveCardChange();
+                }
+            }
+        });
+
+        new CardSnapHelper().attachToRecyclerView(recyclerView);
+
+        tour_info_likes_recyclerview = (RecyclerView) view.findViewById(R.id.tour_info_likes_recyclerview);
+        tour_info_likes_recyclerview.setHasFixedSize(true);
+        RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
+        tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
+
+
+
+        tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
+
+        tour_info_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
+            }
+        });
+
         baseUrl = getString(R.string.retrofitBaseURL);
         korKey = getString(R.string.tourAPIKeyKor);
         engKey = getString(R.string.tourAPIKeyEng);
@@ -105,11 +184,20 @@ public class TourInfoFragment extends Fragment {
 
         }
 
-        Retrofit retrofit = new Retrofit.Builder()
+        tourInfoFilter = (ImageButton)view.findViewById(R.id.tour_info_filter);
+        tourInfoFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TourInfoFilterActivity.class);
+                startActivityForResult(intent,TOUR_INFO_FILTER_ACTIVITY);
+            }
+        });
+
+        retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
-        TourInfoRetrofitService retrofitService = retrofit.create(TourInfoRetrofitService.class);
+        retrofitService = retrofit.create(TourInfoRetrofitService.class);
         //영문 관광정보 받아오기
 
         Call<TourInfoResponse> call = retrofitService.
@@ -125,22 +213,49 @@ public class TourInfoFragment extends Fragment {
                         "1"
                 );
 
-        /*
 
-        //한글 관광정보 받아오기
-        Call<TourInfoResponse> call = retrofitService.
-                getKorTripInfo(decodedKorKey,
-                        MatchParsingSource.getQueryNum("문화시설"), //contentTypeId
-                        MatchParsingSource.getQueryNum("서울"), //areaCode;
-                        "","","","", //sigunguCode, cat1, cat2, cat3
-                        "Y", //
-                        "AND", //MobileOS
-                        "Koing", //MobileApp
-                        "B", //arrange
-                        "24", //numOfRows
-                        "1" //pageNo
-                );
-*/
+        call.enqueue(new Callback<TourInfoResponse>() {
+            @Override
+            public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
+                TourInfoResponse r = response.body();
+                if(r.getBody().getItems().getItem() != null) {
+                    mItems = r.getBody().getItems().getItem();
+
+                    int ii = 0;
+                    for(TourInfoItem item : mItems){
+                        countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
+                        titles[ii] = item.getTitle();
+                        addrs[ii] = item.getAddr1();
+                        ii++;
+                    }
+
+                    sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
+                    recyclerView.setAdapter(sliderAdapter);
+
+
+                    /* country */
+
+                    country1TextView.setText(countries[0]);
+
+                    /* title */
+                    title1TextView.setText(titles[0]);
+
+                    /* addr */
+
+                    addr1TextView.setText(addrs[0]);
+
+                    likesAdapter = new LikesAdapter();
+                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TourInfoResponse> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
+            }
+        });
 
         /*
         //영문 현재 위치 근처 관광정보 받아오기
@@ -159,21 +274,6 @@ public class TourInfoFragment extends Fragment {
         */
 
 
-        //한글 현재 위치 근처 관광정보 받아오기
-/*
-        double latitude=37.568477;
-        double longitude=126.981106;
-        GpsInfoService gps = new GpsInfoService(getContext());
-        if(gps.isGetLocation()){
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
-        }else{
-            gps.showSettingsAlert();
-        }
-        String lat = String.valueOf(latitude);
-        String lon = String.valueOf(longitude);
-        textView3.append("lat:" + lat + "\nlong:"+lon +"\n\n\n");
-*/
 /*
         Call<TourInfoResponse> call = retrofitService.getEngTripInfo2(decodedEngKey,
                 MatchParsingSource.getQueryNum("Cultural Facilities"),
@@ -191,122 +291,77 @@ public class TourInfoFragment extends Fragment {
 */
 
 
-        call.enqueue(new Callback<TourInfoResponse>() {
-            @Override
-            public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
-                TourInfoResponse r = response.body();
-                if(r.getBody().getItems().getItem() != null) {
-                    mItems = r.getBody().getItems().getItem();
-                    countries = new String[24];
-                    titles = new String[24];
-                    addrs = new String[24];
-                    int ii = 0;
-                    for(TourInfoItem item : mItems){
-                        countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
-                        titles[ii] = item.getTitle();
-                        addrs[ii] = item.getAddr1();
-                        ii++;
-                    }
+        return view;
+    }
 
-                    SliderAdapter sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-                    recyclerView.setHasFixedSize(true);
+        switch(requestCode){
+            case TOUR_INFO_FILTER_ACTIVITY:
+                if(resultCode == RESULT_OK){
+                    String area = data.getStringExtra("area");
+                    String tourType = data.getStringExtra("tourType");
 
-                    recyclerView.setAdapter(sliderAdapter);
+                    Call<TourInfoResponse> call = retrofitService.
+                            getEngTripInfo(decodedEngKey,
+                                    MatchParsingSource.getQueryNum(tourType),
+                                    MatchParsingSource.getQueryNum(area),
+                                    "","","","",
+                                    "Y",
+                                    "AND",
+                                    "Koing",
+                                    "P",
+                                    "24",
+                                    "1"
+                            );
 
-                    layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
-
-                    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    call.enqueue(new Callback<TourInfoResponse>() {
                         @Override
-                        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                                onActiveCardChange();
-                            }
-                        }
-                    });
+                        public void onResponse(Call<TourInfoResponse> call, Response<TourInfoResponse> response) {
+                            TourInfoResponse r = response.body();
+                            if(r.getBody().getItems().getItem() != null) {
+                                mItems = r.getBody().getItems().getItem();
 
-                    new CardSnapHelper().attachToRecyclerView(recyclerView);
+                                int ii = 0;
+                                for(TourInfoItem item : mItems){
+                                    countries[ii] = MatchParsingSource.getQueryNum(item.getAreacode());
+                                    titles[ii] = item.getTitle();
+                                    addrs[ii] = item.getAddr1();
+                                    ii++;
+                                }
+
+                                sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
+                                recyclerView.setAdapter(sliderAdapter);
+
 
                     /* country */
-                    countryAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
-                    countryOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset);
-                    countryOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
-                    country1TextView = (TextView) view.findViewById(R.id.tv_country_1);
-                    country2TextView = (TextView) view.findViewById(R.id.tv_country_2);
 
-                    country1TextView.setX(countryOffset1);
-                    country2TextView.setX(countryOffset2);
-                    country1TextView.setText(countries[0]);
-                    country2TextView.setAlpha(0f);
+                                country1TextView.setText(countries[0]);
 
                     /* title */
-                    titleAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
-                    titleOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
-                    titleOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
-                    title1TextView = (TextView) view.findViewById(R.id.tv_title_1);
-                    title2TextView = (TextView) view.findViewById(R.id.tv_title_2);
-
-                    title1TextView.setX(titleOffset1);
-                    title2TextView.setX(titleOffset2);
-                    title1TextView.setText(titles[0]);
-                    title2TextView.setAlpha(0f);
+                                title1TextView.setText(titles[0]);
 
                     /* addr */
-                    addrAnimDuration = view.getResources().getInteger(R.integer.labels_animation_duration);
-                    addrOffset1 = view.getResources().getDimensionPixelSize(R.dimen.left_offset2);
-                    addrOffset2 = view.getResources().getDimensionPixelSize(R.dimen.card_width);
-                    addr1TextView = (TextView) view.findViewById(R.id.tv_addr_1);
-                    addr2TextView = (TextView) view.findViewById(R.id.tv_addr_2);
 
-                    addr1TextView.setX(addrOffset1);
-                    addr2TextView.setX(addrOffset2);
-                    addr1TextView.setText(addrs[0]);
-                    addr2TextView.setAlpha(0f);
+                                addr1TextView.setText(addrs[0]);
 
-                    RecyclerView tour_info_likes_recyclerview = (RecyclerView) view.findViewById(R.id.tour_info_likes_recyclerview);
-                    tour_info_likes_recyclerview.setHasFixedSize(true);
-                    RecyclerView.LayoutManager tour_info_layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL, false);
-                    tour_info_likes_recyclerview.setLayoutManager(tour_info_layoutManager);
+                                likesAdapter = new LikesAdapter();
+                                tour_info_likes_recyclerview.setAdapter(likesAdapter);
+                            }
 
-                    LikesAdapter likesAdapter = new LikesAdapter();
-                    tour_info_likes_recyclerview.setAdapter(likesAdapter);
+                        }
 
-                    tour_info_heart = (ImageButton) view.findViewById(R.id.tour_info_heart);
-
-                    tour_info_heart.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
-                            tour_info_heart.setBackgroundResource(R.drawable.ic_heart_t);
+                        public void onFailure(Call<TourInfoResponse> call, Throwable t) {
+
+                            Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<TourInfoResponse> call, Throwable t) {
-
-                Toast.makeText(getActivity(), "정보받아오기 실패" , Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
-        */
-
-        //RecyclerView.Adapter adapter = new HomeRecyclerAdapter(view.getContext(), items);
-        //recyclerView.setAdapter(adapter);
-
-        /*
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
-        */
-
-
-        return view;
+                break;
+        }
     }
 
     private void onActiveCardChange() {
