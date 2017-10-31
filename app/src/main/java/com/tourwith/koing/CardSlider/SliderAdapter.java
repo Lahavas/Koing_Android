@@ -50,4 +50,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderCardViewHolder> {
         return count;
     }
 
+    public void addAll(List<TourInfoItem> items) {
+        this.items = items;
+    }
+
 }

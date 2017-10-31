@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment(this);
         messageFragment = new MessageFragment(this);
         mypageFragment = new MyPageFragment(this);
-        tourinfoFragment = new TourInfoFragment();
+        tourinfoFragment = new TourInfoFragment(this);
 
         container2 = (FrameLayout) findViewById(R.id.container2);
 
