@@ -10,17 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.TourCreationActivity;
-import com.tourwith.koing.Firebase.FirebaseChatroom;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.RecyclerItem;
 import com.tourwith.koing.R;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 import com.tourwith.koing.ViewPager.ViewPagerHolder;
-import com.tourwith.koing.ViewPager.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     int baseItemViewHeight = 900;
     MainActivity activity;
     ViewPagerClickListener listener;
-
+    FirebaseTour firebaseTour;
     public HomeFragment() {
     }
 
@@ -65,7 +62,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
             public void onClick(View v) {
                 Intent intent = new Intent(activity, TourCreationActivity.class);
                 intent.putExtra("uid", activity.uid);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -82,7 +79,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
         listener = this;
 
-        FirebaseTour firebaseTour = new FirebaseTour(imageViewPager, getActivity(), getContext(), listener);
+        firebaseTour = new FirebaseTour(imageViewPager, getActivity(), getContext(), listener);
 
 
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -106,6 +103,10 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
 
         return view;
+    }
+
+    public FirebaseTour getFirebaseTour() {
+        return firebaseTour;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tourwith.koing.Activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -175,4 +176,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if(resultCode==1000){
+            if(((HomeFragment)homeFragment).getFirebaseTour()!=null)
+                ((HomeFragment)homeFragment).getFirebaseTour().refresh();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

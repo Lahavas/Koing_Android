@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,17 +73,7 @@ public class FirebaseTour {
             tourList.add(vo);
         }
 
-
-        //어댑터에 리스트 추가
-
-        //MessageAdapter adapter = new MessageAdapter(context, list, chatroom.getmUID(), chatroom.getoUID(), oProfileImgData);
-        //adapter.setList(list);
-        //recyclerView.setLayoutManager(manager);
-        //recyclerView.setAdapter(adapter);
-
-
         viewPager.setAdapter(new ViewPagerAdapter(activity.getLayoutInflater(),context, listener, tourList.size(), tourList));
-
 
     }
 
@@ -89,6 +82,52 @@ public class FirebaseTour {
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
     }
 
+    public void getToursOfUser(String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
+
+        DatabaseReference userRef = database.getReference().child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                String mainLang = dataSnapshot.child("mainLang").getValue(String.class);
+                for(DataSnapshot ds : dataSnapshot.child("tours").getChildren()){
+                    layouts[i].setVisibility(View.VISIBLE);
+                    langTexts[i].setText(mainLang);
+                    FirebaseTour firebaseTour = new FirebaseTour();
+                    firebaseTour.getTour(ds.getValue(String.class), areaTexts[i], typeTexts[i], langTexts[i]);
+                    i++;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public void getTour(String key, final TextView areaText, final TextView typeText, final TextView langText){
+
+        DatabaseReference specificTourRef = database.getReference().child("tour").child(key);
+
+        specificTourRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                areaText.setText(dataSnapshot.child("area").getValue(String.class));
+                typeText.setText(dataSnapshot.child("tour_type").getValue(String.class));
+                langText.append(" > "+dataSnapshot.child("lang1").getValue(String.class) + " " + dataSnapshot.child("lang2").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     public void writeTour(final Tour tour, final Activity activity){
         final ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -105,6 +144,7 @@ public class FirebaseTour {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                         count++;
                 }
+
                 progressDialog.dismiss();
                 if(count>=3){
                     MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CARD_MAX_INVALID);
@@ -119,6 +159,8 @@ public class FirebaseTour {
                     //User의 투어 리스트에 추가
                     DatabaseReference toursWithinUserRef = database.getReference().child("user").child(tour.getUid()).child("tours").push();
                     toursWithinUserRef.setValue(tour.getKey());
+
+                    activity.setResult(1000);
                     activity.finish();
                 }
 
