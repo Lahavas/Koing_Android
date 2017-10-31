@@ -25,27 +25,28 @@ import java.util.HashMap;
 public class LanguageToFlag {
 
     Context context;
-    String[] languages;
-    HashMap<String, Integer> langToFlagMap;
+    String[] nations;
+    HashMap<String, Integer> natToFlagMap;
 
     public LanguageToFlag(Context context) {
         this.context = context;
 
-        languages = context.getResources().getStringArray(R.array.language);
+        nations = context.getResources().getStringArray(R.array.nation);
 
-        langToFlagMap = new HashMap();
+        natToFlagMap = new HashMap();
 
-        langToFlagMap.put(languages[0],R.drawable.us);
-        langToFlagMap.put(languages[1],R.drawable.ko);
-        langToFlagMap.put(languages[2],R.drawable.jp);
-        langToFlagMap.put(languages[3],R.drawable.cn);
-        langToFlagMap.put(languages[4],R.drawable.es);
-        langToFlagMap.put(languages[5],R.drawable.fr);
+        natToFlagMap.put(nations[0],R.drawable.ko);
+        natToFlagMap.put(nations[1],R.drawable.cn);
+        natToFlagMap.put(nations[2],R.drawable.us);
+        natToFlagMap.put(nations[3],R.drawable.jp);
+        natToFlagMap.put(nations[4],R.drawable.es);
+        natToFlagMap.put(nations[5],R.drawable.fr);
+        natToFlagMap.put(nations[6],R.drawable.gb);
 
     }
 
     public int Converter(String language) {
-        return langToFlagMap.get(language);
+        return natToFlagMap.get(language);
     }
 
 
