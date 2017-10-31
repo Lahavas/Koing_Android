@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="recycler_view_left_offset">20dp</dimen>
-    <dimen name="left_offset">24dp</dimen>
+    <dimen name="left_offset">0dp</dimen>
     <dimen name="left_offset2">16dp</dimen>
-    <dimen name="card_width">165dp</dimen>
+    <dimen name="card_width">130dp</dimen>
     <dimen name="card_corner_radius">10dp</dimen>
+
+    <dimen name="home_card_page_margin">16dp</dimen>
+    <dimen name="home_card_padding_left">32dp</dimen>
+    <dimen name="home_card_padding_right">32dp</dimen>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="area">
+        <item>Seoul</item>
+        <item>Incheon</item>
+        <item>Daejeon</item>
+        <item>Daegu</item>
+        <item>Gwangju</item>
+        <item>Busan</item>
+        <item>Ulsan</item>
+        <item>Sejong</item>
+        <item>Gyeonggi</item>
+        <item>Gangwon</item>
+        <item>Chungbuk</item>
+        <item>Chungnam</item>
+        <item>Gyeongbuk</item>
+        <item>Gyeongnam</item>
+        <item>Jeonbuk</item>
+        <item>Jeonnam</item>
+        <item>Jeju</item>
+    </string-array>
+</resources>

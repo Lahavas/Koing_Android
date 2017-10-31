@@ -5,14 +5,13 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
     <android.support.v7.widget.CardView
         android:id="@+id/home_cv"
-        android:layout_width="308dp"
-        android:layout_height="432dp"
+        android:layout_width="316dp"
+        android:layout_height="430dp"
         card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="3dp"
         card_view:cardBackgroundColor="#FFffffff"
         card_view:cardUseCompatPadding="true">
 
@@ -99,8 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_below="@+id/home_tourist_type_title"
-                android:background="@drawable/rounded_rectangle_grey_home"
-                android:text="Tourist Attractions"
+                android:background="@drawable/img_homebox"
                 android:textSize="14dp"
                 android:textColor="#FF1c1c1c"
                 android:paddingLeft="12dp"
@@ -126,8 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_below="@+id/home_trip_period_title"
-                android:background="@drawable/rounded_rectangle_grey_home"
-                android:text="2017/11/22 ~ 2017/11/24"
+                android:background="@drawable/img_homebox"
                 android:textSize="14dp"
                 android:textColor="#FF1c1c1c"
                 android:paddingLeft="12dp"
@@ -143,28 +140,19 @@
                 android:layout_below="@+id/home_trip_period"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="21dp"
-                android:text="1. Please
-2. Enter
-3. Your Description"
+                android:layout_marginTop="12dp"
                 android:textSize="13dp"
                 android:textColor="#FF1c1c1c"
                 android:lineSpacingExtra="10dp"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/home_send_bt"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/home_description"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
-                android:text="Send Message"
-                android:textSize="16dp"
-                android:textColor="#FFffffff"
-                android:paddingLeft="27.5dp"
-                android:paddingRight="27.5dp"
-                android:background="@drawable/rounded_rectangle_mint_home"
-                android:gravity="center"/>
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_send_message"/>
 
 
         </RelativeLayout>

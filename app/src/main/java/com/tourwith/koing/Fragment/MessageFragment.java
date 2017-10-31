@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tourwith.koing.Activity.ChatroomActivity;
@@ -24,7 +25,7 @@ public class MessageFragment extends Fragment {
     ListView listView;
     MainActivity activity;
     FirebaseChatroom firebaseChatroom;
-
+    ImageView background_if_none;
     public MessageFragment()
     {
 
@@ -44,7 +45,9 @@ public class MessageFragment extends Fragment {
     {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         listView = (ListView) view.findViewById(R.id.message_list_view);
-        firebaseChatroom = new FirebaseChatroom(activity, listView, activity.uid, activity.getFragmentManager());
+        background_if_none = (ImageView) view.findViewById(R.id.background_img_none_in_msg);
+
+        firebaseChatroom = new FirebaseChatroom(activity, listView, activity.uid, activity.getFragmentManager(), background_if_none);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,9 +57,11 @@ public class MessageFragment extends Fragment {
                 intent.putExtra("key", chatroom.getKey());
                 if(chatroom.getmUID().equals(activity.uid)) {
                     intent.putExtra("ouid", chatroom.getoUID()); //내가 상대방에게 채팅신청을 했을 경우
+
                 }
                 else {
                     intent.putExtra("ouid", chatroom.getmUID()); //상대방이 내게 채팅신청을 했을 경우
+
                 }
 
                 startActivity(intent);

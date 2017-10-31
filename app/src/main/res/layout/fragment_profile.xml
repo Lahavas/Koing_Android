@@ -124,13 +124,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="9dp">
+                android:layout_marginTop="9dp"
+                android:layout_marginLeft="14dp">
 
                 <TextView
                     android:id="@+id/profile_language1_text_view"
                     android:layout_width="100dp"
                     android:layout_height="64dp"
-                    android:layout_marginLeft="14dp"
                     android:layout_marginTop="-6dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
@@ -154,25 +154,6 @@
                     android:paddingBottom="28dp"
                     android:gravity="center"
                     android:text="Spanish"
-                    android:textSize="14sp"
-                    android:background="@drawable/img_textbox"
-                    android:textColor="#000000"
-                    />
-
-
-
-                <TextView
-                    android:id="@+id/profile_language3_text_view"
-                    android:layout_width="100dp"
-                    android:layout_height="64dp"
-                    android:layout_marginLeft="-8dp"
-                    android:layout_marginTop="-6dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="28dp"
-                    android:gravity="center"
-                    android:text="Korean"
                     android:textSize="14sp"
                     android:background="@drawable/img_textbox"
                     android:textColor="#000000"
@@ -206,8 +187,8 @@
 
                 <Button
                     android:id="@+id/edit_introduction_button"
-                    android:layout_width="25.66dp"
-                    android:layout_height="25.66dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginLeft="3.2dp"
                     android:layout_marginTop="7.17dp"
                     android:background="@drawable/ic_edit"/>

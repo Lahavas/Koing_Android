@@ -2,8 +2,6 @@ package com.tourwith.koing.Model;
 
 import com.google.firebase.database.ServerValue;
 
-import java.util.Map;
-
 /**
  * Created by hanhb on 2017-10-10.
  */
@@ -11,26 +9,37 @@ import java.util.Map;
 public class Tour {
 
     public Object timestamp; // 등록일
-    public Object end_timestamp; //여행 시작일
-    public Object start_timestamp; // 여행 종료일
-    String introduction; //자기소개
-    Map<String, String> tour_type;
+    public Long end_timestamp; //여행 시작일
+    public Long start_timestamp; // 여행 종료일
+
+    String tour_type; //투어 타입
+    String area;
     String uid;
     String key;
 
+    String lang1 = "";
+    String lang2 = "";
+
     public Tour() {
-
-    }
-
-
-    public Tour(Object end_timestamp, Object start_timestamp, String introduction, Map<String, String> tour_type, String uid) {
         timestamp = ServerValue.TIMESTAMP;
-        this.end_timestamp = end_timestamp;
-        this.start_timestamp = start_timestamp;
-        this.introduction = introduction;
-        this.tour_type = tour_type;
-        this.uid = uid;
     }
+
+    public Tour(String uid, String area, String tour_type) {
+        timestamp = ServerValue.TIMESTAMP;
+        this.uid = uid;
+
+        this.area = area;
+        this.tour_type = tour_type;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     public String getKey() {
         return key;
     }
@@ -47,36 +56,44 @@ public class Tour {
         this.timestamp = timestamp;
     }
 
-    public Object getEnd_timestamp() {
+    public Long getEnd_timestamp() {
         return end_timestamp;
     }
 
-    public void setEnd_timestamp(Object end_timestamp) {
+    public void setEnd_timestamp(Long end_timestamp) {
         this.end_timestamp = end_timestamp;
     }
 
-    public Object getStart_timestamp() {
+    public Long getStart_timestamp() {
         return start_timestamp;
     }
 
-    public void setStart_timestamp(Object start_timestamp) {
+    public void setStart_timestamp(Long start_timestamp) {
         this.start_timestamp = start_timestamp;
     }
 
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public Map<String, String> getTour_type() {
+    public String getTour_type() {
         return tour_type;
     }
 
-    public void setTour_type(Map<String, String> tour_type) {
+    public void setTour_type(String tour_type) {
         this.tour_type = tour_type;
+    }
+
+    public String getLang1() {
+        return lang1;
+    }
+
+    public void setLang1(String lang1) {
+        this.lang1 = lang1;
+    }
+
+    public String getLang2() {
+        return lang2;
+    }
+
+    public void setLang2(String lang2) {
+        this.lang2 = lang2;
     }
 
     public String getUid() {

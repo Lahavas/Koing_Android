@@ -13,22 +13,21 @@ public class User {
     String nickname;
     Object timestamp;
     String comments;
-    String lang1;
-    String lang2;
-    String land3;
+    String lang1 = "";
+    String lang2 = "";
 
 
     public User() {
 
     }
 
-    public User(String mainLang, String nationality, String nickname) {
-        timestamp = ServerValue.TIMESTAMP;
-        this.mainLang = mainLang;
-        this.nationality = nationality;
-        this.nickname = nickname;
-
-    }
+//    public User(String mainLang, String nationality, String nickname) {
+//        timestamp = ServerValue.TIMESTAMP;
+//        this.mainLang = mainLang;
+//        this.nationality = nationality;
+//        this.nickname = nickname;
+//
+//    }
 
     public String getLang1() {
         return lang1;
@@ -44,14 +43,6 @@ public class User {
 
     public void setLang2(String lang2) {
         this.lang2 = lang2;
-    }
-
-    public String getLand3() {
-        return land3;
-    }
-
-    public void setLand3(String land3) {
-        this.land3 = land3;
     }
 
     public void setTimestamp(){

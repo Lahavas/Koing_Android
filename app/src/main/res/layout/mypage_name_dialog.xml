@@ -25,9 +25,9 @@
 
         <EditText
             android:id="@+id/profile_name_edit_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:maxLines="1"
             android:text="Sarah Nguyen"
             android:background="@null"
             android:textColor="#000000"
@@ -137,7 +137,6 @@
                 android:background="@drawable/btn_textdown"
                 />
 
-
         </LinearLayout>
     </LinearLayout>
 
@@ -159,6 +158,5 @@
         android:layout_gravity="center"
         />
 </LinearLayout>
-
 
 

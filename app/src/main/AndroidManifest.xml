@@ -21,8 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".Activity.MainActivity">
         </activity>
         <activity android:name=".Activity.ChatroomActivity" />
         <activity android:name=".Activity.SignUpActivity" />
@@ -48,6 +47,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Activity.TourCreationActivity"> </activity>
 
     </application>
 

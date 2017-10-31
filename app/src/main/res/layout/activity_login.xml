@@ -2,15 +2,20 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_edit_tripcard">
 
     <ImageView
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="85dp"
         android:layout_gravity="center"
-        android:layout_width="250dp"
-        android:layout_height="250dp" />
+        android:layout_width="360dp"
+        android:layout_height="154dp"
+        android:src="@drawable/img_login_logo"/>
 
 
     <FrameLayout
+        android:layout_gravity="center"
         android:id="@+id/FrameLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -22,29 +27,29 @@
             android:visibility="gone" />
 
         <Button
+            android:layout_gravity="center"
             android:id="@+id/fb"
-            android:layout_width="match_parent"
-            android:layout_height="53.58dp"
-            android:layout_marginLeft="32.08dp"
-            android:layout_marginRight="32.08dp"
+            android:layout_width="312dp"
+            android:layout_height="56dp"
             android:background="@drawable/btn_login_facebook"/>
 
     </FrameLayout>
     <Button
-        android:id="@+id/button_signup"
-        android:layout_width="match_parent"
-        android:layout_height="53.58dp"
+        android:layout_gravity="center"
+        android:id="@+id/button_signin"
+        android:layout_width="312dp"
+        android:layout_height="56dp"
         android:layout_marginLeft="32.08dp"
         android:layout_marginRight="32.08dp"
         android:layout_marginTop="12.83dp"
         android:background="@drawable/btn_login_email"/>
 
     <Button
-        android:id="@+id/button_signin"
-        android:layout_marginTop="15dp"
-        android:layout_width="98.49dp"
-        android:layout_height="29.83dp"
+        android:id="@+id/button_signup"
+        android:layout_marginTop="31dp"
+        android:layout_width="208dp"
+        android:layout_height="17dp"
         android:layout_gravity="center"
-        android:background="@drawable/btn_login"/>
+        android:background="@drawable/btn_signup"/>
 
 </LinearLayout>

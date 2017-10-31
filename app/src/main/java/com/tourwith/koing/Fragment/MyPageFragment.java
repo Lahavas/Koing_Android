@@ -4,7 +4,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ public class MyPageFragment extends Fragment {
     private TextView profileNationLanguageTextView;
     private TextView profileLanguage1TextView;
     private TextView profileLanguage2TextView;
-    private TextView profileLanguage3TextView;
     private MainActivity parent;
 
     public MyPageFragment()
@@ -72,17 +70,23 @@ public class MyPageFragment extends Fragment {
 
         profileLanguage1TextView = (TextView)view.findViewById(R.id.profile_language1_text_view);
         profileLanguage2TextView = (TextView)view.findViewById(R.id.profile_language2_text_view);
-        profileLanguage3TextView = (TextView)view.findViewById(R.id.profile_language3_text_view);
 
         profileImageView.setBackground(new ShapeDrawable(new OvalShape()));
         profileImageView.setClipToOutline(true);
         profileImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.SIGN_OUT);
+                messageDialogFragment.show(parent.getFragmentManager(), "");
+            }
+        });
         editNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView);
+                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView, parent.uid);
                 dialog.show();
             }
         });
@@ -91,29 +95,23 @@ public class MyPageFragment extends Fragment {
             public void onClick(View v) {
                 String s1 = profileLanguage1TextView.getText().toString();
                 String s2 = profileLanguage2TextView.getText().toString();
-                String s3 = profileLanguage3TextView.getText().toString();
 
-                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2,s3);
+                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2, parent.uid);
                 dialog.setDialogListener(new LanguageDialogListener() {
                     @Override
-                    public void onPositiveClicked(String language1, String language2, String language3) {
+                    public void onPositiveClicked(String language1, String language2) {
                         profileLanguage1TextView.setText(language1);
                         profileLanguage2TextView.setText(language2);
-                        profileLanguage3TextView.setText(language3);
                         if(!language1.equals("")){
                             profileLanguage1TextView.setVisibility(View.VISIBLE);
                         }else{
-                            profileLanguage1TextView.setVisibility(View.INVISIBLE);
+                            profileLanguage1TextView.setVisibility(View.GONE);
+
                         }
                         if(!language2.equals("")){
                             profileLanguage2TextView.setVisibility(View.VISIBLE);
                         }else{
-                            profileLanguage2TextView.setVisibility(View.INVISIBLE);
-                        }
-                        if(!language3.equals("")){
-                            profileLanguage3TextView.setVisibility(View.VISIBLE);
-                        }else{
-                            profileLanguage3TextView.setVisibility(View.INVISIBLE);
+                            profileLanguage2TextView.setVisibility(View.GONE);
                         }
                     }
 
@@ -128,7 +126,7 @@ public class MyPageFragment extends Fragment {
         editIntroductionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView);
+                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView, parent.uid);
                 dialog.show();
             }
         });
