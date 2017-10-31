@@ -141,9 +141,8 @@ public class MyPageFragment extends Fragment {
         });
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
-        firebaseProfile.getUser(parent, parent.uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView);
-
-
+        firebaseProfile.getUser(parent, parent.uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView,
+                profileLanguage1TextView, profileLanguage2TextView);
 
         return view;
     }
