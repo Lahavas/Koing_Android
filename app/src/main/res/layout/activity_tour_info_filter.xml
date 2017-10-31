@@ -43,7 +43,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:background="@drawable/btn_tour_info_filter_spinner"
-        android:entries="@array/area">
+        android:entries="@array/filter_area">
 
     </Spinner>
 
