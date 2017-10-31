@@ -21,13 +21,13 @@ public class User {
 
     }
 
-    public User(String mainLang, String nationality, String nickname) {
-        timestamp = ServerValue.TIMESTAMP;
-        this.mainLang = mainLang;
-        this.nationality = nationality;
-        this.nickname = nickname;
-
-    }
+//    public User(String mainLang, String nationality, String nickname) {
+//        timestamp = ServerValue.TIMESTAMP;
+//        this.mainLang = mainLang;
+//        this.nationality = nationality;
+//        this.nickname = nickname;
+//
+//    }
 
     public String getLang1() {
         return lang1;
