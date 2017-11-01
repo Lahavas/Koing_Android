@@ -41,6 +41,7 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int CARD_MAX_INVALID = 15;
     public static final int INVALID_ACCESS = 16;
     public static final int CHECK_CHATROOM_DESTROY = 17;
+    public static final int CHECK_DESTROY = 18;
 
     public Tour tour;
     private FirebaseChatroom firebaseChatroom;
@@ -51,6 +52,9 @@ public class MessageDialogFragment extends DialogFragment {
         this.code = code;
     }
     public Activity activity = null;
+
+    public String uid, key;
+    public FirebaseTour firebaseTour;
 
     public void setTour(Tour tour){
         this.tour = tour;
@@ -63,6 +67,14 @@ public class MessageDialogFragment extends DialogFragment {
     public void setFirebaseChatroomAndKey(FirebaseChatroom firebaseChatroom, String chatroomkey) {
         this.firebaseChatroom = firebaseChatroom;
         this.chatroomkey = chatroomkey;
+    }
+
+    public void setFirebaseTour(String uid, String key, FirebaseTour firebaseTour, Activity activity){
+        this.uid = uid;
+        this.key = key;
+        this.firebaseTour = firebaseTour;
+        this.activity = activity;
+
     }
 
     @Nullable
@@ -177,6 +189,22 @@ public class MessageDialogFragment extends DialogFragment {
                     dismiss();
                 }
             });
+
+        } else if (code == CHECK_DESTROY){
+            messageText.setText("Are you sure to delete this?");
+            rButton.setText("Cancel");
+            Button lButton = (Button) view.findViewById(R.id.button_left);
+            lButton.setText("OK");
+            lButton.setVisibility(View.VISIBLE);
+            lButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseTour.destroyTour(key, uid);
+                    dismiss();
+                    activity.finish();
+                }
+            });
+
 
         } else {
             messageText.setText("error");

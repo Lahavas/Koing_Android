@@ -1,5 +1,7 @@
 package com.tourwith.koing.Activity;
 
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tourwith.koing.Firebase.FirebasePicture;
+import com.tourwith.koing.Firebase.FirebaseProfile;
+import com.tourwith.koing.Firebase.FirebaseTour;
+import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.R;
 
 /**
@@ -26,7 +32,10 @@ public class TripCardActivity extends AppCompatActivity {
 
     TextView trip_name;
     TextView trip_flag;
-    TextView trip_language;
+
+    TextView trip_main_lang;
+    TextView trip_sub_lang1;
+    TextView trip_sub_lang2;
 
     TextView trip_tourist_type;
     TextView trip_trip_period;
@@ -37,7 +46,7 @@ public class TripCardActivity extends AppCompatActivity {
 
     ImageButton trip_delete_bt;
 
-    /* uid variables */
+    /* uid and key variables */
     String uid;
     String key;
 
@@ -54,7 +63,7 @@ public class TripCardActivity extends AppCompatActivity {
         findView();
 
 
-        /* get uid */
+        /* get uid and key */
         uid = getIntent().getStringExtra("tripuid");
         key = getIntent().getStringExtra("tripkey");
 
@@ -78,11 +87,21 @@ public class TripCardActivity extends AppCompatActivity {
         trip_close_bt = (ImageButton) findViewById(R.id.trip_close_bt);
 
         trip_person_iv = (ImageView) findViewById(R.id.trip_person_iv);
+        trip_person_iv.setBackground(new ShapeDrawable(new OvalShape()));
+        trip_person_iv.setClipToOutline(true);
+        trip_person_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         trip_flag_iv = (ImageView) findViewById(R.id.trip_flag_iv);
+        trip_flag_iv.setBackground(new ShapeDrawable(new OvalShape()));
+        trip_flag_iv.setClipToOutline(true);
+        trip_flag_iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         trip_name = (TextView) findViewById(R.id.trip_name);
         trip_flag = (TextView) findViewById(R.id.trip_flag);
-        trip_language = (TextView) findViewById(R.id.trip_language);
+
+        trip_main_lang = (TextView) findViewById(R.id.trip_main_lang);
+        trip_sub_lang1 = (TextView) findViewById(R.id.trip_sub_lang1);
+        trip_sub_lang2 = (TextView) findViewById(R.id.trip_sub_lang2);
+
 
         trip_tourist_type = (TextView) findViewById(R.id.trip_tourist_type);
         trip_trip_period = (TextView) findViewById(R.id.trip_trip_period);
@@ -96,6 +115,24 @@ public class TripCardActivity extends AppCompatActivity {
 
     /* view set part */
     private void setView() {
+
+
+        FirebaseProfile firebaseProfile = new FirebaseProfile();
+        firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);
+
+        final FirebaseTour firebaseTour = new FirebaseTour();
+        firebaseTour.getTourOfTripcard(key, trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
+
+
+
+        trip_delete_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_DESTROY);
+                messageDialogFragment.setFirebaseTour(uid, key, firebaseTour, TripCardActivity.this);
+                messageDialogFragment.show(getFragmentManager(), "");
+            }
+        });
 
     }
 }

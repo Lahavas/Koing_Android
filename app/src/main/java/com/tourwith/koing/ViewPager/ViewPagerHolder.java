@@ -24,7 +24,10 @@ public class ViewPagerHolder {
 
     TextView home_name;
     TextView home_flag;
-    TextView home_language;
+
+    TextView home_main_lang;
+    TextView home_sub_lang1;
+    TextView home_sub_lang2;
 
     TextView home_tourist_type_title;
     TextView home_tourist_type;
@@ -46,7 +49,10 @@ public class ViewPagerHolder {
 
         home_name = (TextView) itemView.findViewById(R.id.home_name);
         home_flag = (TextView) itemView.findViewById(R.id.home_flag);
-        home_language = (TextView) itemView.findViewById(R.id.home_language);
+
+        home_main_lang = (TextView) itemView.findViewById(R.id.home_main_lang);
+        home_sub_lang1 = (TextView) itemView.findViewById(R.id.home_sub_lang1);
+        home_sub_lang2 = (TextView) itemView.findViewById(R.id.home_sub_lang2);
 
         home_tourist_type_title = (TextView) itemView.findViewById(R.id.home_tourist_type_title);
         home_tourist_type = (TextView) itemView.findViewById(R.id.home_tourist_type);

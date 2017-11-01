@@ -17,6 +17,7 @@ import com.tourwith.koing.Activity.UserInformationActivity;
 import com.tourwith.koing.Firebase.FirebaseChatroom;
 import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
+import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
 
@@ -66,21 +67,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         View view = null;
 
-        //새로운 View 객체를 Layoutinflater를 이용해서 생성
-        //만들어질 View의 설계는 res폴더>>layout폴더>>viewpater_childview.xml 레이아웃 파일 사용
         view = inflater.inflate(R.layout.item_child_view, null);
         final ViewPagerHolder viewPagerHolder = new ViewPagerHolder(view);
 
-        //만들어진 View안에 있는 ImageView 객체 참조
-        //위에서 inflated 되어 만들어진 view로부터 findViewById()를 해야 하는 것에 주의.
-
-
-        //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
-        //현재 position에 해당하는 이미지를 setting
-        //img.setImageResource(R.drawable.gametitle_01 + position);
-        //viewPagerHolder.tv1.setText("name #" + position);
-        //ll.setBackgroundColor(Color.rgb(0,0,255) + position * Color.rgb(50,0,0));
-        //viewPagerHolder.cv.setCardBackgroundColor(Color.rgb(3,67,223) + position * Color.rgb(30,0,0));
 
         //viewPagerHolder.home_cv.setMaxCardElevation(getPixelsFromDPs(10));
 
@@ -101,15 +90,18 @@ public class ViewPagerAdapter extends PagerAdapter {
         /* tour info start */
         final Tour tour = tourList.get(position);
 
-        FirebasePicture firebasePicture = new FirebasePicture(context);
-        firebasePicture.downLoadProfileImage(tour.getUid(), FirebasePicture.ORIGINAL, viewPagerHolder.home_person_iv);
-
         FirebaseProfile firebaseProfile = new FirebaseProfile();
-        firebaseProfile.getUserInfo(tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_language, viewPagerHolder.home_description, viewPagerHolder.home_flag_iv, context);
+        firebaseProfile.getUser(context, tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_main_lang, viewPagerHolder.home_description, viewPagerHolder.home_person_iv, viewPagerHolder.home_flag_iv);
 
-        viewPagerHolder.home_tourist_type.setText(tour.getTour_type());
+        FirebaseTour firebaseTour = new FirebaseTour();
+        firebaseTour.getTourOfTripcard(tour.getKey(), viewPagerHolder.home_sub_lang1, viewPagerHolder.home_sub_lang2, viewPagerHolder.home_trip_period, viewPagerHolder.home_tourist_type, null);
+
+
+
+        //viewPagerHolder.home_tourist_type.setText(tour.getTour_type());
 
         /* period */
+        /*
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
 
         Calendar calStart = Calendar.getInstance();
@@ -119,7 +111,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         calEnd.setTimeInMillis(tour.getEnd_timestamp());
 
         viewPagerHolder.home_trip_period.setText(fmt.format(calStart.getTime()) + " ~ " + fmt.format(calEnd.getTime()));
-
+        */
 
         /* tour info end */
 
@@ -141,70 +133,6 @@ public class ViewPagerAdapter extends PagerAdapter {
                 FirebaseChatroom firebaseChatroom = new FirebaseChatroom(context);
                 firebaseChatroom.writeChatroom(((MainActivity)context).uid, tour.getUid());
 
-                //Toast.makeText(view.getContext(), position + "g : " + cv.getCardBackgroundColor(), Toast.LENGTH_SHORT).show();
-
-                //Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                //view.getContext().startActivity(intent);
-/*
-                StartFragment firstFragment = new StartFragment();
-                DetailFragment detailFragment = new DetailFragment();
-
-                // Note that we need the API version check here because the actual transition classes (e.g. Fade)
-                // are not in the support library and are only available in API 21+. The methods we are calling on the Fragment
-                // ARE available in the support library (though they don't do anything on API < 21)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Transition changeTransform = TransitionInflater.from(context).inflateTransition(R.transition.change_image_transform);
-                    Transition explodeTransform = TransitionInflater.from(context).inflateTransition(android.R.transition.explode);
-                    Transition fadeTransform = TransitionInflater.from(context).inflateTransition(android.R.transition.fade);
-                    */
-
-/*
-                Pair[] pair = new Pair[2];
-                pair[0] = new Pair<View, String>(tv1, "text_name");
-                pair[1] = new Pair<View, String>(iv, "img_profile");
-*/
-/*
-                    firstFragment.setSharedElementReturnTransition(changeTransform);
-                    detailFragment.setEnterTransition(new Fade());
-                    firstFragment.setExitTransition(new Fade());
-
-                    detailFragment.setSharedElementEnterTransition(changeTransform);
-                    detailFragment.setEnterTransition(fadeTransform);
-
-                }
-
-                    FragmentTransaction ft = fm.beginTransaction()
-                            .replace(R.id.container, detailFragment)
-                            .addToBackStack(null)
-                            .addSharedElement(iv, "img_profile")
-                            .addSharedElement(tv1, "text_name");
-
-                    // Apply the transaction
-                    ft.commit();
-*/
-/*
-                    // Setup exit transition on first fragment
-                    //firstFragment.setSharedElementReturnTransition(changeTransform);
-                    //firstFragment.setExitTransition(explodeTransform);
-
-                    // Setup enter transition on second fragment
-                    detailFragment.setSharedElementEnterTransition(new DetailsTransition());
-                    detailFragment.setEnterTransition(new Fade());
-                    firstFragment.setExitTransition(new Fade());
-                    detailFragment.setSharedElementReturnTransition(new DetailsTransition());
-
-                    // Find the shared element (in Fragment A)
-                    //ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
-
-                    // Add second fragment by replacing first
-                    FragmentTransaction ft = fm.beginTransaction()
-                            .replace(R.id.container, detailFragment)
-                            .addToBackStack("transaction")
-                            .addSharedElement(iv, "img_profile");
-                    // Apply the transaction
-                    ft.commit();
-
-*/
 
 
             }
