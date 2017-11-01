@@ -100,9 +100,8 @@ public class FirebaseTour {
                         addToList = false;
                     }
 
-//                    if(filter.getEnd_timestamp() < vo.getStart_timestamp() || vo.getEnd_timestamp() < filter.getStart_timestamp())
-//                        addToList = false;
-
+                    if((filter.getEnd_timestamp()+43200000l) < vo.getStart_timestamp() || vo.getEnd_timestamp() < (filter.getStart_timestamp()-43200000l))
+                        addToList = false;
 
                     if(addToList)
                         tourList.add(vo);

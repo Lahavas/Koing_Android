@@ -66,7 +66,9 @@ public class FirebaseTourInfo {
 
     }
 
-    public void doLike(final String uid, String contentId, final ImageButton imageView){
+    public void doLike(final String uid, final String contentId, final ImageButton imageView, final TextView tour_info_likes_count){
+        if(contentId== null || uid == null || imageView == null || tour_info_likes_count == null)
+            return;
 
         final DatabaseReference specificTourInfoRef = tourInfoRef.child(contentId);
         specificTourInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,6 +79,8 @@ public class FirebaseTourInfo {
                     if(ds.getValue(String.class).equals(uid)){ //중복이면 좋아요 제거
                         specificTourInfoRef.child(ds.getKey()).removeValue();
                         imageView.setSelected(false);
+                        //refresh
+                        getLikes(contentId, tour_info_likes_count);
                         return;
                     }
                 }
@@ -85,7 +89,7 @@ public class FirebaseTourInfo {
                 imageView.setSelected(true);
 
                 //refresh
-                refresh();
+                getLikes(contentId, tour_info_likes_count);
             }
 
             @Override
