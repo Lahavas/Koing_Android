@@ -198,15 +198,17 @@
             android:layout_toRightOf="@+id/tour_info_likes_title"
             android:textColor="#48d3bd"
             android:textSize="16dp"
-            android:text="22"/>
+            android:text=""/>
 
         <Button
             android:id="@+id/tour_info_likes_refresh"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_alignParentRight="true"
             android:background="@drawable/ic_refresh"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
 
     </RelativeLayout>
 

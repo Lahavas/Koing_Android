@@ -69,6 +69,20 @@ public class MessageFragment extends Fragment {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Chatroom chatroom = firebaseChatroom.getChatroomList().get(position);
+
+                //다이얼로그로 물어보기
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_CHATROOM_DESTROY);
+                messageDialogFragment.setFirebaseChatroomAndKey(firebaseChatroom, chatroom.getKey());
+                messageDialogFragment.show(activity.getFragmentManager(), "");
+
+                return true;
+            }
+        });
+
         return view;
     }
 
