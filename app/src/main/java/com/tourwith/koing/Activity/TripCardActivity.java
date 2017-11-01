@@ -1,5 +1,6 @@
 package com.tourwith.koing.Activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -131,6 +132,18 @@ public class TripCardActivity extends AppCompatActivity {
                 MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_DESTROY);
                 messageDialogFragment.setFirebaseTour(uid, key, firebaseTour, TripCardActivity.this);
                 messageDialogFragment.show(getFragmentManager(), "");
+            }
+        });
+
+        trip_edit_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                Intent intent = new Intent(this, TourEditActivity.class);
+                intent.putExtra("edituid",uid);
+                intent.putExtra("editkey",key);
+                startActivity(intent);
+                */
             }
         });
 
