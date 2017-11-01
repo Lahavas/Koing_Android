@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class MatchParsingSource {
     static HashMap<String, String> keyWordToQueryNum;
+
     static{
         keyWordToQueryNum = new HashMap<String, String>();
         keyWordToQueryNum.put("문화시설","14");
@@ -19,14 +20,14 @@ public class MatchParsingSource {
         keyWordToQueryNum.put("쇼핑","38");
         keyWordToQueryNum.put("음식점","39");
 
+        keyWordToQueryNum.put("All type", "");
         keyWordToQueryNum.put("Tourist Attractions","76");
         keyWordToQueryNum.put("Cultural Facilities","78");
-        keyWordToQueryNum.put("Festivals/Events/Performances","85");
-        keyWordToQueryNum.put("Leisure/Sports","75");
-        keyWordToQueryNum.put("Accommodation","80");
+        keyWordToQueryNum.put("Events","85");
+        keyWordToQueryNum.put("Leisure","75");
         keyWordToQueryNum.put("Shopping","79");
         keyWordToQueryNum.put("Dining","82");
-        keyWordToQueryNum.put("Transportaion","77");
+
 
         keyWordToQueryNum.put("서울","1");
         keyWordToQueryNum.put("Seoul","1");
@@ -104,6 +105,7 @@ public class MatchParsingSource {
         else
             return queryNum;
     }
+
     //contentTypeId=
     //문화시설(14)관광지(12)축제공연행사(15)여행코스(25)레포츠(28)숙박(32)쇼핑(38)음식점(39)
     //areaCode=

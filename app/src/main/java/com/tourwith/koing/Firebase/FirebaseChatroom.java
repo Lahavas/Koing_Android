@@ -198,9 +198,9 @@ public class FirebaseChatroom {
         }
 
         if(isExist) {
-            background_if_none.setVisibility(View.GONE);
+            if(background_if_none!=null) background_if_none.setVisibility(View.GONE);
         }else {
-            background_if_none.setVisibility(View.VISIBLE);
+            if(background_if_none!=null) background_if_none.setVisibility(View.VISIBLE);
         }
 
         ChatroomAdapter adaptor = new ChatroomAdapter();

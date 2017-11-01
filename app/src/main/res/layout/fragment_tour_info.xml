@@ -61,13 +61,84 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:src="@drawable/ic_all_black"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="31dp"
-        android:layout_marginLeft="24dp"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/tour_type_all_image_view"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_all_black"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+        <ImageView
+            android:id="@+id/tour_type_dining_image_view"
+            android:visibility="invisible"
+            android:layout_width="74dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_dining"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+        <ImageView
+            android:id="@+id/tour_type_leisure_image_view"
+            android:visibility="invisible"
+            android:layout_width="79dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_leisure"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+
+        <ImageView
+            android:id="@+id/tour_type_events_image_view"
+            android:visibility="invisible"
+            android:layout_width="74dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_events"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+        <ImageView
+            android:id="@+id/tour_type_shopping_image_view"
+            android:visibility="invisible"
+            android:layout_width="96dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_shopping"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+
+        <ImageView
+            android:id="@+id/tour_type_attraction_image_view"
+            android:visibility="invisible"
+            android:layout_width="162dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_tourist_attractions"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+
+        <ImageView
+            android:id="@+id/tour_type_cultural_image_view"
+            android:visibility="invisible"
+            android:layout_width="152dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_cultural_facilities"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="31dp"
+            android:layout_marginLeft="24dp"/>
+
+
+    </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"

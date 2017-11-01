@@ -420,6 +420,8 @@ public class SignupFragments extends Fragment {
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_IMAGE);
 
+                break;
+
             } case CROP_FROM_IMAGE:
             {
                 if(resultCode != RESULT_OK)

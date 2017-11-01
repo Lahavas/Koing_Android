@@ -27,7 +27,6 @@ import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,8 +56,8 @@ public class MyPageFragment extends Fragment {
 
     private Uri mImageCaptureUri;
     private Bitmap profileBitmap;
-    private static final int PICK_FROM_ALBUM=101;
-    private static final int CROP_FROM_IMAGE=102;
+    private static final int PICK_FROM_ALBUM=103;
+    private static final int CROP_FROM_IMAGE=104;
 
     public MyPageFragment()
     {
@@ -198,7 +197,7 @@ public class MyPageFragment extends Fragment {
                 intent.putExtra("circleCrop", "true");
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_IMAGE);
-
+                break;
             } case CROP_FROM_IMAGE:
             {
                 if(resultCode != RESULT_OK)
@@ -221,9 +220,6 @@ public class MyPageFragment extends Fragment {
                     break;
                 }
 
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists())
-                    f.delete();
 
             }
         }
@@ -251,4 +247,6 @@ public class MyPageFragment extends Fragment {
         firebaseTour.getToursOfUser(parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
     }
+
+
 }

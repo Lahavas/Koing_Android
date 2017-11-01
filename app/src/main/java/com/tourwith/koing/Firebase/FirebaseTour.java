@@ -145,7 +145,7 @@ public class FirebaseTour {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 String mainLang = dataSnapshot.child("mainLang").getValue(String.class);
-                for(DataSnapshot ds : dataSnapshot.child("tours").getChildren()){
+                for(final DataSnapshot ds : dataSnapshot.child("tours").getChildren()){
                     layouts[i].setVisibility(View.VISIBLE);
                     langTexts[i].setText(mainLang);
                     FirebaseTour firebaseTour = new FirebaseTour();
@@ -156,6 +156,7 @@ public class FirebaseTour {
                         public void onClick(View view) {
                             Intent intent = new Intent(tripActivity, TripCardActivity.class);
                             intent.putExtra("tripuid",uid);
+                            intent.putExtra("tripkey",ds.getValue(String.class));
                             tripActivity.startActivity(intent);
                         }
                     });

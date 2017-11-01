@@ -46,9 +46,13 @@ public class FirebaseMessenger {
     private List<Message> list;
     private LinearLayoutManager manager;
 
-    public FirebaseMessenger() {
 
+    public FirebaseMessenger(){}
 
+    public FirebaseMessenger(Chatroom chatroom) {
+        this.chatroom = chatroom;
+        database = FirebaseDatabase.getInstance();
+        messageRef = database.getReference().child("chatroom").child(chatroom.getKey()).child("message");
     }
 
     public FirebaseMessenger(Context context, RecyclerView recyclerView,Chatroom chatroom) {
@@ -108,22 +112,26 @@ public class FirebaseMessenger {
         contentRef.setValue(vo);
     }
 
+    public void share(String country, String title, String addr){
+        String message = "Area : " + country + "\nTitle : "+title+"\nAddress : " + addr;
+        Message vo = new Message(message, chatroom.getmUID(), false);
+        DatabaseReference contentRef = messageRef.push();
+        contentRef.setValue(vo);
+    }
+
 
     public void getLastRecevedMessage(final String oUid, String key, final TextView receivedText, final TextView timeText){
         final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
         final Calendar cal = Calendar.getInstance();
         database = FirebaseDatabase.getInstance();
-        Query messageRef = database.getReference().child("chatroom").child(key).child("message").limitToLast(100);
+        Query messageRef = database.getReference().child("chatroom").child(key).child("message").limitToLast(1);
         messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Message receivedMessage = null;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     Message vo = ds.getValue(Message.class);
-                    if(vo.getUid().equals(oUid)){
-                        receivedMessage = vo;
-                    }
-
+                    receivedMessage = vo;
                 }
                 if(receivedMessage!=null){
                     receivedText.setText(receivedMessage.getContent());

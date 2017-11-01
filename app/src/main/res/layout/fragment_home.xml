@@ -48,18 +48,71 @@
         android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/ic_all_white"/>
 
-        <ImageView
-            android:layout_width="162dp"
-            android:layout_height="35dp"
-            android:background="@drawable/ic_cultural_facilities"
-            android:visibility="invisible"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/home_all_image_view"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/ic_all_white"/>
+
+            <ImageView
+                android:id="@+id/home_dining_image_view"
+                android:visibility="invisible"
+                android:layout_width="74dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_dining"
+                android:layout_marginLeft="24dp"/>
+
+            <ImageView
+                android:id="@+id/home_leisure_image_view"
+                android:visibility="invisible"
+                android:layout_width="79dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_leisure"
+                android:layout_marginLeft="24dp"/>
+
+
+            <ImageView
+                android:id="@+id/home_events_image_view"
+                android:visibility="invisible"
+                android:layout_width="74dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_events"
+                android:layout_marginLeft="24dp"/>
+
+            <ImageView
+                android:id="@+id/home_shopping_image_view"
+                android:visibility="invisible"
+                android:layout_width="96dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_shopping"
+                android:layout_marginLeft="24dp"/>
+
+
+            <ImageView
+                android:id="@+id/home_attraction_image_view"
+                android:visibility="invisible"
+                android:layout_width="162dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_tourist_attractions"
+                android:layout_marginLeft="24dp"/>
+
+
+            <ImageView
+                android:id="@+id/home_cultural_image_view"
+                android:visibility="invisible"
+                android:layout_width="152dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_cultural_facilities"
+                android:layout_marginLeft="24dp"/>
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 

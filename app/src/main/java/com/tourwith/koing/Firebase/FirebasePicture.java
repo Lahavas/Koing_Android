@@ -156,8 +156,9 @@ public class FirebasePicture {
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                if(((Activity)context).isFinishing())
+                    return;
                 Glide.with(context).load(uri).into(imageView);
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

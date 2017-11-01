@@ -63,13 +63,6 @@
         android:layout_marginTop="22dp"
         android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/nationality_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="United Kingdom"
-            android:textColor="#000000"
-            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,10 +72,10 @@
 
             <Spinner
                 android:id="@+id/nationality_spinner"
-                android:layout_width="30dp"
+                android:layout_width="282dp"
                 android:layout_height="30dp"
                 android:entries="@array/nation"
-                android:background="@drawable/btn_textdown"
+                android:background="@drawable/btn_edit_profile"
                 />
         </LinearLayout>
 
@@ -115,13 +108,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/native_language_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="English"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,10 +118,10 @@
 
             <Spinner
                 android:id="@+id/native_language_spinner"
-                android:layout_width="30dp"
+                android:layout_width="282dp"
                 android:layout_height="30dp"
                 android:entries="@array/language"
-                android:background="@drawable/btn_textdown"
+                android:background="@drawable/btn_edit_profile"
                 />
 
         </LinearLayout>

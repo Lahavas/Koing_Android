@@ -1,6 +1,7 @@
 package com.tourwith.koing.LikesRecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.tourwith.koing.Activity.MainActivity;
+import com.tourwith.koing.Activity.UserInformationActivity;
 import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.R;
 
@@ -45,7 +48,7 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(LikesViewHolder holder, int position) {
+    public void onBindViewHolder(LikesViewHolder holder, final int position) {
 
 
         /*
@@ -54,6 +57,16 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesViewHolder> {
         holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
         holder.imageView.setClipToOutline(true);
         holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserInformationActivity.class);
+                intent.putExtra("mUID", ((MainActivity)context).uid);
+                intent.putExtra("oUID", list.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         FirebasePicture firebasePicture = new FirebasePicture(context);
         firebasePicture.downLoadProfileImage(list.get(position), FirebasePicture.ORIGINAL, holder.imageView);

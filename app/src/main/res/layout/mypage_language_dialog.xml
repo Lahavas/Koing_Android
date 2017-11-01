@@ -51,14 +51,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="22dp">
 
-            <TextView
-                android:id="@+id/first_language_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="English"
-                android:textColor="#000000"
-                android:textSize="15sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,10 +59,10 @@
 
                 <Spinner
                     android:id="@+id/first_language_spinner"
-                    android:layout_width="30dp"
+                    android:layout_width="230dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="23dp"
-                    android:background="@drawable/btn_textdown"
+                    android:background="@drawable/btn_language"
                     android:entries="@array/language" />
 
                 <Button
@@ -103,14 +95,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="26dp">
 
-            <TextView
-                android:id="@+id/second_language_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="English"
-                android:textColor="#000000"
-                android:textSize="15sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,10 +103,10 @@
 
                 <Spinner
                     android:id="@+id/second_language_spinner"
-                    android:layout_width="30dp"
+                    android:layout_width="230dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="23dp"
-                    android:background="@drawable/btn_textdown"
+                    android:background="@drawable/btn_language"
                     android:entries="@array/language" />
 
                 <Button

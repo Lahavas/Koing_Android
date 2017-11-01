@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tourwith.koing.Activity.HomeFilterActivity;
@@ -42,6 +43,16 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     ImageButton filterButton;
     TextView filterAreaText;
 
+
+    private ImageView homeAllImageView;
+    private ImageView homeDiningImageView;
+    private ImageView homeLeisureImageView;
+    private ImageView homeEventsImageView;
+    private ImageView homeShoppingImageView;
+    private ImageView homeAttractionsImageView;
+    private ImageView homeCulturalImageView;
+
+
     public HomeFragment() {
     }
 
@@ -60,6 +71,14 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        homeAllImageView = (ImageView)view.findViewById(R.id.home_all_image_view);
+        homeDiningImageView = (ImageView)view.findViewById(R.id.home_dining_image_view);
+        homeLeisureImageView = (ImageView)view.findViewById(R.id.home_leisure_image_view);
+        homeEventsImageView = (ImageView)view.findViewById(R.id.home_events_image_view);
+        homeShoppingImageView = (ImageView)view.findViewById(R.id.home_shopping_image_view);
+        homeAttractionsImageView = (ImageView)view.findViewById(R.id.home_attraction_image_view);
+        homeCulturalImageView = (ImageView)view.findViewById(R.id.home_cultural_image_view);
 
         ////by hb
         ImageButton tourCreateButton = (ImageButton) view.findViewById(R.id.home_add_bt);
@@ -138,6 +157,10 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            if(firebaseTour!=null)
+                firebaseTour.refresh();
+        }
 
         if(resultCode==1001){
 
@@ -155,7 +178,33 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
 
             firebaseTour.filter(tourForFiltering);
 
+            setTourTypeImageView(data.getStringExtra("type"));
         }
 
+    }
+
+    private void setTourTypeImageView(String tourType){
+        homeAllImageView.setVisibility(View.INVISIBLE);
+        homeAttractionsImageView.setVisibility(View.INVISIBLE);
+        homeCulturalImageView.setVisibility(View.INVISIBLE);
+        homeEventsImageView.setVisibility(View.INVISIBLE);
+        homeLeisureImageView.setVisibility(View.INVISIBLE);
+        homeShoppingImageView.setVisibility(View.INVISIBLE);
+        homeDiningImageView.setVisibility(View.INVISIBLE);
+        if(tourType.equals("All type") || tourType.equals("")){
+            homeAllImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Tourist Attractions")){
+            homeAttractionsImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Cultural Facilities")){
+            homeCulturalImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Events")){
+            homeEventsImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Leisure")){
+            homeLeisureImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Shopping")){
+            homeShoppingImageView.setVisibility(View.VISIBLE);
+        }else if(tourType.equals("Dining")){
+            homeDiningImageView.setVisibility(View.VISIBLE);
+        }
     }
 }
