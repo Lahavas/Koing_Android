@@ -57,7 +57,7 @@ public class UserInformationActivity extends AppCompatActivity {
 
         initViewInstances();
 
-        FirebaseTour firebaseTour = new FirebaseTour();
+        FirebaseTour firebaseTour = new FirebaseTour(this);
         firebaseTour.getToursOfUser(oUID, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
