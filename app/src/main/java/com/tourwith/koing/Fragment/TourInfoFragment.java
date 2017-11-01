@@ -485,9 +485,12 @@ public class TourInfoFragment extends Fragment {
                         addrs[ii] = item.getAddr1();
                         contentids[ii] = item.getContentid();
                         ii++;
+                        if(ii == 24) {
+                            break;
+                        }
                     }
 
-                    sliderAdapter = new SliderAdapter(24, null, getContext(), mItems);
+                    sliderAdapter = new SliderAdapter(ii, null, getContext(), mItems);
                     recyclerView.setAdapter(sliderAdapter);
 
                     /* country */
@@ -529,9 +532,12 @@ public class TourInfoFragment extends Fragment {
                         addrs[ii] = item.getAddr1();
                         contentids[ii] = item.getContentid();
                         ii++;
+                        if(ii == 24) {
+                            break;
+                        }
                     }
 
-                    sliderAdapter.addAll(mItems);
+                    sliderAdapter.addAll(mItems, ii);
                     sliderAdapter.notifyDataSetChanged();
 
                     /* country */

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderCardViewHolder> {
 
-    private final int count;
+    private int count;
     private final View.OnClickListener listener;
 
     Context context;
@@ -50,8 +50,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderCardViewHolder> {
         return count;
     }
 
-    public void addAll(List<TourInfoItem> items) {
+    public void addAll(List<TourInfoItem> items, int changeCount) {
         this.items = items;
+        this.count = changeCount;
     }
 
 }

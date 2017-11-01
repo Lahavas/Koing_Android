@@ -3,6 +3,7 @@ package com.tourwith.koing.Firebase;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tourwith.koing.Activity.TripCardActivity;
 import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.ViewPager.ViewPagerAdapter;
@@ -32,7 +34,7 @@ public class FirebaseTour {
 
     private ViewPager viewPager;
     private List<Tour> tourList = new ArrayList<Tour>();
-    private Activity activity;
+    private Activity activity, tripActivity;
     private Context context;
     private ViewPagerClickListener listener;
 
@@ -52,6 +54,14 @@ public class FirebaseTour {
         this.listener = listener;
 
         tourRef.addListenerForSingleValueEvent(new TourEventListener()); //리스너를 추가하여 리사이클러뷰 갱신
+
+    }
+
+    public FirebaseTour(Activity tripActivity) {
+        database = FirebaseDatabase.getInstance();
+        tourRef = database.getReference().child("tour");
+
+        this.tripActivity = tripActivity;
 
     }
 
@@ -127,7 +137,7 @@ public class FirebaseTour {
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
     }
 
-    public void getToursOfUser(String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
+    public void getToursOfUser(final String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
 
         DatabaseReference userRef = database.getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,6 +150,16 @@ public class FirebaseTour {
                     langTexts[i].setText(mainLang);
                     FirebaseTour firebaseTour = new FirebaseTour();
                     firebaseTour.getTour(ds.getValue(String.class), areaTexts[i], typeTexts[i], langTexts[i]);
+
+                    layouts[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(tripActivity, TripCardActivity.class);
+                            intent.putExtra("tripuid",uid);
+                            tripActivity.startActivity(intent);
+                        }
+                    });
+
                     i++;
                 }
 
