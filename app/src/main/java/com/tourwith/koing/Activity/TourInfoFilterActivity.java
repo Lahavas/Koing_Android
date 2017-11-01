@@ -53,7 +53,7 @@ public class TourInfoFilterActivity extends AppCompatActivity {
                 Boolean isNetworkEnabled = locationManager
                         .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-                if (!isGPSEnabled && !isNetworkEnabled) {
+                if (area.equals("Current Position") && !isGPSEnabled && !isNetworkEnabled) {
                     GpsSetDialog dialog = new GpsSetDialog(TourInfoFilterActivity.this);
                     dialog.show();
 

@@ -20,20 +20,20 @@ import com.tourwith.koing.R;
  */
 
 public class MyPageNameDialog extends Dialog{
-    private static final String[] nations ={"United Kingdom","Korea","Japan","China","Spain","France"};
-    private static final String[] lans = {"English", "Korean", "Japanese", "Chinese", "Spanish", "French"};
+    private String[] nations;
+    private String[] lans;
     private Context context;
     private static final int LAYOUT = R.layout.mypage_name_dialog;
     private TextView nameOKTextView;
     private Spinner nationalitySpinner;
     private Spinner nativeLanguageSpinner;
-    private TextView nationalityTextView;
-    private TextView nativeLanguageTextView;
     private EditText profileNameEditText;
     private TextView profileNameTextView;
     private TextView profileNationLanguageTextView;
     private User user;
     private String uid;
+    private String nationality;
+    private String nativeLanguage;
 
     public MyPageNameDialog(@NonNull Context context, TextView profileNameTextView, TextView profileNationLanguageTextView, String uid){
         super(context);
@@ -51,11 +51,12 @@ public class MyPageNameDialog extends Dialog{
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
+        nations = getContext().getResources().getStringArray(R.array.nation);
+        lans = getContext().getResources().getStringArray(R.array.language);
+
         nationalitySpinner = (Spinner)findViewById(R.id.nationality_spinner);
         nativeLanguageSpinner = (Spinner)findViewById(R.id.native_language_spinner);
-        nationalityTextView = (TextView)findViewById(R.id.nationality_text_view);
         nameOKTextView = (TextView)findViewById(R.id.name_ok_text_view);
-        nativeLanguageTextView = (TextView)findViewById(R.id.native_language_text_view);
         profileNameEditText = (EditText)findViewById(R.id.profile_name_edit_text);
         profileNameEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         profileNameEditText.setText(profileNameTextView.getText().toString());
@@ -87,7 +88,7 @@ public class MyPageNameDialog extends Dialog{
             @Override
             public void onClick(View v) {
                 profileNameTextView.setText(profileNameEditText.getText().toString());
-                profileNationLanguageTextView.setText(nationalityTextView.getText().toString() + " \u2022 " + nativeLanguageTextView.getText().toString());
+                profileNationLanguageTextView.setText(nationality + " \u2022 " + nativeLanguage);
                 user.setNickname(profileNameEditText.getText().toString().trim());
                 FirebaseProfile firebaseProfile = new FirebaseProfile();
                 firebaseProfile.updateUserMainProfile(user, uid);
@@ -98,7 +99,7 @@ public class MyPageNameDialog extends Dialog{
         nationalitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                nationalityTextView.setText(parent.getItemAtPosition(position)+"");
+                nationality = parent.getItemAtPosition(position)+"";
                 user.setNationality(parent.getItemAtPosition(position)+"");
             }
 
@@ -111,7 +112,7 @@ public class MyPageNameDialog extends Dialog{
         nativeLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                nativeLanguageTextView.setText(parent.getItemAtPosition(position)+"");
+                nativeLanguage = parent.getItemAtPosition(position)+"";
                 user.setMainLang(parent.getItemAtPosition(position)+"");
             }
 

@@ -39,6 +39,7 @@ public class TripCardActivity extends AppCompatActivity {
 
     /* uid variables */
     String uid;
+    String key;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +56,10 @@ public class TripCardActivity extends AppCompatActivity {
 
         /* get uid */
         uid = getIntent().getStringExtra("tripuid");
-
+        key = getIntent().getStringExtra("tripkey");
 
         /* set view content */
-        setView(uid);
+        setView();
 
         /* close button */
         trip_close_bt.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +95,7 @@ public class TripCardActivity extends AppCompatActivity {
     }
 
     /* view set part */
-    private void setView(String uid) {
+    private void setView() {
 
     }
 }

@@ -21,11 +21,9 @@ import com.tourwith.koing.R;
 public class MyPageLanguageDialog extends Dialog{
     private Context context;
     private static final int LAYOUT = R.layout.mypage_language_dialog;
-    private static final String[] lans = {"English", "Korean", "Japanese", "Chinese", "Spanish", "French"};
+    private String[] lans;
     private Spinner firstLanguageSpinner;
     private Spinner secondLanguageSpinner;
-    private TextView firstLanguageTextView;
-    private TextView secondLanguageTextView;
     private TextView languageOKTextView;
     private LinearLayout firstLanguageLayout;
     private LinearLayout secondLanguageLayout;
@@ -56,14 +54,12 @@ public class MyPageLanguageDialog extends Dialog{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
+        lans = getContext().getResources().getStringArray(R.array.language);
 
         languageOKTextView = (TextView)findViewById(R.id.language_ok_text_view);
 
         firstLanguageSpinner = (Spinner)findViewById(R.id.first_language_spinner);
         secondLanguageSpinner = (Spinner)findViewById(R.id.second_language_spinner);
-
-        firstLanguageTextView = (TextView)findViewById(R.id.first_language_text_view);
-        secondLanguageTextView = (TextView)findViewById(R.id.second_language_text_view);
 
         firstLanguageLayout = (LinearLayout)findViewById(R.id.first_language_layout);
         secondLanguageLayout = (LinearLayout)findViewById(R.id.second_language_layout);
@@ -110,7 +106,6 @@ public class MyPageLanguageDialog extends Dialog{
             public void onClick(View v) {
                 languagePlusButton.setBackground(context.getDrawable(R.drawable.btn_plus_button_e));
                 if(secondLanguageLayout.getVisibility()==View.VISIBLE){
-                    firstLanguageTextView.setText(secondLanguageTextView.getText().toString());
                     secondLanguageLayout.setVisibility(View.GONE);
                 }else{
                     firstLanguageLayout.setVisibility(View.GONE);
@@ -154,7 +149,6 @@ public class MyPageLanguageDialog extends Dialog{
         firstLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                firstLanguageTextView.setText(parent.getItemAtPosition(position)+"");
                 language1 = parent.getItemAtPosition(position)+"";
             }
 
@@ -167,7 +161,6 @@ public class MyPageLanguageDialog extends Dialog{
         secondLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                secondLanguageTextView.setText(parent.getItemAtPosition(position)+"");
                 language2 = parent.getItemAtPosition(position)+"";
             }
 
