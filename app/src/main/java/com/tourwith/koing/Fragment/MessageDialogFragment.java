@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tourwith.koing.Activity.LoginActivity;
+import com.tourwith.koing.Firebase.FirebaseChatroom;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
@@ -39,8 +40,11 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int DATE_INVALID = 14;
     public static final int CARD_MAX_INVALID = 15;
     public static final int INVALID_ACCESS = 16;
+    public static final int CHECK_CHATROOM_DESTROY = 17;
 
     public Tour tour;
+    private FirebaseChatroom firebaseChatroom;
+    private String chatroomkey;
 
     public MessageDialogFragment(){}
     public MessageDialogFragment(int code){
@@ -56,13 +60,18 @@ public class MessageDialogFragment extends DialogFragment {
         this.activity = activity;
     }
 
+    public void setFirebaseChatroomAndKey(FirebaseChatroom firebaseChatroom, String chatroomkey) {
+        this.firebaseChatroom = firebaseChatroom;
+        this.chatroomkey = chatroomkey;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_messagedialog, container);
         Button rButton = (Button) view.findViewById(R.id.button_right);
         TextView messageText = (TextView) view.findViewById(R.id.text_of_message_fragment);
-        rButton.setText("Okay");
+        rButton.setText("OK");
         rButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +109,9 @@ public class MessageDialogFragment extends DialogFragment {
             });
         } else if(code == SIGN_OUT) {
             messageText.setText("Are you sure to sign out?");
-            rButton.setText("No");
+            rButton.setText("Cancel");
             Button lButton = (Button) view.findViewById(R.id.button_left);
-            lButton.setText("Okay");
+            lButton.setText("OK");
             lButton.setVisibility(View.VISIBLE);
             lButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,9 +133,9 @@ public class MessageDialogFragment extends DialogFragment {
             messageText.setText("Please enter your email.\nPassword must be more than 8 words");
         } else if(code == CHECK_TOUR_CREATE){
             messageText.setText("Are you sure to upload?");
-            rButton.setText("No");
+            rButton.setText("Cancel");
             Button lButton = (Button) view.findViewById(R.id.button_left);
-            lButton.setText("Okay");
+            lButton.setText("OK");
             lButton.setVisibility(View.VISIBLE);
             lButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -152,6 +161,20 @@ public class MessageDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     activity.finish();
+                }
+            });
+
+        } else if (code == CHECK_CHATROOM_DESTROY){
+            messageText.setText("Are you sure to delete this?");
+            rButton.setText("Cancel");
+            Button lButton = (Button) view.findViewById(R.id.button_left);
+            lButton.setText("OK");
+            lButton.setVisibility(View.VISIBLE);
+            lButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseChatroom.destroyChatroom(chatroomkey);
+                    dismiss();
                 }
             });
 

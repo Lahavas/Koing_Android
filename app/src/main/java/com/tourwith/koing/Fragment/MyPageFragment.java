@@ -1,8 +1,12 @@
 package com.tourwith.koing.Fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +21,15 @@ import com.tourwith.koing.Dialog.LanguageDialogListener;
 import com.tourwith.koing.Dialog.MyPageIntroductionDialog;
 import com.tourwith.koing.Dialog.MyPageLanguageDialog;
 import com.tourwith.koing.Dialog.MyPageNameDialog;
+import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.R;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Munak on 2017. 10. 8..
@@ -44,6 +54,11 @@ public class MyPageFragment extends Fragment {
     private TextView []cardTypeTexts = new TextView[3];
     private TextView []cardLangTexts = new TextView[3];
 
+
+    private Uri mImageCaptureUri;
+    private Bitmap profileBitmap;
+    private static final int PICK_FROM_ALBUM=101;
+    private static final int CROP_FROM_IMAGE=102;
 
     public MyPageFragment()
     {
@@ -140,11 +155,78 @@ public class MyPageFragment extends Fragment {
             }
         });
 
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doTakeAlbumAction();
+            }
+        });
+
         FirebaseProfile firebaseProfile = new FirebaseProfile();
         firebaseProfile.getUser(parent, parent.uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView,
                 profileLanguage1TextView, profileLanguage2TextView);
 
+
+
         return view;
+    }
+
+    private void doTakeAlbumAction(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode != RESULT_OK)
+            return;
+
+        switch(requestCode){
+            case PICK_FROM_ALBUM:{
+                mImageCaptureUri = data.getData();
+
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(mImageCaptureUri, "image/*");
+                intent.putExtra("outputX", 200);
+                intent.putExtra("outputY", 200);
+                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectY", 1);
+                intent.putExtra("scale", true);
+                intent.putExtra("circleCrop", "true");
+                intent.putExtra("return-data", true);
+                startActivityForResult(intent, CROP_FROM_IMAGE);
+
+            } case CROP_FROM_IMAGE:
+            {
+                if(resultCode != RESULT_OK)
+                    return;
+
+                final Bundle extras = data.getExtras();
+
+                if(extras != null){
+                    Bitmap photo = extras.getParcelable("data");
+                    //Bitmap resized = Bitmap.createScaledBitmap(photo, 500, 500, true);
+                    profileBitmap = photo;
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    profileBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    profileImageView.setImageBitmap(profileBitmap);
+
+                    FirebasePicture firebasePicture = new FirebasePicture(parent);
+                    firebasePicture.uploadProfileImage(parent.uid, byteArray, FirebasePicture.ORIGINAL);
+
+                    break;
+                }
+
+                File f = new File(mImageCaptureUri.getPath());
+                if(f.exists())
+                    f.delete();
+
+            }
+        }
     }
 
     private void initCards(View view) {

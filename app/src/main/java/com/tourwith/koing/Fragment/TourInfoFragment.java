@@ -188,8 +188,15 @@ public class TourInfoFragment extends Fragment {
         tour_info_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseTourInfo.doLike(activity.uid ,contentids[currentPosition], tour_info_heart);
+                firebaseTourInfo.doLike(activity.uid ,contentids[currentPosition], tour_info_heart, tour_info_likes_count);
 
+            }
+        });
+
+        view.findViewById(R.id.tour_info_likes_refresh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseTourInfo.getLikes(contentids[currentPosition], tour_info_likes_count);
             }
         });
 
