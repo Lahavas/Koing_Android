@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,20 +24,29 @@
         </activity>
 
 
-        <activity android:name=".Activity.LoginActivity">
+        <activity android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait"/>
 
-        </activity>
-
-        <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.ChatroomActivity" />
-        <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.SignInActivity" />
-        <activity android:name=".Activity.TourInfoFilterActivity" />
-        <activity android:name=".Activity.TourCreationActivity" />
-        <activity android:name=".Activity.UserInformationActivity" />
-        <activity android:name=".Activity.HomeFilterActivity"></activity>
-        <activity android:name=".Activity.TripCardActivity"></activity>
-        <activity android:name=".Activity.ShareActivity" />
+        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ChatroomActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.TourInfoFilterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.TourCreationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.UserInformationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.HomeFilterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.TripCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ShareActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

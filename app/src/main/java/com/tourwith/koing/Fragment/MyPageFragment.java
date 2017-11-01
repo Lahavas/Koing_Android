@@ -244,7 +244,7 @@ public class MyPageFragment extends Fragment {
         cardLangTexts[2] = (TextView) view.findViewById(R.id.card_lang_text3);
 
         FirebaseTour firebaseTour = new FirebaseTour(getActivity());
-        firebaseTour.getToursOfUser(parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseTour.getToursOfUser(getActivity(), parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
     }
 

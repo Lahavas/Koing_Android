@@ -31,7 +31,7 @@ public class UserInformationActivity extends AppCompatActivity {
 
     private Button sendMessageButton;
     private Button backButton;
-    
+
     private String oUID;
     private String mUID;
 
@@ -58,7 +58,7 @@ public class UserInformationActivity extends AppCompatActivity {
         initViewInstances();
 
         FirebaseTour firebaseTour = new FirebaseTour(this);
-        firebaseTour.getToursOfUser(oUID, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseTour.getToursOfUser(this, oUID, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
         firebaseProfile.getUser(this, oUID, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView, profileLanguage1TextView, profileLanguage2TextView);

@@ -129,11 +129,11 @@ public class FirebaseProfile {
                     profileNationLanguageTextView.append(" \u2022 " + user.getMainLang());
                 }
                 if(introductionText!=null) introductionText.setText(user.getComments());
-                if(!user.getLang1().equals("")){
+                if(languageText1!=null && !user.getLang1().equals("")){
                     languageText1.setText(user.getLang1());
                     languageText1.setVisibility(View.VISIBLE);
                 }
-                if(!user.getLang2().equals("")){
+                if(languageText2!=null && !user.getLang2().equals("")){
                     languageText2.setText(user.getLang2());
                     languageText2.setVisibility(View.VISIBLE);
                 }
@@ -146,7 +146,32 @@ public class FirebaseProfile {
         });
 
 
+    }
 
+    public void getUser(final Context context, String uid, final TextView nameText, final TextView nationTextView, final TextView mainlangText,
+                        final TextView introductionText, ImageView profileImage, final ImageView flagImage){
+
+        FirebasePicture firebasePicture = new FirebasePicture(context);
+        firebasePicture.downLoadProfileImage(uid, FirebasePicture.ORIGINAL, profileImage);
+
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(nameText!=null) nameText.setText(user.getNickname());
+                if(nationTextView!=null) {
+                    nationTextView.setText(user.getNationality());
+                    flagImage.setBackgroundResource(new LanguageToFlag(context).Converter(user.getNationality()));
+                }
+                if(introductionText!=null) introductionText.setText(user.getComments());
+                if(mainlangText!=null) mainlangText.setText(user.getMainLang());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }

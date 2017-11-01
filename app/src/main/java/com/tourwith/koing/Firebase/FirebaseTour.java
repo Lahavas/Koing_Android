@@ -20,7 +20,9 @@ import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.ViewPager.ViewPagerAdapter;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -62,6 +64,47 @@ public class FirebaseTour {
         tourRef = database.getReference().child("tour");
 
         this.tripActivity = tripActivity;
+
+    }
+
+    public void getTourOfTripcard(String key, final TextView trip_sub_lang1, final TextView trip_sub_lang2, final TextView trip_trip_period, final TextView trip_tourist_type, final TextView trip_area_text) {
+
+        tourRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Tour tour = dataSnapshot.getValue(Tour.class);
+
+                /* period */
+                SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
+
+                Calendar calStart = Calendar.getInstance();
+                Calendar calEnd = Calendar.getInstance();
+
+                calStart.setTimeInMillis(tour.getStart_timestamp());
+                calEnd.setTimeInMillis(tour.getEnd_timestamp());
+
+                trip_trip_period.setText(fmt.format(calStart.getTime()) + " ~ " + fmt.format(calEnd.getTime()));
+
+                if(!tour.getLang1().equals(""))
+                    trip_sub_lang1.setText(" > " + tour.getLang1());
+                trip_sub_lang2.setText(tour.getLang2());
+
+                trip_tourist_type.setText(tour.getTour_type());
+
+                if(trip_area_text != null) {
+                    trip_area_text.setText(tour.getArea());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
     }
 
@@ -137,7 +180,7 @@ public class FirebaseTour {
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
     }
 
-    public void getToursOfUser(final String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
+    public void getToursOfUser(final Activity currentActivity, final String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
 
         DatabaseReference userRef = database.getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -154,10 +197,10 @@ public class FirebaseTour {
                     layouts[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(tripActivity, TripCardActivity.class);
+                            Intent intent = new Intent(currentActivity, TripCardActivity.class);
                             intent.putExtra("tripuid",uid);
                             intent.putExtra("tripkey",ds.getValue(String.class));
-                            tripActivity.startActivity(intent);
+                            currentActivity.startActivity(intent);
                         }
                     });
 
@@ -184,7 +227,7 @@ public class FirebaseTour {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 areaText.setText(dataSnapshot.child("area").getValue(String.class));
                 typeText.setText(dataSnapshot.child("tour_type").getValue(String.class));
-                langText.append(" > "+dataSnapshot.child("lang1").getValue(String.class) + " " + dataSnapshot.child("lang2").getValue(String.class));
+                if(langText !=null )langText.append(" > "+dataSnapshot.child("lang1").getValue(String.class) + " " + dataSnapshot.child("lang2").getValue(String.class));
             }
 
             @Override
@@ -209,7 +252,7 @@ public class FirebaseTour {
                 int count = 0;
                 DataSnapshot tourSnapshot = dataSnapshot.child("tours");
                 for(DataSnapshot ds : tourSnapshot.getChildren()) {
-                        count++;
+                    count++;
                 }
 
                 progressDialog.dismiss();
@@ -243,6 +286,28 @@ public class FirebaseTour {
 
 
     }
+    public void destroyTour(final String key, String uid){
 
+        final DatabaseReference specificTourRef = tourRef.child(key);
+        final DatabaseReference specificToursOfUserRef = database.getReference().child("user").child(uid).child("tours");
+
+        specificToursOfUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    if(ds.getValue(String.class).equals(key)){
+                        specificTourRef.removeValue();
+                        specificToursOfUserRef.child(ds.getKey()).removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 }
