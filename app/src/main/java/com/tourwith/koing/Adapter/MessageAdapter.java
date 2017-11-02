@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tourwith.koing.Model.Message;
 import com.tourwith.koing.R;
 
@@ -44,11 +46,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
+        ImageView shareImage;
 
         public ReceivedMessageHolder(View itemView) {
             super(itemView);
             messageText = (TextView) itemView.findViewById(R.id.o_msg_content);
             timeText = (TextView) itemView.findViewById(R.id.o_time_text);
+            shareImage = (ImageView) itemView.findViewById(R.id.o_image_to_share);
         }
 
         void bind(Message vo){
@@ -56,19 +60,26 @@ public class MessageAdapter extends RecyclerView.Adapter {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis((long)vo.timestamp);
             timeText.setText(fmt.format(cal.getTime()));
-
+            if(vo.getshare()) {
+                messageText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                shareImage.setVisibility(View.VISIBLE);
+                Glide.with(context).load(vo.getPictureUrl()).override(1000,600).into(shareImage);
+                //이미지뷰에 Url 띄우기
+            }
         }
     }
 
     private  class SentMessageHolder extends RecyclerView.ViewHolder{
         TextView mMsgText;
         TextView mTimewText;
+        ImageView shareImage;
+
 
         public SentMessageHolder(View itemView) {
             super(itemView);
             mMsgText = (TextView) itemView.findViewById(R.id.m_msg_content);
             mTimewText = (TextView) itemView.findViewById(R.id.m_time_text);
-
+            shareImage = (ImageView) itemView.findViewById(R.id.m_image_to_share);
         }
 
         void bind(Message vo){
@@ -76,6 +87,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis((long)vo.timestamp);
             mTimewText.setText(fmt.format(cal.getTime()));
+            if(vo.getshare()){
+                mMsgText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                shareImage.setVisibility(View.VISIBLE);
+                Glide.with(context).load(vo.getPictureUrl()).override(1000,600).into(shareImage);
+                //이미지 띄우기
+            }
+
 
         }
 

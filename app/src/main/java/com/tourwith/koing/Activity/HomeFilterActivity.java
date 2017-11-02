@@ -132,7 +132,8 @@ public class HomeFilterActivity extends AppCompatActivity {
         cal.set(year, month, day);
         periodText.setText(fmt.format(cal.getTime()));
         cal2.set(year, month, day);
-        periodText2.setText(fmt.format(cal.getTime()));
+        cal2.setTimeInMillis(cal2.getTimeInMillis() + 86400000l*30);
+        periodText2.setText(fmt.format(cal2.getTime()));
 
         period1 = cal.getTimeInMillis();
         period2 = cal.getTimeInMillis();

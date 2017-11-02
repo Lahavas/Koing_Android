@@ -454,7 +454,7 @@ public class SignupFragments extends Fragment {
     }
 
     private boolean checkPasswordValid(String password){
-        final String passwordPattern = "^[A-Za-z0-9_-]{8,18}$";
+        final String passwordPattern = "^[A-Za-z0-9_-]{8,100}$";
         return password.matches(passwordPattern);
     }
 

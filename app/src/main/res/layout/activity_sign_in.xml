@@ -31,6 +31,7 @@
         android:layout_gravity="center"
         android:textSize="19.25sp"
         android:textColor="#000000"
+        android:maxLength="100"
         android:inputType="textEmailAddress"
         android:hint="Email"
         />
@@ -43,6 +44,7 @@
         android:layout_marginLeft="25.66dp"
         android:layout_marginRight="25.66dp"
         android:layout_gravity="center"
+        android:maxLength="100"
         android:textSize="19.25sp"
         android:inputType="textPassword"
         android:textColor="#000000"

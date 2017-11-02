@@ -22,12 +22,14 @@
         android:textSize="20dp"
         android:textColor="#000000"
         android:maxLines="1"
+        android:maxLength="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/input_password_text"
         android:textSize="20dp"
         android:textColor="#000000"
+        android:maxLength="100"
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

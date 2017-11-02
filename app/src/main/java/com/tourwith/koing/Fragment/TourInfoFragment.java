@@ -119,6 +119,8 @@ public class TourInfoFragment extends Fragment {
 
     private String[] contentids;
 
+    private String[] pictureUrls;
+
     private CardSliderLayoutManager layoutManger;
     private int currentPosition;
 
@@ -156,6 +158,7 @@ public class TourInfoFragment extends Fragment {
         titles = new String[24];
         addrs = new String[24];
         contentids = new String[24];
+        pictureUrls = new String[24];
 
         /* tour_info_country */
         country1TextView = (TextView) view.findViewById(R.id.tv_country_1);
@@ -221,10 +224,10 @@ public class TourInfoFragment extends Fragment {
                     return;
 
                 Intent intent = new Intent(getContext(), ShareActivity.class);
-                intent.putExtra("uid", activity.uid);
-                intent.putExtra("country", countries[currentPosition]);
-                intent.putExtra("title", titles[currentPosition]);
-                intent.putExtra("addr", addrs[currentPosition]);
+                intent.putExtra("uid", activity.uid).putExtra("country", countries[currentPosition])
+                        .putExtra("title", titles[currentPosition]).putExtra("addr", addrs[currentPosition])
+                        .putExtra("url", pictureUrls[currentPosition]);
+
                 startActivity(intent);
 
             }
@@ -522,6 +525,7 @@ public class TourInfoFragment extends Fragment {
                         titles[ii] = item.getTitle();
                         addrs[ii] = item.getAddr1();
                         contentids[ii] = item.getContentid();
+                        pictureUrls[ii] = item.getFirstimage();
                         ii++;
                         if(ii==24)
                             break;

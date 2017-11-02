@@ -180,7 +180,7 @@ public class FirebaseTour {
         tourRef.addListenerForSingleValueEvent(new TourEventListener());
     }
 
-    public void getToursOfUser(final Activity currentActivity, final String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
+    public void getToursOfUser(final Activity currentActivity, final String mUid, final String uid, final LinearLayout[] layouts, final TextView[] areaTexts, final TextView[] typeTexts, final TextView[] langTexts){
 
         DatabaseReference userRef = database.getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -189,7 +189,7 @@ public class FirebaseTour {
                 int i = 0;
                 String mainLang = dataSnapshot.child("mainLang").getValue(String.class);
                 for(final DataSnapshot ds : dataSnapshot.child("tours").getChildren()){
-                    layouts[i].setVisibility(View.VISIBLE);
+
                     langTexts[i].setText(mainLang);
                     FirebaseTour firebaseTour = new FirebaseTour();
                     firebaseTour.getTour(ds.getValue(String.class), areaTexts[i], typeTexts[i], langTexts[i]);
@@ -200,10 +200,12 @@ public class FirebaseTour {
                             Intent intent = new Intent(currentActivity, TripCardActivity.class);
                             intent.putExtra("tripuid",uid);
                             intent.putExtra("tripkey",ds.getValue(String.class));
-                            currentActivity.startActivity(intent);
+                            intent.putExtra("mUid", mUid);
+                            currentActivity.startActivityForResult(intent, 2001);
                         }
                     });
 
+                    layouts[i].setVisibility(View.VISIBLE);
                     i++;
                 }
 
@@ -286,7 +288,7 @@ public class FirebaseTour {
 
 
     }
-    public void destroyTour(final String key, String uid){
+    public void destroyTour(final String key, String uid, final Activity activity, final MessageDialogFragment messageDialogFragment){
 
         final DatabaseReference specificTourRef = tourRef.child(key);
         final DatabaseReference specificToursOfUserRef = database.getReference().child("user").child(uid).child("tours");
@@ -298,6 +300,9 @@ public class FirebaseTour {
                     if(ds.getValue(String.class).equals(key)){
                         specificTourRef.removeValue();
                         specificToursOfUserRef.child(ds.getKey()).removeValue();
+                        messageDialogFragment.dismiss();
+                        activity.setResult(3000);
+                        activity.finish();
                     }
                 }
             }
