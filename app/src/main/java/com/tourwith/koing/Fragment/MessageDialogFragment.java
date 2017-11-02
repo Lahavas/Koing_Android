@@ -49,9 +49,7 @@ public class MessageDialogFragment extends DialogFragment {
     private String chatroomkey;
 
     public MessageDialogFragment(){}
-    public MessageDialogFragment(int code){
-        this.code = code;
-    }
+    public void setCode(int code){this.code = code;}
     public Activity activity = null;
 
     public String uid, key;

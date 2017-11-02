@@ -91,11 +91,13 @@ public class TourCreationActivity extends AppCompatActivity {
                     tour.setLang2("");
 
                 if(tour.getStart_timestamp() > tour.getEnd_timestamp()){
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.DATE_INVALID);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.DATE_INVALID);
                     messageDialogFragment.show(getFragmentManager(), "");
 
                 } else {
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_TOUR_CREATE);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.CHECK_TOUR_CREATE);
                     messageDialogFragment.setTour(tour);
                     messageDialogFragment.setActivity(TourCreationActivity.this);
                     messageDialogFragment.show(getFragmentManager(), "");

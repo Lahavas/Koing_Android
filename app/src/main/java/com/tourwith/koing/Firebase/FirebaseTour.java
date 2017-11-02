@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.tourwith.koing.Activity.TripCardActivity;
 import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.Model.Tour;
-import com.tourwith.koing.ViewPager.LanguageToShort;
 import com.tourwith.koing.ViewPager.ViewPagerAdapter;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 
@@ -91,6 +90,8 @@ public class FirebaseTour {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tour tour = dataSnapshot.getValue(Tour.class);
 
+                if(tour==null)
+                    return;
                 /* period */
                 SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -280,7 +281,8 @@ public class FirebaseTour {
 
                 progressDialog.dismiss();
                 if(count>=3){
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CARD_MAX_INVALID);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.CARD_MAX_INVALID);
                     messageDialogFragment.setActivity(activity);
                     messageDialogFragment.show(activity.getFragmentManager(), "");
 

@@ -181,7 +181,8 @@ public class SignInActivity extends AppCompatActivity {
     private void attemptSignIn(String email, String password) {
 
         if(!checkValid(email, password)){ //valid하지 않으면, 다이얼로그 띄움
-            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.EMAIL_PASSWORD_INVALID);
+            MessageDialogFragment df = new MessageDialogFragment();
+            df.setCode(MessageDialogFragment.EMAIL_PASSWORD_INVALID);
             df.show(getFragmentManager(), TAG);
             return;
         }
@@ -197,7 +198,8 @@ public class SignInActivity extends AppCompatActivity {
 
                         if (!task.isSuccessful()) { //로그인 실패
                             progressDialog.dismiss();
-                            MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.SIGN_IN_FAILED);
+                            MessageDialogFragment md = new MessageDialogFragment();
+                            md.setCode(MessageDialogFragment.SIGN_IN_FAILED);
                             md.show(getFragmentManager(), TAG);
 
                         } else {
