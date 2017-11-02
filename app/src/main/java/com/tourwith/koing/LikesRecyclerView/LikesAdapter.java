@@ -64,7 +64,7 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesViewHolder> {
                 Intent intent = new Intent(context, UserInformationActivity.class);
                 intent.putExtra("mUID", ((MainActivity)context).uid);
                 intent.putExtra("oUID", list.get(position));
-                context.startActivity(intent);
+                ((MainActivity) context).startActivityForResult(intent, 3000);
             }
         });
 

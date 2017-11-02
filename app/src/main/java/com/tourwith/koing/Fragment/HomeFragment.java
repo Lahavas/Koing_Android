@@ -207,4 +207,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
             homeDiningImageView.setVisibility(View.VISIBLE);
         }
     }
+    public void refresh() {
+        firebaseTour.refresh();
+    }
 }

@@ -1,5 +1,6 @@
 package com.tourwith.koing.Activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -17,6 +18,11 @@ import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.R;
 
 public class UserInformationActivity extends AppCompatActivity {
+
+    FirebaseTour firebaseTour;
+    FirebaseProfile firebaseProfile;
+
+
     private TextView introductionTextView;
     private ImageView profileImageView;
     private TextView profileNameTextView;
@@ -57,10 +63,10 @@ public class UserInformationActivity extends AppCompatActivity {
 
         initViewInstances();
 
-        FirebaseTour firebaseTour = new FirebaseTour(this);
+        firebaseTour = new FirebaseTour(this);
         firebaseTour.getToursOfUser(this, mUID, oUID, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
-        FirebaseProfile firebaseProfile = new FirebaseProfile();
+        firebaseProfile = new FirebaseProfile();
         firebaseProfile.getUser(this, oUID, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView, profileLanguage1TextView, profileLanguage2TextView);
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +121,19 @@ public class UserInformationActivity extends AppCompatActivity {
         cardLangTexts[0] = (TextView) findViewById(R.id.card_lang_text11);
         cardLangTexts[1] = (TextView) findViewById(R.id.card_lang_text22);
         cardLangTexts[2] = (TextView) findViewById(R.id.card_lang_text33);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        cardLayouts[0].setVisibility(View.GONE);
+        cardLayouts[1].setVisibility(View.GONE);
+        cardLayouts[2].setVisibility(View.GONE);
+
+        firebaseTour.getToursOfUser(this, mUID, oUID, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseProfile.getUser(this, oUID, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView, profileLanguage1TextView, profileLanguage2TextView);
 
     }
 }

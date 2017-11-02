@@ -22,6 +22,12 @@ import com.tourwith.koing.R;
 
 public class TripCardActivity extends AppCompatActivity {
 
+
+    FirebaseTour firebaseTour;
+    FirebaseProfile firebaseProfile;
+
+
+
     /* trip card view varialbes*/
     TextView trip_area_text;
 
@@ -122,10 +128,10 @@ public class TripCardActivity extends AppCompatActivity {
             trip_edit_bt.setVisibility(View.GONE);
         }
 
-        FirebaseProfile firebaseProfile = new FirebaseProfile();
+        firebaseProfile = new FirebaseProfile();
         firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);
 
-        final FirebaseTour firebaseTour = new FirebaseTour();
+        firebaseTour = new FirebaseTour();
         firebaseTour.getTourOfTripcard(key, trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
 
 
@@ -145,9 +151,18 @@ public class TripCardActivity extends AppCompatActivity {
                 Intent intent = new Intent(TripCardActivity.this, TourEditActivity.class);
                 intent.putExtra("edituid",uid);
                 intent.putExtra("editkey",key);
-                startActivity(intent);
+                startActivityForResult(intent,3000);
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        firebaseTour.getTourOfTripcard(key, trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
+        firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);
 
     }
 }

@@ -57,16 +57,14 @@
                 <ImageView
                     android:id="@+id/trip_person_iv"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:layout_height="80dp"/>
 
                 <ImageView
                     android:id="@+id/trip_flag_iv"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
@@ -196,8 +194,8 @@
 
             <ImageButton
                 android:id="@+id/trip_edit_bt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="180dp"
+                android:layout_height="56dp"
                 android:layout_below="@+id/trip_description"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
