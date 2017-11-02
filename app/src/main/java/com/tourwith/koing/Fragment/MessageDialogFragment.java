@@ -199,9 +199,8 @@ public class MessageDialogFragment extends DialogFragment {
             lButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    firebaseTour.destroyTour(key, uid);
-                    dismiss();
-                    activity.finish();
+                    firebaseTour.destroyTour(key, uid, activity, MessageDialogFragment.this);
+
                 }
             });
 

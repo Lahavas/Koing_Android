@@ -1,5 +1,6 @@
 package com.tourwith.koing.Activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -175,4 +176,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 3000){
+            ((MyPageFragment)mypageFragment).refreshCards();
+        }
+    }
 }

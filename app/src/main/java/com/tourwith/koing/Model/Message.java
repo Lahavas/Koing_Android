@@ -10,19 +10,35 @@ public class Message {
 
     String content;
     String uid;
-    boolean isRead;
+    boolean share;
     public Object timestamp;
+    String pictureUrl;
     public Message() {
 
     }
 
-    public Message(String content, String uid , boolean isRead) {
+    public Message(String content, String uid , boolean share) {
         this.content = content;
         this.uid = uid;
-        this.isRead = isRead;
+        this.share = share;
         timestamp = ServerValue.TIMESTAMP;
     }
 
+    public Message(String content, String uid , boolean share, String pictureUrl) {
+        this.content = content;
+        this.uid = uid;
+        this.share = share;
+        timestamp = ServerValue.TIMESTAMP;
+        this.pictureUrl = pictureUrl;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
 
     public String getContent() {
         return content;
@@ -40,12 +56,12 @@ public class Message {
         this.uid = uid;
     }
 
-    public boolean getIsRead() {
-        return isRead;
+    public boolean getshare() {
+        return share;
     }
 
-    public void setIsRead(boolean isRead) {
-        this.isRead = isRead;
+    public void setshare(boolean share) {
+        this.share = share;
     }
 
 

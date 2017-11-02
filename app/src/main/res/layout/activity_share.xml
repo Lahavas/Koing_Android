@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.tourwith.koing.Activity.ShareActivity"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +29,15 @@
             android:layout_marginBottom="22dp"
             />
     </LinearLayout>
-
+    <ImageView
+        android:id="@+id/background_img_none_in_share"
+        android:visibility="gone"
+        android:background="@drawable/img_nomessage"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="100dp"
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        />
     <ListView
         android:id="@+id/message_list_view_in_share"
         android:layout_width="match_parent"

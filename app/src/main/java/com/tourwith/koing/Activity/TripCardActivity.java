@@ -1,6 +1,5 @@
 package com.tourwith.koing.Activity;
 
-import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Fragment.MessageDialogFragment;
@@ -48,6 +46,7 @@ public class TripCardActivity extends AppCompatActivity {
     ImageButton trip_delete_bt;
 
     /* uid and key variables */
+    String mUid;
     String uid;
     String key;
 
@@ -67,6 +66,7 @@ public class TripCardActivity extends AppCompatActivity {
         /* get uid and key */
         uid = getIntent().getStringExtra("tripuid");
         key = getIntent().getStringExtra("tripkey");
+        mUid = getIntent().getStringExtra("mUid");
 
         /* set view content */
         setView();
@@ -116,7 +116,10 @@ public class TripCardActivity extends AppCompatActivity {
 
     /* view set part */
     private void setView() {
-
+        if(!mUid.equals(uid)){
+            trip_delete_bt.setVisibility(View.GONE);
+            trip_edit_bt.setVisibility(View.GONE);
+        }
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
         firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);

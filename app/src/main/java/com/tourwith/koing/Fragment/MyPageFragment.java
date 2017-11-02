@@ -58,6 +58,7 @@ public class MyPageFragment extends Fragment {
     private Bitmap profileBitmap;
     private static final int PICK_FROM_ALBUM=103;
     private static final int CROP_FROM_IMAGE=104;
+    private FirebaseTour firebaseTour;
 
     public MyPageFragment()
     {
@@ -176,6 +177,18 @@ public class MyPageFragment extends Fragment {
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
+    public void refreshCards(){
+        if(cardLayouts==null || firebaseTour==null)
+            return;
+
+        cardLayouts[0].setVisibility(View.GONE);
+        cardLayouts[1].setVisibility(View.GONE);
+        cardLayouts[2].setVisibility(View.GONE);
+
+        firebaseTour.getToursOfUser(parent, parent.uid, parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -243,8 +256,8 @@ public class MyPageFragment extends Fragment {
         cardLangTexts[1] = (TextView) view.findViewById(R.id.card_lang_text2);
         cardLangTexts[2] = (TextView) view.findViewById(R.id.card_lang_text3);
 
-        FirebaseTour firebaseTour = new FirebaseTour(getActivity());
-        firebaseTour.getToursOfUser(getActivity(), parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseTour = new FirebaseTour(getActivity());
+        firebaseTour.getToursOfUser(getActivity(), parent.uid,  parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
     }
 

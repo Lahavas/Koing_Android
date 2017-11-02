@@ -112,9 +112,9 @@ public class FirebaseMessenger {
         contentRef.setValue(vo);
     }
 
-    public void share(String country, String title, String addr){
-        String message = "Area : " + country + "\nTitle : "+title+"\nAddress : " + addr;
-        Message vo = new Message(message, chatroom.getmUID(), false);
+    public void share(String country, String title, String imageUrl, String addr){
+        String message = country + "\n\n"+title+"\n\n"+ addr;
+        Message vo = new Message(message, chatroom.getmUID(), true, imageUrl);
         DatabaseReference contentRef = messageRef.push();
         contentRef.setValue(vo);
     }
