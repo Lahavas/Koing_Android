@@ -109,8 +109,6 @@ public class TourInfoFragment extends Fragment {
 
     private FirebaseTourInfo firebaseTourInfo;
 
-    private MainActivity activity;
-
     private String[] countries;
 
     private String[] titles;
@@ -130,9 +128,6 @@ public class TourInfoFragment extends Fragment {
 
     }
 
-    public TourInfoFragment(MainActivity mainActivity) {
-        this.activity = mainActivity;
-    }
 
 
     @Override
@@ -210,7 +205,7 @@ public class TourInfoFragment extends Fragment {
         tour_info_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseTourInfo.doLike(activity.uid ,contentids[currentPosition], tour_info_heart, tour_info_likes_count);
+                firebaseTourInfo.doLike(((MainActivity)TourInfoFragment.this.getActivity()).uid ,contentids[currentPosition], tour_info_heart, tour_info_likes_count);
 
             }
         });
@@ -224,7 +219,7 @@ public class TourInfoFragment extends Fragment {
                     return;
 
                 Intent intent = new Intent(getContext(), ShareActivity.class);
-                intent.putExtra("uid", activity.uid).putExtra("country", countries[currentPosition])
+                intent.putExtra("uid", ((MainActivity)TourInfoFragment.this.getActivity()).uid).putExtra("country", countries[currentPosition])
                         .putExtra("title", titles[currentPosition]).putExtra("addr", addrs[currentPosition])
                         .putExtra("url", pictureUrls[currentPosition]);
 
@@ -362,7 +357,7 @@ public class TourInfoFragment extends Fragment {
         setAddrText(addrs[pos % addrs.length], left2right);
 
         firebaseTourInfo.getLikes(contentids[pos % contentids.length],tour_info_likes_count);
-        firebaseTourInfo.getMyLike(activity.uid, contentids[pos % contentids.length],tour_info_heart);
+        firebaseTourInfo.getMyLike(((MainActivity)TourInfoFragment.this.getActivity()).uid, contentids[pos % contentids.length],tour_info_heart);
 
         currentPosition = pos;
     }
@@ -549,7 +544,7 @@ public class TourInfoFragment extends Fragment {
                     /* likes */
                     firebaseTourInfo.getLikes(contentids[0],tour_info_likes_count);
 
-                    firebaseTourInfo.getMyLike(activity.uid, contentids[0],tour_info_heart);
+                    firebaseTourInfo.getMyLike(((MainActivity)TourInfoFragment.this.getActivity()).uid, contentids[0],tour_info_heart);
 
                     setTourTypeImageView(tourType);
                 }

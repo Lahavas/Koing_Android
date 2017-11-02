@@ -87,7 +87,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void initFragment() {
         //프래그먼트 생성하기
         for(int i=0; i< fragments.length; i++){
-            fragments[i] = new SignupFragments(i, this);
+            fragments[i] = new SignupFragments();
+            fragments[i].setFragment(i, this);
         }
 
     }
@@ -144,7 +145,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                             if (!task.isSuccessful()) {
                                 progressDialog.dismiss();
-                                MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.SIGN_UP_FAILED);
+                                MessageDialogFragment df = new MessageDialogFragment();
+                                df.setCode(MessageDialogFragment.SIGN_UP_FAILED);
                                 df.show(getFragmentManager(), TAG);
 
                             } else {

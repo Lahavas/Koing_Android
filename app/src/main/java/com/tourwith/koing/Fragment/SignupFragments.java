@@ -61,7 +61,7 @@ public class SignupFragments extends Fragment {
 
     }
 
-    public SignupFragments(int fragmentIndex, SignUpActivity parentActivity) {
+    public void setFragment(int fragmentIndex, SignUpActivity parentActivity) {
         // Required empty public constructor
         this.fragmentIndex = fragmentIndex;
         this.parentActivity = parentActivity;
@@ -326,7 +326,8 @@ public class SignupFragments extends Fragment {
                         if((parentActivity.userForSignup.getLang1().equals("Choose your language") && parentActivity.userForSignup.getLang2().equals("Choose your language")
                                 || (parentActivity.userForSignup.getLang1().equals("Choose your language") && finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.GONE))){
 
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NATIONALITY_FAILED);
+                            MessageDialogFragment df = new MessageDialogFragment();
+                            df.setCode(MessageDialogFragment.NATIONALITY_FAILED);
                             df.show(parentActivity.getFragmentManager(), "");
 
                         } else {
@@ -391,7 +392,8 @@ public class SignupFragments extends Fragment {
                             parentActivity.switchFragment(PICTURE_INPUT);
 
                         } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.COMMENT_INVALID);
+                            MessageDialogFragment df = new MessageDialogFragment();
+                            df.setCode(MessageDialogFragment.COMMENT_INVALID);
                             df.show(parentActivity.getFragmentManager(), "");
                         }
 
@@ -422,7 +424,8 @@ public class SignupFragments extends Fragment {
                             parentActivity.attemptSignup(profileBitmap);
 
                         } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.PICTURE_INVALID);
+                            MessageDialogFragment df = new MessageDialogFragment();
+                            df.setCode(MessageDialogFragment.PICTURE_INVALID);
                             df.show(parentActivity.getFragmentManager(), "");
                         }
 

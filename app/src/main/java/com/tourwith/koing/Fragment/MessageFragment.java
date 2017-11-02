@@ -23,16 +23,11 @@ import com.tourwith.koing.R;
 public class MessageFragment extends Fragment {
 
     ListView listView;
-    MainActivity activity;
     FirebaseChatroom firebaseChatroom;
     ImageView background_if_none;
     public MessageFragment()
     {
 
-    }
-    public MessageFragment(MainActivity activity)
-    {
-        this.activity = activity;
     }
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -47,15 +42,15 @@ public class MessageFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.message_list_view);
         background_if_none = (ImageView) view.findViewById(R.id.background_img_none_in_msg);
 
-        firebaseChatroom = new FirebaseChatroom(activity, listView, activity.uid, activity.getFragmentManager(), background_if_none);
+        firebaseChatroom = new FirebaseChatroom(((MainActivity)MessageFragment.this.getActivity()), listView, ((MainActivity)MessageFragment.this.getActivity()).uid, ((MainActivity)MessageFragment.this.getActivity()).getFragmentManager(), background_if_none);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Chatroom chatroom = firebaseChatroom.getChatroomList().get(position);
-                Intent intent = new Intent(activity, ChatroomActivity.class);
+                Intent intent = new Intent(((MainActivity)MessageFragment.this.getActivity()), ChatroomActivity.class);
                 intent.putExtra("key", chatroom.getKey());
-                if(chatroom.getmUID().equals(activity.uid)) {
+                if(chatroom.getmUID().equals(((MainActivity)MessageFragment.this.getActivity()).uid)) {
                     intent.putExtra("ouid", chatroom.getoUID()); //내가 상대방에게 채팅신청을 했을 경우
 
                 }
@@ -75,9 +70,10 @@ public class MessageFragment extends Fragment {
                 Chatroom chatroom = firebaseChatroom.getChatroomList().get(position);
 
                 //다이얼로그로 물어보기
-                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_CHATROOM_DESTROY);
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                messageDialogFragment.setCode(MessageDialogFragment.CHECK_CHATROOM_DESTROY);
                 messageDialogFragment.setFirebaseChatroomAndKey(firebaseChatroom, chatroom.getKey());
-                messageDialogFragment.show(activity.getFragmentManager(), "");
+                messageDialogFragment.show(((MainActivity)MessageFragment.this.getActivity()).getFragmentManager(), "");
 
                 return true;
             }

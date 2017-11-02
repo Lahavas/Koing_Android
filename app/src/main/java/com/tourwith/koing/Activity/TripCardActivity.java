@@ -139,7 +139,8 @@ public class TripCardActivity extends AppCompatActivity {
         trip_delete_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_DESTROY);
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                messageDialogFragment.setCode(MessageDialogFragment.CHECK_DESTROY);
                 messageDialogFragment.setFirebaseTour(uid, key, firebaseTour, TripCardActivity.this);
                 messageDialogFragment.show(getFragmentManager(), "");
             }

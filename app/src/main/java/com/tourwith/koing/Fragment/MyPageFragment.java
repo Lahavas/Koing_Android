@@ -46,7 +46,6 @@ public class MyPageFragment extends Fragment {
     private TextView profileNationLanguageTextView;
     private TextView profileLanguage1TextView;
     private TextView profileLanguage2TextView;
-    private MainActivity parent;
 
     private LinearLayout []cardLayouts = new LinearLayout[3];
     private TextView []cardAreaTexts = new TextView[3];
@@ -62,10 +61,6 @@ public class MyPageFragment extends Fragment {
 
     public MyPageFragment()
     {
-    }
-
-    public MyPageFragment(MainActivity mainActivity) {
-        parent = mainActivity;
     }
 
     @Override
@@ -103,14 +98,15 @@ public class MyPageFragment extends Fragment {
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.SIGN_OUT);
-                messageDialogFragment.show(parent.getFragmentManager(), "");
+                MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                messageDialogFragment.setCode(MessageDialogFragment.SIGN_OUT);
+                messageDialogFragment.show(((MainActivity)MyPageFragment.this.getActivity()).getFragmentManager(), "");
             }
         });
         editNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView, parent.uid);
+                MyPageNameDialog dialog = new MyPageNameDialog(getContext(),profileNameTextView, profileNationLanguageTextView, ((MainActivity)MyPageFragment.this.getActivity()).uid);
                 dialog.show();
             }
         });
@@ -120,7 +116,7 @@ public class MyPageFragment extends Fragment {
                 String s1 = profileLanguage1TextView.getText().toString();
                 String s2 = profileLanguage2TextView.getText().toString();
 
-                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2, parent.uid);
+                MyPageLanguageDialog dialog = new MyPageLanguageDialog(getContext(),s1,s2, ((MainActivity)MyPageFragment.this.getActivity()).uid);
                 dialog.setDialogListener(new LanguageDialogListener() {
                     @Override
                     public void onPositiveClicked(String language1, String language2) {
@@ -150,7 +146,7 @@ public class MyPageFragment extends Fragment {
         editIntroductionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView, parent.uid);
+                MyPageIntroductionDialog dialog = new MyPageIntroductionDialog(getContext(),introductionTextView, ((MainActivity)MyPageFragment.this.getActivity()).uid);
                 dialog.show();
             }
         });
@@ -163,7 +159,7 @@ public class MyPageFragment extends Fragment {
         });
 
         FirebaseProfile firebaseProfile = new FirebaseProfile();
-        firebaseProfile.getUser(parent, parent.uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView,
+        firebaseProfile.getUser(((MainActivity)MyPageFragment.this.getActivity()), ((MainActivity)MyPageFragment.this.getActivity()).uid, profileNameTextView, profileNationLanguageTextView, introductionTextView, profileImageView,
                 profileLanguage1TextView, profileLanguage2TextView);
 
 
@@ -185,7 +181,7 @@ public class MyPageFragment extends Fragment {
         cardLayouts[1].setVisibility(View.GONE);
         cardLayouts[2].setVisibility(View.GONE);
 
-        firebaseTour.getToursOfUser(parent, parent.uid, parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseTour.getToursOfUser(((MainActivity)MyPageFragment.this.getActivity()), ((MainActivity)MyPageFragment.this.getActivity()).uid, ((MainActivity)MyPageFragment.this.getActivity()).uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
     }
 
@@ -227,8 +223,8 @@ public class MyPageFragment extends Fragment {
                     byte[] byteArray = stream.toByteArray();
                     profileImageView.setImageBitmap(profileBitmap);
 
-                    FirebasePicture firebasePicture = new FirebasePicture(parent);
-                    firebasePicture.uploadProfileImage(parent.uid, byteArray, FirebasePicture.ORIGINAL);
+                    FirebasePicture firebasePicture = new FirebasePicture(((MainActivity)MyPageFragment.this.getActivity()));
+                    firebasePicture.uploadProfileImage(((MainActivity)MyPageFragment.this.getActivity()).uid, byteArray, FirebasePicture.ORIGINAL);
 
                     break;
                 }
@@ -257,7 +253,7 @@ public class MyPageFragment extends Fragment {
         cardLangTexts[2] = (TextView) view.findViewById(R.id.card_lang_text3);
 
         firebaseTour = new FirebaseTour(getActivity());
-        firebaseTour.getToursOfUser(getActivity(), parent.uid,  parent.uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
+        firebaseTour.getToursOfUser(getActivity(), ((MainActivity)MyPageFragment.this.getActivity()).uid,  ((MainActivity)MyPageFragment.this.getActivity()).uid, cardLayouts, cardAreaTexts, cardTypeTexts, cardLangTexts);
 
     }
 

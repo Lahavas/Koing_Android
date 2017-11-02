@@ -55,7 +55,8 @@ public class UserInformationActivity extends AppCompatActivity {
         mUID = getIntent().getStringExtra("mUID");
 
         if(oUID== null || mUID == null || oUID.equals("") || mUID.equals("")){
-            MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.INVALID_ACCESS);
+            MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+            messageDialogFragment.setCode(MessageDialogFragment.INVALID_ACCESS);
             messageDialogFragment.setActivity(this);
             messageDialogFragment.setCancelable(false);
             messageDialogFragment.show(getFragmentManager(), "");

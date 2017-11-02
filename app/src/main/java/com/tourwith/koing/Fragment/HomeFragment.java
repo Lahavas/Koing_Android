@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     Context context;
     ArrayList<String> imageArr;
     int baseItemViewHeight = 900;
-    MainActivity activity;
+    //MainActivity activity;
     ViewPagerClickListener listener;
     FirebaseTour firebaseTour;
     ImageButton filterButton;
@@ -56,9 +56,6 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
     public HomeFragment() {
     }
 
-    public HomeFragment(MainActivity mainActivity) {
-        this.activity = mainActivity;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -85,8 +82,8 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
         tourCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, TourCreationActivity.class);
-                intent.putExtra("uid", activity.uid);
+                Intent intent = new Intent(HomeFragment.this.getActivity(), TourCreationActivity.class);
+                intent.putExtra("uid", ((MainActivity)HomeFragment.this.getActivity()).uid);
                 startActivityForResult(intent, 0);
             }
         });
@@ -97,7 +94,7 @@ public class HomeFragment extends Fragment implements ViewPagerClickListener {
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, HomeFilterActivity.class);
+                Intent intent = new Intent(((MainActivity)HomeFragment.this.getActivity()), HomeFilterActivity.class);
                 startActivityForResult(intent, 0);
             }
         });

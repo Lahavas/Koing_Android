@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); //171029 추가됨 + 백버튼 종료 추가
         backButtonHandler = new BackButtonHandler(this);
 
-        homeFragment = new HomeFragment(this);
-        messageFragment = new MessageFragment(this);
-        mypageFragment = new MyPageFragment(this);
-        tourinfoFragment = new TourInfoFragment(this);
+        homeFragment = new HomeFragment();
+        messageFragment = new MessageFragment();
+        mypageFragment = new MyPageFragment();
+        tourinfoFragment = new TourInfoFragment();
 
         container2 = (FrameLayout) findViewById(R.id.container2);
 

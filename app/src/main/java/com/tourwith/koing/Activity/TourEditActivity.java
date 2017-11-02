@@ -246,11 +246,13 @@ public class TourEditActivity extends AppCompatActivity {
                     tour.setLang2("");
 
                 if(tour.getStart_timestamp() > tour.getEnd_timestamp()){
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.DATE_INVALID);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.DATE_INVALID);
                     messageDialogFragment.show(getFragmentManager(), "");
 
                 } else {//edit 기능
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.CHECK_TOUR_EDIT);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.CHECK_TOUR_EDIT);
                     messageDialogFragment.setTour(tour);
                     messageDialogFragment.setActivity(TourEditActivity.this);
                     messageDialogFragment.show(getFragmentManager(), "");

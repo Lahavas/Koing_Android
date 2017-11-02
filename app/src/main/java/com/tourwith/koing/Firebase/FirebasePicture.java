@@ -125,7 +125,9 @@ public class FirebasePicture {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.UPLOAD_FAILED);
+                MessageDialogFragment md = new MessageDialogFragment();
+                md.setCode(MessageDialogFragment.UPLOAD_FAILED);
+
                 md.setActivity(activity);
                 md.show(activity.getFragmentManager(), "");
 
@@ -134,7 +136,8 @@ public class FirebasePicture {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pd.dismiss();
-                MessageDialogFragment md = new MessageDialogFragment(MessageDialogFragment.SIGN_UP_SUCCESS);
+                MessageDialogFragment md = new MessageDialogFragment();
+                md.setCode(MessageDialogFragment.SIGN_UP_SUCCESS);
                 md.setActivity(activity);
                 md.show(activity.getFragmentManager(), "");
             }

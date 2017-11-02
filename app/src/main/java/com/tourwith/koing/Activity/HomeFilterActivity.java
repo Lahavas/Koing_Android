@@ -89,7 +89,8 @@ public class HomeFilterActivity extends AppCompatActivity {
                     language2 = "";
 
                 if(period1 > period2){
-                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment(MessageDialogFragment.DATE_INVALID);
+                    MessageDialogFragment messageDialogFragment = new MessageDialogFragment();
+                    messageDialogFragment.setCode(MessageDialogFragment.DATE_INVALID);
                     messageDialogFragment.show(getFragmentManager(), "");
 
                 } else {
