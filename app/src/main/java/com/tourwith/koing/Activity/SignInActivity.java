@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +30,8 @@ public class SignInActivity extends AppCompatActivity {
     MessageDialogFragment messageDialogFragment;
     private final Activity activity = this;
     private static String TAG = "Authentication";
-
+    private boolean flag1 = false;
+    private boolean flag2 = false;
 
     //Authentication : FirebaseAuth와 AuthStateListener 선언
     private FirebaseAuth mAuth;
@@ -109,6 +112,70 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        emailEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(checkEmailValid(s.toString()))
+                    flag1 =true;
+                else
+                    flag1 = false;
+
+                if(flag1 && flag2){
+                    loginButton.setBackgroundResource(R.drawable.btn_login_e);
+
+                } else {
+                    loginButton.setBackgroundResource(R.drawable.btn_login_ds);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        passwordEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(checkPasswordValid(s.toString()))
+                    flag2 = true;
+                else
+                    flag2 = false;
+
+                if(flag1 && flag2){
+                    loginButton.setBackgroundResource(R.drawable.btn_login_e);
+
+                } else {
+                    loginButton.setBackgroundResource(R.drawable.btn_login_ds);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private boolean checkEmailValid(String email){
+        final String emailPattern = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";
+        return email.matches(emailPattern);
+    }
+
+    private boolean checkPasswordValid(String password){
+        final String passwordPattern = "^[A-Za-z0-9_-]{8,100}$";
+        return password.matches(passwordPattern);
     }
 
     private void attemptSignIn(String email, String password) {

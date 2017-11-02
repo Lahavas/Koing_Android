@@ -91,7 +91,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         firebaseProfile.getUser(context, tour.getUid(), viewPagerHolder.home_name, viewPagerHolder.home_flag, viewPagerHolder.home_main_lang, viewPagerHolder.home_description, viewPagerHolder.home_person_iv, viewPagerHolder.home_flag_iv);
 
         FirebaseTour firebaseTour = new FirebaseTour();
-        firebaseTour.getTourOfTripcard(tour.getKey(), viewPagerHolder.home_sub_lang1, viewPagerHolder.home_sub_lang2, viewPagerHolder.home_trip_period, viewPagerHolder.home_tourist_type, null);
+        firebaseTour.getTourOfTripcard(tour.getKey(), tour.getUid(), context, viewPagerHolder.home_sub_lang1, viewPagerHolder.home_sub_lang2, viewPagerHolder.home_trip_period, viewPagerHolder.home_tourist_type, null);
 
 
 

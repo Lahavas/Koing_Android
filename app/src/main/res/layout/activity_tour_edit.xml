@@ -111,7 +111,7 @@
                             android:id="@+id/tour_edit_plus_image_view"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/btn_plus_button_e" />
+                            android:src="@drawable/btn_plus_button_ds" />
                     </LinearLayout>
                 </LinearLayout>
 

@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tourwith.koing.Activity.TripCardActivity;
 import com.tourwith.koing.Fragment.MessageDialogFragment;
 import com.tourwith.koing.Model.Tour;
+import com.tourwith.koing.ViewPager.LanguageToShort;
 import com.tourwith.koing.ViewPager.ViewPagerAdapter;
 import com.tourwith.koing.ViewPager.ViewPagerClickListener;
 
@@ -83,7 +84,7 @@ public class FirebaseTour {
         activity.finish();
     }
 
-    public void getTourOfTripcard(String key, final TextView trip_sub_lang1, final TextView trip_sub_lang2, final TextView trip_trip_period, final TextView trip_tourist_type, final TextView trip_area_text) {
+    public void getTourOfTripcard(String key, final String currnetUid, final Context currentContext, final TextView trip_sub_lang1, final TextView trip_sub_lang2, final TextView trip_trip_period, final TextView trip_tourist_type, final TextView trip_area_text) {
 
         tourRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -101,9 +102,13 @@ public class FirebaseTour {
 
                 trip_trip_period.setText(fmt.format(calStart.getTime()) + " ~ " + fmt.format(calEnd.getTime()));
 
-                if(!tour.getLang1().equals(""))
-                    trip_sub_lang1.setText(" > " + tour.getLang1());
-                trip_sub_lang2.setText(tour.getLang2());
+                if(!tour.getLang1().equals("") && trip_sub_lang1 != null) {
+                    new FirebaseProfile().getMainLang(currentContext, currnetUid, trip_sub_lang1, tour.getLang1(), " > ");
+                }
+
+                if(!tour.getLang2().equals("") && trip_sub_lang2 != null) {
+                    new FirebaseProfile().getMainLang(currentContext, currnetUid, trip_sub_lang2, tour.getLang2(), "");
+                }
 
                 trip_tourist_type.setText(tour.getTour_type());
 

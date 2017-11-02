@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="Sarah Nguyen"
+            android:maxLength="12"
             android:background="@null"
             android:textColor="#000000"
             android:textSize="16sp" />
@@ -72,7 +72,7 @@
 
             <Spinner
                 android:id="@+id/nationality_spinner"
-                android:layout_width="282dp"
+                android:layout_width="280dp"
                 android:layout_height="30dp"
                 android:entries="@array/nation"
                 android:background="@drawable/btn_edit_profile"
@@ -118,7 +118,7 @@
 
             <Spinner
                 android:id="@+id/native_language_spinner"
-                android:layout_width="282dp"
+                android:layout_width="280dp"
                 android:layout_height="30dp"
                 android:entries="@array/language"
                 android:background="@drawable/btn_edit_profile"

@@ -18,6 +18,7 @@ import com.tourwith.koing.Activity.SignUpActivity;
 import com.tourwith.koing.Model.User;
 import com.tourwith.koing.Util.SharedPreferenceHelper;
 import com.tourwith.koing.ViewPager.LanguageToFlag;
+import com.tourwith.koing.ViewPager.LanguageToShort;
 
 /**
  * Created by hanhb on 2017-10-11.
@@ -160,11 +161,35 @@ public class FirebaseProfile {
                 User user = dataSnapshot.getValue(User.class);
                 if(nameText!=null) nameText.setText(user.getNickname());
                 if(nationTextView!=null) {
-                    nationTextView.setText(user.getNationality());
+                    nationTextView.setText("From " + user.getNationality());
                     flagImage.setBackgroundResource(new LanguageToFlag(context).Converter(user.getNationality()));
                 }
                 if(introductionText!=null) introductionText.setText(user.getComments());
-                if(mainlangText!=null) mainlangText.setText(user.getMainLang());
+                if(mainlangText!=null) mainlangText.setText(new LanguageToShort(context).ConverteToShort(user.getMainLang()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public void getMainLang(final Context context, String uid, final TextView subLang, final String subLangText, final String prefixText){
+
+        userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(user.getMainLang().equals(subLangText)) {
+                    subLang.setText(prefixText + "");
+                }
+                else {
+                    subLang.setText(prefixText + new LanguageToShort(context).ConverteToShort(subLangText));
+                }
+
             }
 
             @Override
