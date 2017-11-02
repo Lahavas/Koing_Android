@@ -67,6 +67,22 @@ public class FirebaseTour {
 
     }
 
+    public void updateHomeCard(Tour tour, Activity activity){
+        DatabaseReference specificTour = tourRef.child(tour.getKey());
+        if(tour.getLang1().equals(tour.getLang2())){
+            specificTour.child("lang1").setValue(tour.getLang1());
+        }
+        else{
+            specificTour.child("lang1").setValue(tour.getLang1());
+            specificTour.child("lang2").setValue(tour.getLang2());
+        }
+        specificTour.child("area").setValue(tour.getArea());
+        specificTour.child("tour_type").setValue(tour.getTour_type());
+        specificTour.child("start_timestamp").setValue(tour.getStart_timestamp());
+        specificTour.child("end_timestamp").setValue(tour.getEnd_timestamp());
+        activity.finish();
+    }
+
     public void getTourOfTripcard(String key, final TextView trip_sub_lang1, final TextView trip_sub_lang2, final TextView trip_trip_period, final TextView trip_tourist_type, final TextView trip_area_text) {
 
         tourRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {

@@ -1,5 +1,6 @@
 package com.tourwith.koing.Activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
@@ -141,12 +142,10 @@ public class TripCardActivity extends AppCompatActivity {
         trip_edit_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent intent = new Intent(this, TourEditActivity.class);
+                Intent intent = new Intent(TripCardActivity.this, TourEditActivity.class);
                 intent.putExtra("edituid",uid);
                 intent.putExtra("editkey",key);
                 startActivity(intent);
-                */
             }
         });
 
