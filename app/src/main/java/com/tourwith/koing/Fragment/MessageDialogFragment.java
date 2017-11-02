@@ -42,6 +42,7 @@ public class MessageDialogFragment extends DialogFragment {
     public static final int INVALID_ACCESS = 16;
     public static final int CHECK_CHATROOM_DESTROY = 17;
     public static final int CHECK_DESTROY = 18;
+    public static final int CHECK_TOUR_EDIT = 19;
 
     public Tour tour;
     private FirebaseChatroom firebaseChatroom;
@@ -154,6 +155,20 @@ public class MessageDialogFragment extends DialogFragment {
                 public void onClick(View v) {
                     FirebaseTour firebaseTour = new FirebaseTour();
                     firebaseTour.writeTour(tour, activity);
+                    dismiss();
+                }
+            });
+        }  else if(code == CHECK_TOUR_EDIT){
+            messageText.setText("Are you sure to edit?");
+            rButton.setText("Cancel");
+            Button lButton = (Button) view.findViewById(R.id.button_left);
+            lButton.setText("OK");
+            lButton.setVisibility(View.VISIBLE);
+            lButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseTour firebaseTour = new FirebaseTour();
+                    firebaseTour.updateHomeCard(tour, activity);
                     dismiss();
                 }
             });

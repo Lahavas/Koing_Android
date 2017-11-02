@@ -15,14 +15,11 @@ import android.widget.ImageView;
 import com.tourwith.koing.Activity.MainActivity;
 import com.tourwith.koing.Activity.UserInformationActivity;
 import com.tourwith.koing.Firebase.FirebaseChatroom;
-import com.tourwith.koing.Firebase.FirebasePicture;
 import com.tourwith.koing.Firebase.FirebaseProfile;
 import com.tourwith.koing.Firebase.FirebaseTour;
 import com.tourwith.koing.Model.Tour;
 import com.tourwith.koing.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -122,7 +119,7 @@ public class ViewPagerAdapter extends PagerAdapter {
                 //(MainActivity)context).uid, tour.getUid()
                 intent.putExtra("mUID", ((MainActivity)context).uid);
                 intent.putExtra("oUID", tour.getUid());
-                context.startActivity(intent);
+                ((MainActivity) context).startActivityForResult(intent,3000);
             }
         });
 
