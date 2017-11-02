@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +75,7 @@ public class SignupFragments extends Fragment {
         final TextView instructionText;
         TextView secondInstructionText;
         final EditText inputEditText;
-        View submitButton;
+        final View submitButton;
         setActionBarButton();
         Spinner spinner = null;
 
@@ -98,13 +100,31 @@ public class SignupFragments extends Fragment {
 
                             //나중에 이미 존재하는 이메일인지 체크해야될 듯
 
-                        } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.EMAIL_INVALID);
-                            df.show(parentActivity.getFragmentManager(), "");
                         }
 
                     }
                 });
+                inputEditText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(checkEmailValid(s.toString())){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_e);
+                        } else {
+                            submitButton.setBackgroundResource(R.drawable.btn_login_ds);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
                 break;
             case PASSWORD_INPUT :
                 view = inflater.inflate(R.layout.fragment_email_to_name_insert, container, false);
@@ -126,13 +146,33 @@ public class SignupFragments extends Fragment {
                             parentActivity.passwordForSignup = password;
                             parentActivity.switchFragment(NICKNAME_INPUT);
 
-                        } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.PASSWORD_INVALID);
-                            df.show(parentActivity.getFragmentManager(), "");
                         }
 
                     }
                 });
+
+                passwordEditText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(checkPasswordValid(s.toString())){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_e);
+                        } else {
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_ds);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
                 break;
             case NICKNAME_INPUT :
                 view = inflater.inflate(R.layout.fragment_email_to_name_insert, container, false);
@@ -140,26 +180,48 @@ public class SignupFragments extends Fragment {
                 instructionText.setText("Please enter your Nickname");
                 secondInstructionText = (TextView) view.findViewById(R.id.instruction_text_second);
                 secondInstructionText.setText("This nickname will be displayed on Koing.");
-                inputEditText = (EditText) view.findViewById(R.id.input_edit_text);
+                view.findViewById(R.id.input_edit_text).setVisibility(View.GONE);
+                inputEditText = (EditText) view.findViewById(R.id.input_name_text);
+                inputEditText.setVisibility(View.VISIBLE);
                 inputEditText.setHint("Nickname");
-                inputEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
                 submitButton = view.findViewById(R.id.submit_button_floating);
                 submitButton.setVisibility(View.VISIBLE);
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String nickName = inputEditText.getText().toString();
+                        String nickName = inputEditText.getText().toString().trim();
                         if(nickName.length() > 0){
                             parentActivity.userForSignup.setNickname(nickName);
                             parentActivity.switchFragment(NATIONALITY_INPUT);
 
-                        } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NICKNAME_INVALID);
-                            df.show(parentActivity.getFragmentManager(), "");
                         }
 
                     }
                 });
+
+                inputEditText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(s.toString().trim().length()>0){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_e);
+                        } else {
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_ds);
+                        }
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
                 break;
 
             case NATIONALITY_INPUT :
@@ -170,12 +232,19 @@ public class SignupFragments extends Fragment {
                 secondInstructionText.setText("This nationality information will be open on koing.");
                 inputEditText = (EditText) view.findViewById(R.id.input_edit_text);
                 inputEditText.setVisibility(View.GONE);
+                submitButton = view.findViewById(R.id.submit_button_floating);
+                submitButton.setVisibility(View.VISIBLE);
                 spinner = (Spinner) view.findViewById(R.id.nationality_spinner);
                 spinner.setVisibility(View.VISIBLE);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
+                        if((parent.getItemAtPosition(position)).equals("Choose your country")){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_ds);
+                        } else {
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_e);
+                        }
                         parentActivity.userForSignup.setNationality((String) parent.getItemAtPosition(position));
 
                     }
@@ -183,17 +252,13 @@ public class SignupFragments extends Fragment {
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
 
-                submitButton = view.findViewById(R.id.submit_button_floating);
-                submitButton.setVisibility(View.VISIBLE);
+
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(!parentActivity.userForSignup.getNationality().equals("Choose your country")){
                             parentActivity.switchFragment(LOCAL_LANG_INPUT);
 
-                        } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NATIONALITY_FAILED);
-                            df.show(parentActivity.getFragmentManager(), "");
                         }
 
                     }
@@ -208,30 +273,32 @@ public class SignupFragments extends Fragment {
                 secondInstructionText.setText("This is the native language information available on koing.");
                 inputEditText = (EditText) view.findViewById(R.id.input_edit_text);
                 inputEditText.setVisibility(View.GONE);
+                submitButton = view.findViewById(R.id.submit_button_floating);
+                submitButton.setVisibility(View.VISIBLE);
                 spinner = (Spinner) view.findViewById(R.id.language_spinner);
                 spinner.setVisibility(View.VISIBLE);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
+                        if((parent.getItemAtPosition(position)).equals("Choose your language")){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_ds);
+                        } else {
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_e);
+                        }
                         parentActivity.userForSignup.setMainLang((String) parent.getItemAtPosition(position));
-
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
 
-                submitButton = view.findViewById(R.id.submit_button_floating);
-                submitButton.setVisibility(View.VISIBLE);
+
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(!parentActivity.userForSignup.getMainLang().equals("Choose your language")){
                             parentActivity.switchFragment(OTH_LANGUAGES_INPUT);
 
-                        } else {
-                            MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NATIONALITY_FAILED);
-                            df.show(parentActivity.getFragmentManager(), "");
                         }
 
                     }
@@ -246,18 +313,18 @@ public class SignupFragments extends Fragment {
                 instructionText.setText("Please select a language you can speak");
                 secondInstructionText = (TextView) view.findViewById(R.id.instruction_text_second_at_langs);
                 secondInstructionText.setText("This is the native language information available on koing. You can select up to 3.");
+                submitButton = view.findViewById(R.id.submit_button_floating_at_langs);
 
                 Spinner[] spinners = new Spinner[2];
                 setSpinners(spinners, view);
                 setButtons(view);
 
-                submitButton = view.findViewById(R.id.submit_button_floating_at_langs);
                 final View finalView = view;
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if((parentActivity.userForSignup.getLang1().equals("Choose your language") && parentActivity.userForSignup.getLang2().equals("Choose your language")
-                        || (parentActivity.userForSignup.getLang1().equals("Choose your language") && finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.GONE))){
+                                || (parentActivity.userForSignup.getLang1().equals("Choose your language") && finalView.findViewById(R.id.second_lang_layout_in_signin).getVisibility()==View.GONE))){
 
                             MessageDialogFragment df = new MessageDialogFragment(MessageDialogFragment.NATIONALITY_FAILED);
                             df.show(parentActivity.getFragmentManager(), "");
@@ -289,13 +356,36 @@ public class SignupFragments extends Fragment {
                 secondInstructionText.setText("Please introduce about you to other members whom you are going to meet on Koing. Self introduction allows up to 100 characters.");
                 inputEditText = (EditText) view.findViewById(R.id.input_edit_text);
                 inputEditText.setHint("ex) Travel Style etc…");
-                inputEditText.setMaxLines(7);
+                inputEditText.setMaxLines(3);
                 submitButton = view.findViewById(R.id.submit_button_floating);
                 submitButton.setVisibility(View.VISIBLE);
+
+                inputEditText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(inputEditText.getText().toString().trim().length()>0){
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_e);
+                        } else {
+
+                            submitButton.setBackgroundResource(R.drawable.btn_login_next_ds);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
                 submitButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String comments = inputEditText.getText().toString();
+                        String comments = inputEditText.getText().toString().trim();
                         if(comments.length() > 0){
                             parentActivity.userForSignup.setComments(comments);
                             parentActivity.switchFragment(PICTURE_INPUT);
@@ -315,16 +405,16 @@ public class SignupFragments extends Fragment {
                 profileImageView = (ImageView) view.findViewById(R.id.profile_upload_imageview);
                 profileImageView.setBackground(new ShapeDrawable(new OvalShape()));
                 profileImageView.setClipToOutline(true);
+                final Button submitButtonAtPicture = (Button) view.findViewById(R.id.submit_button_at_picture_insert);
 
                 profileImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         doTakeAlbumAction();
+                        submitButtonAtPicture.setBackgroundResource(R.drawable.btn_login_e);
+
                     }
                 });
-
-                Button submitButtonAtPicture = (Button) view.findViewById(R.id.submit_button_at_picture_insert);
-
                 submitButtonAtPicture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -338,6 +428,7 @@ public class SignupFragments extends Fragment {
 
                     }
                 });
+
 
                 break;
         }
@@ -374,7 +465,6 @@ public class SignupFragments extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 parentActivity.userForSignup.setLang1((String) parent.getItemAtPosition(position));
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -385,7 +475,6 @@ public class SignupFragments extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 parentActivity.userForSignup.setLang2((String) parent.getItemAtPosition(position));
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}

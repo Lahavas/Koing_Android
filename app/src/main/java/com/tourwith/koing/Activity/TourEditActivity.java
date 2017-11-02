@@ -102,15 +102,20 @@ public class TourEditActivity extends AppCompatActivity {
         tourEditPlusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                secondTourEditLayout.setVisibility(View.VISIBLE);
+                if(secondTourEditLayout.getVisibility()==View.GONE){
+                    secondTourEditLayout.setVisibility(View.VISIBLE);
+                    tourEditPlusImageView.setImageResource(R.drawable.btn_plus_button_ds);
+                }
             }
         });
 
         tourEditMinusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                secondTourEditLayout.setVisibility(View.GONE);
-
+                if(secondTourEditLayout.getVisibility()==View.VISIBLE){
+                    secondTourEditLayout.setVisibility(View.GONE);
+                    tourEditPlusImageView.setImageResource(R.drawable.btn_plus_button_e);
+                }
             }
         });
 

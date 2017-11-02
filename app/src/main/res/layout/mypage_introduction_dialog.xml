@@ -26,9 +26,10 @@
         android:textColorHint="#b3b3b3"
         android:lineSpacingExtra="10sp"
         android:maxLines="3"
+        android:maxLength="120"
         android:textSize="13sp"
         android:background="@android:color/transparent"
-        android:hint="Ex) Travel Style etc...\nEx) Travel Style etc...\nEx) Travel Style etc..."
+        android:hint="Ex) Travel Style etc..."
         android:gravity="top"
         />
 

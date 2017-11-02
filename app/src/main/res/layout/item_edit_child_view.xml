@@ -84,7 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
-                    android:textColor="#FF1c1c1c"/>
+                    android:textColor="#FF1c1c1c"
+                    android:maxLines="1"/>
 
                 <TextView
                     android:id="@+id/trip_flag"
@@ -113,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:layout_marginTop="6dp"
-                        android:layout_marginRight="6dp"
+                        android:layout_marginRight="3dp"
                         android:textColor="#FF1c1c1c"/>
 
                     <TextView

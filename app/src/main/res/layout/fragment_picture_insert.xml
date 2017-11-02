@@ -18,7 +18,7 @@
         android:text="Please register your photos"
         android:textSize="25dp"
         />
-    
+
     <ImageView
         android:id="@+id/profile_upload_imageview"
         android:layout_gravity="center"
@@ -31,7 +31,7 @@
 
 
     </ImageView>
-    
+
     <Button
         android:layout_gravity="center"
         android:id="@+id/submit_button_at_picture_insert"
@@ -42,7 +42,7 @@
         android:textSize="17sp"
         android:textColor="#ffffff"
         android:adjustViewBounds="true"
-        android:background="@drawable/btn_login_e"
+        android:background="@drawable/btn_login_ds"
         android:scaleType="fitCenter"
         />
 

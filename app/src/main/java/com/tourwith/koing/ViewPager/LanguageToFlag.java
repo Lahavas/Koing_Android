@@ -31,6 +31,8 @@ public class LanguageToFlag {
     public LanguageToFlag(Context context) {
         this.context = context;
 
+        nations = new String[7];
+
         nations = context.getResources().getStringArray(R.array.nation);
 
         natToFlagMap = new HashMap();

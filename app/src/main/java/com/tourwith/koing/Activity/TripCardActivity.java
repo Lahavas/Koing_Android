@@ -132,7 +132,7 @@ public class TripCardActivity extends AppCompatActivity {
         firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);
 
         firebaseTour = new FirebaseTour();
-        firebaseTour.getTourOfTripcard(key, trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
+        firebaseTour.getTourOfTripcard(key, uid, getApplicationContext(), trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
 
 
 
@@ -161,7 +161,7 @@ public class TripCardActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        firebaseTour.getTourOfTripcard(key, trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
+        firebaseTour.getTourOfTripcard(key, uid, getApplicationContext(), trip_sub_lang1, trip_sub_lang2, trip_trip_period, trip_tourist_type, trip_area_text);
         firebaseProfile.getUser(this, uid, trip_name, trip_flag, trip_main_lang, trip_description, trip_person_iv, trip_flag_iv);
 
     }
