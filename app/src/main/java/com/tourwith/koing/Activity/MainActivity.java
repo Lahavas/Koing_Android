@@ -179,6 +179,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            ((HomeFragment) homeFragment).refresh();
+            return;
+
+        }
+
+
         if(resultCode!=1001) {
             ((MyPageFragment) mypageFragment).refreshCards();
             ((HomeFragment) homeFragment).refresh();

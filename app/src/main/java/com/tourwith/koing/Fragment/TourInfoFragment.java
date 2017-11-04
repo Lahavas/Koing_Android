@@ -499,7 +499,7 @@ public class TourInfoFragment extends Fragment {
                     "1"
             );
 
-            Toast.makeText(getActivity(), "현재 위치로 설정됩니다", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "search on current position", Toast.LENGTH_SHORT).show();
         }else{ //gps가 설정되어있지 않은 경우
             GpsSetDialog dialog = new GpsSetDialog(getContext());
             dialog.show();
@@ -553,7 +553,7 @@ public class TourInfoFragment extends Fragment {
             @Override
             public void onFailure(Call<TourInfoResponse> call, Throwable t) {
 
-                Toast.makeText(getActivity(), "정보받아오기 실패", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "정보받아오기 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }
