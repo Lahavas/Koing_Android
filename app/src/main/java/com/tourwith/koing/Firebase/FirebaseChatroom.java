@@ -118,7 +118,7 @@ public class FirebaseChatroom {
                     ref.setValue(vo);
                     Toast.makeText(context, "succeeded : Chatroom created", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "failed : Chatroom duplicated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "The chatroom already exists", Toast.LENGTH_SHORT).show();
                 }
             }
 
